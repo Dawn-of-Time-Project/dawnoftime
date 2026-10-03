@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "III"
+  ],
+  "key": {
+    "i": "dawnoftimebuilder:waxed_oak_support_slab",
+    "I": "dawnoftimebuilder:waxed_oak_log_stripped"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:waxed_oak_support_beam",
+    "count": 8
+  }
+}

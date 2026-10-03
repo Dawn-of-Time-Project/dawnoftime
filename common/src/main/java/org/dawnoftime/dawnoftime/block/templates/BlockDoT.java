@@ -1,5 +1,7 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import org.dawnoftime.dawnoftime.block.IBlockTooltip;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -21,7 +23,7 @@ import java.util.List;
 import static org.dawnoftime.dawnoftime.DoTBCommon.MOD_ID;
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.FULL_SHAPE;
 
-public class BlockDoT extends Block implements IFlammable {
+public class BlockDoT extends Block implements IFlammable, IBlockTooltip {
     private int fireSpreadSpeed = 0;
     private int fireDestructionSpeed = 0;
     private final VoxelShape[] shapes;
@@ -82,9 +84,7 @@ public class BlockDoT extends Block implements IFlammable {
         return 0;
     }
 
-    @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, world, tooltip, flag);
         for (String key : tooltipKeys) {
             tooltip.add(Component.translatable(key));
         }
@@ -95,6 +95,18 @@ public class BlockDoT extends Block implements IFlammable {
      *
      * @return this
      */
+    protected boolean blocksLandPathing = false;
+
+    public Block setBlocksLandPathing() {
+        this.blocksLandPathing = true;
+        return this;
+    }
+
+    @Override
+    protected boolean isPathfindable(BlockState state, PathComputationType type) {
+        return !(this.blocksLandPathing && type == PathComputationType.LAND) && super.isPathfindable(state, type);
+    }
+
     public Block setBurnable() {
         return setBurnable(5, 20);
     }

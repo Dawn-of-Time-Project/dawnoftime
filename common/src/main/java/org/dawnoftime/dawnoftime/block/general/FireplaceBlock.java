@@ -1,5 +1,8 @@
 package org.dawnoftime.dawnoftime.block.general;
 
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -13,16 +16,18 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball;
+import net.minecraft.world.entity.projectile.hurtingprojectile.Fireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -76,8 +81,8 @@ public class FireplaceBlock extends WaterloggedBlock {
     }
 
     @Override
-    public @NotNull BlockState updateShape(BlockState stateIn, final @NotNull Direction facing, final @NotNull BlockState facingState, final @NotNull LevelAccessor worldIn, final @NotNull BlockPos currentPos, final @NotNull BlockPos facingPos) {
-        stateIn = super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
+        stateIn = super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
         if (stateIn.getValue(WATERLOGGED)) {
             stateIn = stateIn.setValue(LIT, false);
         } else {
@@ -96,7 +101,7 @@ public class FireplaceBlock extends WaterloggedBlock {
     }
 
     @Override
-    public InteractionResult use(final BlockState state, final Level worldIn, final BlockPos pos, final Player player, final InteractionHand handIn, final BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, final BlockState state, final Level worldIn, final BlockPos pos, final Player player, final InteractionHand handIn, final BlockHitResult hit) {
         return Utils.changeBlockLitStateWithItemOrCreativePlayer(state, worldIn, pos, player, handIn) >= 0 ? InteractionResult.SUCCESS : InteractionResult.PASS;
     }
 
@@ -106,7 +111,7 @@ public class FireplaceBlock extends WaterloggedBlock {
 
         if (!state.getValue(WaterloggedBlock.WATERLOGGED) && !state.getValue(FireplaceBlock.LIT) && (projectile instanceof AbstractArrow && projectile.isOnFire() || projectile instanceof Fireball)) {
             activation = 1;
-        } else if (state.getValue(FireplaceBlock.LIT) && (projectile instanceof Snowball || projectile instanceof ThrownPotion && PotionUtils.getPotion(((ThrownPotion) projectile).getItem()).getEffects().size() <= 0)) {
+        } else if (state.getValue(FireplaceBlock.LIT) && (projectile instanceof Snowball || Utils.isEffectlessThrownPotion(projectile))) {
             activation = 0;
         }
 
@@ -119,19 +124,19 @@ public class FireplaceBlock extends WaterloggedBlock {
                 worldIn.setBlock(pos, state.setValue(FireplaceBlock.LIT, isActivated), 10);
                 worldIn.playSound(null, pos, isActivated ? SoundEvents.FIRE_AMBIENT : SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
             } else if (!isActivated && worldIn.isClientSide()) {
-                for (int i = 0; i < worldIn.random.nextInt(1) + 1; ++i) {
-                    worldIn.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, worldIn.random.nextFloat() / 4.0F, 2.5E-5D, worldIn.random.nextFloat() / 4.0F);
+                for (int i = 0; i < worldIn.getRandom().nextInt(1) + 1; ++i) {
+                    worldIn.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, worldIn.getRandom().nextFloat() / 4.0F, 2.5E-5D, worldIn.getRandom().nextFloat() / 4.0F);
                 }
             }
         }
     }
 
     @Override
-    public void entityInside(final BlockState state, final Level world, final BlockPos pos, final Entity entityIn) {
-        if (!entityIn.fireImmune() && state.getValue(FireplaceBlock.LIT) && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
+    protected void entityInside(final BlockState state, final Level world, final BlockPos pos, final Entity entityIn, final InsideBlockEffectApplier effectApplier, final boolean isPrecise) {
+        if (!entityIn.fireImmune() && state.getValue(FireplaceBlock.LIT) && entityIn instanceof LivingEntity && !Utils.hasFrostWalker((LivingEntity) entityIn)) {
             entityIn.hurt(entityIn.damageSources().inFire(), 1.0F);
         }
-        super.entityInside(state, world, pos, entityIn);
+        super.entityInside(state, world, pos, entityIn, effectApplier, isPrecise);
     }
 
     @Nullable

@@ -14,7 +14,8 @@
         "facing=east,half=top,shape=outer_right": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_outer",
             "x": 180,
-            "uvlock": true
+            "uvlock": true,
+            "y": 90
         },
         "facing=east,half=bottom,shape=outer_left": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_outer",
@@ -24,7 +25,6 @@
         "facing=east,half=top,shape=outer_left": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_outer",
             "x": 180,
-            "y": 270,
             "uvlock": true
         },
         "facing=east,half=bottom,shape=inner_right": {
@@ -33,7 +33,8 @@
         "facing=east,half=top,shape=inner_right": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_inner",
             "x": 180,
-            "uvlock": true
+            "uvlock": true,
+            "y": 90
         },
         "facing=east,half=bottom,shape=inner_left": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_inner",
@@ -43,7 +44,6 @@
         "facing=east,half=top,shape=inner_left": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_inner",
             "x": 180,
-            "y": 270,
             "uvlock": true
         },
         "facing=west,half=bottom,shape=straight": {
@@ -65,7 +65,7 @@
         "facing=west,half=top,shape=outer_right": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_outer",
             "x": 180,
-            "y": 180,
+            "y": 270,
             "uvlock": true
         },
         "facing=west,half=bottom,shape=outer_left": {
@@ -76,7 +76,7 @@
         "facing=west,half=top,shape=outer_left": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_outer",
             "x": 180,
-            "y": 90,
+            "y": 180,
             "uvlock": true
         },
         "facing=west,half=bottom,shape=inner_right": {
@@ -87,7 +87,7 @@
         "facing=west,half=top,shape=inner_right": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_inner",
             "x": 180,
-            "y": 180,
+            "y": 270,
             "uvlock": true
         },
         "facing=west,half=bottom,shape=inner_left": {
@@ -98,7 +98,7 @@
         "facing=west,half=top,shape=inner_left": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_inner",
             "x": 180,
-            "y": 90,
+            "y": 180,
             "uvlock": true
         },
         "facing=south,half=bottom,shape=straight": {
@@ -120,7 +120,7 @@
         "facing=south,half=top,shape=outer_right": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_outer",
             "x": 180,
-            "y": 90,
+            "y": 180,
             "uvlock": true
         },
         "facing=south,half=bottom,shape=outer_left": {
@@ -129,7 +129,8 @@
         "facing=south,half=top,shape=outer_left": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_outer",
             "x": 180,
-            "uvlock": true
+            "uvlock": true,
+            "y": 90
         },
         "facing=south,half=bottom,shape=inner_right": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_inner",
@@ -139,7 +140,7 @@
         "facing=south,half=top,shape=inner_right": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_inner",
             "x": 180,
-            "y": 90,
+            "y": 180,
             "uvlock": true
         },
         "facing=south,half=bottom,shape=inner_left": {
@@ -148,7 +149,8 @@
         "facing=south,half=top,shape=inner_left": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_inner",
             "x": 180,
-            "uvlock": true
+            "uvlock": true,
+            "y": 90
         },
         "facing=north,half=bottom,shape=straight": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs",
@@ -169,7 +171,6 @@
         "facing=north,half=top,shape=outer_right": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_outer",
             "x": 180,
-            "y": 270,
             "uvlock": true
         },
         "facing=north,half=bottom,shape=outer_left": {
@@ -180,7 +181,7 @@
         "facing=north,half=top,shape=outer_left": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_outer",
             "x": 180,
-            "y": 180,
+            "y": 270,
             "uvlock": true
         },
         "facing=north,half=bottom,shape=inner_right": {
@@ -191,7 +192,6 @@
         "facing=north,half=top,shape=inner_right": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_inner",
             "x": 180,
-            "y": 270,
             "uvlock": true
         },
         "facing=north,half=bottom,shape=inner_left": {
@@ -202,7 +202,7 @@
         "facing=north,half=top,shape=inner_left": {
             "model": "dawnoftimebuilder:block/precolumbian/red_painted_stone_stairs_inner",
             "x": 180,
-            "y": 180,
+            "y": 270,
             "uvlock": true
         }
     }

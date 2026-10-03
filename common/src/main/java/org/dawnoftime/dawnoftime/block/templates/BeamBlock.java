@@ -28,6 +28,10 @@ import java.util.List;
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.BEAM_SHAPES;
 
 public class BeamBlock extends PergolaBlock {
+    {
+        this.blocksLandPathing = true;
+    }
+
     public static final BooleanProperty BOTTOM = BlockStateProperties.BOTTOM;
 
     public BeamBlock(Properties properties, VoxelShape[] shapes) {
@@ -86,7 +90,7 @@ public class BeamBlock extends PergolaBlock {
     }
 
     @Override
-    public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, Player player, @NotNull InteractionHand handIn, @NotNull BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, @NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, Player player, @NotNull InteractionHand handIn, @NotNull BlockHitResult hit) {
         if(player.isCrouching()) {
             worldIn.setBlock(pos, state.setValue(BOTTOM, !state.getValue(BOTTOM)), 10);
             return InteractionResult.SUCCESS;

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:green_dye",
+    "dawnoftimebuilder:charred_spruce_window"
+  ],
+  "result": {
+    "id": "dawnoftimebuilder:green_painted_window",
+    "count": 4
+  }
+}

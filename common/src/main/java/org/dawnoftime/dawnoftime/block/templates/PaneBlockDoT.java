@@ -1,5 +1,8 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import org.dawnoftime.dawnoftime.block.IBlockTooltip;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -8,7 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
@@ -16,12 +18,14 @@ import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class PaneBlockDoT extends IronBarsBlock {
+public class PaneBlockDoT extends IronBarsBlock implements IBlockTooltip {
     private final String[] tooltipKeys;
 
     public PaneBlockDoT(Properties properties, String... tooltipKeys) {
@@ -33,9 +37,39 @@ public class PaneBlockDoT extends IronBarsBlock {
         this(properties, (String[]) null);
     }
 
-    @Override
+    protected final VoxelShape[] shapeByIndex = makeShapesByIndex(1.0F, 1.0F, 16.0F, 0.0F, 16.0F);
+
+    protected static VoxelShape[] makeShapesByIndex(float nodeWidth, float extensionWidth, float nodeHeight, float extensionBottom, float extensionHeight) {
+        final float f = 8.0F - nodeWidth;
+        final float f1 = 8.0F + nodeWidth;
+        final float f2 = 8.0F - extensionWidth;
+        final float f3 = 8.0F + extensionWidth;
+        final VoxelShape post = Block.box(f, 0.0D, f, f1, nodeHeight, f1);
+        final VoxelShape north = Block.box(f2, extensionBottom, 0.0D, f3, extensionHeight, f3);
+        final VoxelShape south = Block.box(f2, extensionBottom, f2, f3, extensionHeight, 16.0D);
+        final VoxelShape west = Block.box(0.0D, extensionBottom, f2, f3, extensionHeight, f3);
+        final VoxelShape east = Block.box(f2, extensionBottom, f2, 16.0D, extensionHeight, f3);
+        final VoxelShape northEast = Shapes.or(north, east);
+        final VoxelShape southEast = Shapes.or(south, east);
+        final VoxelShape southWest = Shapes.or(south, west);
+        final VoxelShape[] shapes = new VoxelShape[]{Shapes.empty(), south, west, southWest, north, Shapes.or(south, north), Shapes.or(west, north), Shapes.or(southWest, north), east, southEast, Shapes.or(west, east), Shapes.or(southWest, east), northEast, Shapes.or(southEast, north), Shapes.or(west, northEast), Shapes.or(southWest, northEast)};
+        for (int i = 0; i < 16; ++i) {
+            shapes[i] = Shapes.or(post, shapes[i]);
+        }
+        return shapes;
+    }
+
+    protected int getAABBIndex(BlockState state) {
+        int index = 0;
+        if (state.getValue(NORTH)) index |= 1 << Direction.NORTH.get2DDataValue();
+        if (state.getValue(EAST)) index |= 1 << Direction.EAST.get2DDataValue();
+        if (state.getValue(SOUTH)) index |= 1 << Direction.SOUTH.get2DDataValue();
+        if (state.getValue(WEST)) index |= 1 << Direction.WEST.get2DDataValue();
+        return index;
+    }
+
+
     public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, world, tooltip, flag);
         for (String key : tooltipKeys) {
             tooltip.add(Component.translatable(key));
         }
@@ -65,10 +99,10 @@ public class PaneBlockDoT extends IronBarsBlock {
     }
 
     @Override
-    public @NotNull BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor worldIn, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
         // Override was required because IronBarsBlock#attachsTo() is final (???) and I need to allow connection to CenteredDoors.
         if(stateIn.getValue(WATERLOGGED))
-            worldIn.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
+            ticksIn_.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
         return facing.getAxis().isHorizontal() ? stateIn.setValue(PROPERTY_BY_DIRECTION.get(facing), this.canAttachPane(worldIn, facingPos, facing.getOpposite(), facingState)) : stateIn;
     }
 

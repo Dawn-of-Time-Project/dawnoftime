@@ -4,6 +4,7 @@
 	"parent": "block/block",
 	"ambientocclusion": false,
 	"textures": {
+		"particle": "dawnoftimebuilder:block/painted_acacia_fence",
 		"texture": "dawnoftimebuilder:block/painted_acacia_fence",
 		"planks": "dawnoftimebuilder:block/painted_acacia_planks"
 	},

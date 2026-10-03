@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "dawnoftimebuilder:marble_coffer"
+  ],
+  "result": {
+    "id": "dawnoftimebuilder:marble_coffer_slab",
+    "count": 2
+  }
+}

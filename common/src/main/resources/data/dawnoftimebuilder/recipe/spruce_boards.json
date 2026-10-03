@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IiI",
+    "iIi",
+    "IiI"
+  ],
+  "key": {
+    "I": "minecraft:spruce_planks",
+    "i": "minecraft:stick"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:spruce_boards",
+    "count": 6
+  }
+}

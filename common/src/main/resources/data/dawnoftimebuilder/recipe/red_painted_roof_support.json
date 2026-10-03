@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I I",
+    "III"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:red_painted_log"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:red_painted_roof_support"
+  }
+}

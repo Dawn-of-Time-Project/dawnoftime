@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bbb",
+    "iii",
+    "o o"
+  ],
+  "key": {
+    "b": "dawnoftimebuilder:gray_roof_tiles_slab",
+    "i": "minecraft:red_dye",
+    "o": "minecraft:black_dye"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:japanese_emblem",
+    "count": 4
+  }
+}

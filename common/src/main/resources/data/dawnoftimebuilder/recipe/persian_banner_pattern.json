@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:paper",
+    "dawnoftimebuilder:persian_emblem"
+  ],
+  "result": {
+    "id": "dawnoftimebuilder:persian_banner_pattern",
+    "count": 1
+  }
+}

@@ -1,5 +1,7 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -8,9 +10,12 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.*;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball;
+import net.minecraft.world.entity.projectile.hurtingprojectile.Fireball;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -57,7 +62,7 @@ public abstract class CandleLampBlock extends WaterloggedBlock implements IBlock
     }
 
     @Override
-    public InteractionResult use(final BlockState state, final Level worldIn, final BlockPos pos, final Player player, final InteractionHand handIn, final BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, final BlockState state, final Level worldIn, final BlockPos pos, final Player player, final InteractionHand handIn, final BlockHitResult hit) {
         return Utils.changeBlockLitStateWithItemOrCreativePlayer(state, worldIn, pos, player, handIn) >= 0 ? InteractionResult.SUCCESS : InteractionResult.PASS;
     }
 
@@ -68,7 +73,7 @@ public abstract class CandleLampBlock extends WaterloggedBlock implements IBlock
 
         if(!state.getValue(WaterloggedBlock.WATERLOGGED) && !state.getValue(CandleLampBlock.LIT) && (projectile instanceof AbstractArrow && ((AbstractArrow) projectile).isOnFire() || projectile instanceof Fireball)) {
             activation = 1;
-        } else if(state.getValue(CandleLampBlock.LIT) && (projectile instanceof Snowball || projectile instanceof ThrowableProjectile && PotionUtils.getPotion(((ThrowableItemProjectile) projectile).getItem()).getEffects().size() <= 0)) {
+        } else if(state.getValue(CandleLampBlock.LIT) && (projectile instanceof Snowball || Utils.isEffectlessThrownPotion(projectile))) {
             activation = 0;
         }
 
@@ -81,8 +86,8 @@ public abstract class CandleLampBlock extends WaterloggedBlock implements IBlock
                 worldIn.setBlock(pos, state.setValue(CandleLampBlock.LIT, isActivated), 10);
                 worldIn.playSound(null, pos, isActivated ? SoundEvents.FIRE_AMBIENT : SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
             } else if(!isActivated && worldIn.isClientSide()) {
-                for(int i = 0; i < worldIn.random.nextInt(1) + 1; ++i) {
-                    worldIn.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, worldIn.random.nextFloat() / 4.0F, 2.5E-5D, worldIn.random.nextFloat() / 4.0F);
+                for(int i = 0; i < worldIn.getRandom().nextInt(1) + 1; ++i) {
+                    worldIn.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, worldIn.getRandom().nextFloat() / 4.0F, 2.5E-5D, worldIn.getRandom().nextFloat() / 4.0F);
                 }
             }
         }

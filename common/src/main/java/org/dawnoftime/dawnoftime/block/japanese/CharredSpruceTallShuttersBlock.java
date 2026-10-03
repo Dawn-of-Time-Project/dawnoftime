@@ -1,5 +1,7 @@
 package org.dawnoftime.dawnoftime.block.japanese;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -8,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -104,10 +106,10 @@ public class CharredSpruceTallShuttersBlock extends CharredSpruceShuttersBlock {
     }
 
     @Override
-    public @NotNull BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor worldIn, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
         SquareCorners thisCorner = stateIn.getValue(CORNER);
         if(stateIn.getValue(WATERLOGGED))
-            worldIn.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
+            ticksIn_.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
         Direction currentFacing = stateIn.getValue(FACING);
         SquareCorners expectedCorner = thisCorner.getAdjacentCorner(facing.getAxis().isVertical());
         if(currentPos.above(expectedCorner.getVerticalOffset(thisCorner)).relative(currentFacing.getClockWise(), expectedCorner.getHorizontalOffset(thisCorner)).equals(facingPos)) {
@@ -123,7 +125,7 @@ public class CharredSpruceTallShuttersBlock extends CharredSpruceShuttersBlock {
     }
 
     @Override
-    public void playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
+    public BlockState playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
         // Prevents item from dropping in creative by removing the part that gives the item with a setBlock.
         if (!level.isClientSide() && player.isCreative()) {
             SquareCorners corner = state.getValue(CORNER);
@@ -137,6 +139,6 @@ public class CharredSpruceTallShuttersBlock extends CharredSpruceShuttersBlock {
                 }
             }
         }
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 }

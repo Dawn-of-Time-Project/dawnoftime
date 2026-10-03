@@ -1,5 +1,7 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import org.dawnoftime.dawnoftime.util.DoTBProperties;
+import org.dawnoftime.dawnoftime.item.templates.DoTBBlockItem;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -58,7 +60,7 @@ public class MixedSlabBlock extends SlabBlockDoT {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         Direction facing = hit.getDirection();
         ItemStack itemStack = player.getItemInHand(handIn);
         if(!player.isCrouching() && player.mayUseItemAt(pos, facing, itemStack) && facing.getAxis().isVertical() && !itemStack.isEmpty()) {
@@ -71,7 +73,7 @@ public class MixedSlabBlock extends SlabBlockDoT {
                             if(player instanceof ServerPlayer) {
                                 CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayer) player, pos, itemStack);
                             }
-                            SoundType soundtype = recipe.getMixedBlock().getSoundType(state);
+                            SoundType soundtype = recipe.getMixedBlock().defaultBlockState().getSoundType();
                             worldIn.playSound(player, pos, soundtype.getPlaceSound(), SoundSource.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
                             if(!player.isCreative())
                                 itemStack.shrink(1);
@@ -81,11 +83,11 @@ public class MixedSlabBlock extends SlabBlockDoT {
                 }
             }
         }
-        return super.use(state, worldIn, pos, player, handIn, hit);
+        return super.useItemOn(useStack_, state, worldIn, pos, player, handIn, hit);
     }
 
     public static Item getBlockItem(MixedSlabBlock block) {
-        return new BlockItem(block, new Item.Properties()) {
+        return new DoTBBlockItem(block, DoTBProperties.blockItem(block)) {
             @Override
             public InteractionResult place(BlockPlaceContext context) {
                 Direction facing = context.getClickedFace();
@@ -116,7 +118,7 @@ public class MixedSlabBlock extends SlabBlockDoT {
                                     if(player instanceof ServerPlayer) {
                                         CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayer) player, pos, itemStack);
                                     }
-                                    SoundType soundtype = recipe.getMixedBlock().getSoundType(state);
+                                    SoundType soundtype = recipe.getMixedBlock().defaultBlockState().getSoundType();
                                     worldIn.playSound(player, pos, soundtype.getPlaceSound(), SoundSource.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
                                     itemStack.shrink(1);
                                     return InteractionResult.SUCCESS;

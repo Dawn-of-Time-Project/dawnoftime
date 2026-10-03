@@ -1,5 +1,7 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -10,7 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -55,21 +56,21 @@ public class DoubleChairBlock extends ChairBlock {
     }
 
     @Override
-    public InteractionResult use(final BlockState state, final Level worldIn, final BlockPos pos, final Player player, final InteractionHand handIn, final BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, final BlockState state, final Level worldIn, final BlockPos pos, final Player player, final InteractionHand handIn, final BlockHitResult hit) {
         if(state.getValue(DoubleChairBlock.HALF) == Half.TOP) {
             return InteractionResult.PASS;
         }
 
-        return super.use(state, worldIn, pos, player, handIn, hit);
+        return super.useItemOn(useStack_, state, worldIn, pos, player, handIn, hit);
     }
 
     @Override
-    public @NotNull BlockState updateShape(final BlockState stateIn, final @NotNull Direction facing, final @NotNull BlockState facingState, final @NotNull LevelAccessor worldIn, final @NotNull BlockPos currentPos, final @NotNull BlockPos facingPos) {
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
         final Direction halfDirection = stateIn.getValue(DoubleChairBlock.HALF) == Half.TOP ? Direction.DOWN : Direction.UP;
         if(facing == halfDirection && (facingState.getBlock() != this || facingState.getValue(DoubleChairBlock.HALF) == stateIn.getValue(DoubleChairBlock.HALF) || facingState.getValue(ChairBlock.FACING) != stateIn.getValue(ChairBlock.FACING))) {
             return Blocks.AIR.defaultBlockState();
         }
-        return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
     }
 
     @Override
@@ -85,7 +86,7 @@ public class DoubleChairBlock extends ChairBlock {
     }
 
     @Override
-    public void playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
+    public BlockState playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
         // Prevents item from dropping in creative by removing the part that gives the item with a setBlock.
         if (!level.isClientSide() && player.isCreative()) {
             if (state.getValue(HALF) == Half.TOP) {
@@ -98,7 +99,7 @@ public class DoubleChairBlock extends ChairBlock {
                 }
             }
         }
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     @Override

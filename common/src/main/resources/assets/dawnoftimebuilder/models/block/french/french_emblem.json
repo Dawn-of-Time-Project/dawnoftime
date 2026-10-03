@@ -3,8 +3,8 @@
     "credit": "Made with Blockbench",
     "render_type": "minecraft:cutout",
     "textures": {
-        "0": "dawnoftimebuilder:item/logo_french",
-        "particle": "dawnoftimebuilder:item/logo_french"
+        "0": "dawnoftimebuilder:block/logo_french",
+        "particle": "dawnoftimebuilder:block/logo_french"
     },
     "elements": [
         {

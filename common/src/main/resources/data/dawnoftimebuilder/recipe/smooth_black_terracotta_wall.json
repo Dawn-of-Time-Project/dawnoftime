@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:smooth_black_terracotta"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:smooth_black_terracotta_wall",
+    "count": 9
+  }
+}

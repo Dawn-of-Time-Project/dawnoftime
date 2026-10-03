@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I",
+    "I",
+    "I"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:cobbled_limestone"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:cobbled_limestone_plate",
+    "count": 6
+  }
+}

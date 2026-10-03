@@ -1,5 +1,6 @@
 {
     "textures": {
+        "particle": "block/jungle_planks",
         "slab": "block/jungle_planks"
     },
     "elements": [

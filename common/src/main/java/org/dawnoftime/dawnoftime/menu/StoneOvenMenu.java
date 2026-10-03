@@ -1,5 +1,6 @@
 package org.dawnoftime.dawnoftime.menu;
 
+import net.minecraft.world.item.crafting.RecipePropertySet;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -16,6 +17,6 @@ public class StoneOvenMenu extends AbstractFurnaceMenu {
     }
 
     public StoneOvenMenu(int containerId, Inventory playerInventory, Container furnaceContainer, ContainerData furnaceData) {
-        super(DoTBMenusRegistry.INSTANCE.STONE_OVEN.get(), RecipeType.SMELTING, RecipeBookType.FURNACE, containerId, playerInventory, furnaceContainer, furnaceData);
+        super(DoTBMenusRegistry.INSTANCE.STONE_OVEN.get(), RecipeType.SMELTING, RecipePropertySet.FURNACE_INPUT, RecipeBookType.FURNACE, containerId, playerInventory, furnaceContainer, furnaceData);
     }
 }

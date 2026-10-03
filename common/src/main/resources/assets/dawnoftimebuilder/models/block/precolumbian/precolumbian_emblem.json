@@ -3,8 +3,8 @@
     "credit": "Made with Blockbench",
     "render_type": "minecraft:cutout",
     "textures": {
-        "0": "dawnoftimebuilder:item/logo_pre_columbian",
-        "particle": "dawnoftimebuilder:item/logo_pre_columbian"
+        "0": "dawnoftimebuilder:block/logo_pre_columbian",
+        "particle": "dawnoftimebuilder:block/logo_pre_columbian"
     },
     "elements": [
         {

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I",
+    "i",
+    "I"
+  ],
+  "key": {
+    "I": "minecraft:white_carpet",
+    "i": "minecraft:feather"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:white_cushion"
+  }
+}

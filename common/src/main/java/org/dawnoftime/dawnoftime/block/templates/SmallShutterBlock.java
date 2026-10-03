@@ -1,5 +1,9 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -8,7 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
@@ -32,7 +36,7 @@ import javax.annotation.Nullable;
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.SMALL_SHUTTER_SHAPES;
 
 public class SmallShutterBlock extends WaterloggedBlock {
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final EnumProperty<BlockStatePropertiesAA.OpenPosition> OPEN_POSITION = BlockStatePropertiesAA.OPEN_POSITION;
     public static final EnumProperty<DoorHingeSide> HINGE = BlockStateProperties.DOOR_HINGE;
@@ -77,18 +81,18 @@ public class SmallShutterBlock extends WaterloggedBlock {
     }
 
     @Override
-    public @NotNull BlockState updateShape(BlockState stateIn, final @NotNull Direction facing, final @NotNull BlockState facingState, final @NotNull LevelAccessor worldIn, final @NotNull BlockPos currentPos, final @NotNull BlockPos facingPos) {
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
         final Direction direction = stateIn.getValue(SmallShutterBlock.FACING);
         final Direction hingeDirection = stateIn.getValue(SmallShutterBlock.HINGE) == DoorHingeSide.LEFT ? direction.getCounterClockWise() : direction.getClockWise();
         if(facing == hingeDirection) {
-            stateIn = super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+            stateIn = super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
             return stateIn.getValue(SmallShutterBlock.OPEN_POSITION) == BlockStatePropertiesAA.OpenPosition.CLOSED ? stateIn : stateIn.setValue(SmallShutterBlock.OPEN_POSITION, this.getOpenState(stateIn, worldIn, facingPos));
         }
-        return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
     }
 
     @Override
-    public InteractionResult use(BlockState state, final Level worldIn, final BlockPos pos, final Player player, final InteractionHand handIn, final BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState state, final Level worldIn, final BlockPos pos, final Player player, final InteractionHand handIn, final BlockHitResult hit) {
         if(state.getValue(SmallShutterBlock.OPEN_POSITION).isOpen()) {
             state = state.setValue(SmallShutterBlock.OPEN_POSITION, BlockStatePropertiesAA.OpenPosition.CLOSED);
         } else {
@@ -104,7 +108,7 @@ public class SmallShutterBlock extends WaterloggedBlock {
     }
 
     @Override
-    public void neighborChanged(BlockState state, final Level worldIn, final BlockPos pos, final Block blockIn, final BlockPos fromPos, final boolean isMoving) {
+    protected void neighborChanged(BlockState state, final Level worldIn, final BlockPos pos, final Block blockIn, @org.jetbrains.annotations.Nullable final net.minecraft.world.level.redstone.Orientation orientation, final boolean isMoving) {
         final boolean isPowered = worldIn.hasNeighborSignal(pos);
         if(blockIn != this && isPowered != state.getValue(SmallShutterBlock.POWERED)) {
             if(isPowered != state.getValue(SmallShutterBlock.OPEN_POSITION).isOpen()) {
@@ -120,7 +124,7 @@ public class SmallShutterBlock extends WaterloggedBlock {
         }
     }
 
-    protected BlockStatePropertiesAA.OpenPosition getOpenState(final BlockState stateIn, final LevelAccessor worldIn, final BlockPos pos) {
+    protected BlockStatePropertiesAA.OpenPosition getOpenState(final BlockState stateIn, final LevelReader worldIn, final BlockPos pos) {
         return worldIn.getBlockState(pos).getCollisionShape(worldIn, pos).isEmpty() ? BlockStatePropertiesAA.OpenPosition.FULL : BlockStatePropertiesAA.OpenPosition.HALF;
     }
 
@@ -158,17 +162,17 @@ public class SmallShutterBlock extends WaterloggedBlock {
      * Light corrections methods
      */
     @Override
-    public int getLightBlock(final BlockState p_200011_1_In, final BlockGetter p_200011_2_In, final BlockPos p_200011_3_In) {
+    protected int getLightDampening(final BlockState p_200011_1_In) {
         return 1;
     }
 
     @Override
-    public boolean useShapeForLightOcclusion(final BlockState p_220074_1_In) {
+    protected boolean useShapeForLightOcclusion(final BlockState p_220074_1_In) {
         return false;
     }
 
     @Override
-    public VoxelShape getOcclusionShape(final BlockState p_196247_1_In, final BlockGetter p_196247_2_In, final BlockPos p_196247_3_In) {
+    protected VoxelShape getOcclusionShape(final BlockState p_196247_1_In) {
         return Shapes.empty();
     }
 
@@ -179,7 +183,7 @@ public class SmallShutterBlock extends WaterloggedBlock {
     }
 
     @Override
-    public boolean propagatesSkylightDown(final BlockState p_200123_1_In, final BlockGetter p_200123_2_In, final BlockPos p_200123_3_In) {
+    protected boolean propagatesSkylightDown(final BlockState p_200123_1_In) {
         return true;
     }
 }

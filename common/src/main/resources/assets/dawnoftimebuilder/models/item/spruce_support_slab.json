@@ -1,5 +1,6 @@
 {
     "textures": {
+        "particle": "block/spruce_planks",
         "slab": "block/spruce_planks"
     },
     "elements": [

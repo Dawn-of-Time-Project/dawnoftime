@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:vine",
+    "minecraft:flower_pot",
+    "minecraft:azure_bluet",
+    "minecraft:allium"
+  ],
+  "result": {
+    "id": "dawnoftimebuilder:ikebana_flower_pot"
+  }
+}

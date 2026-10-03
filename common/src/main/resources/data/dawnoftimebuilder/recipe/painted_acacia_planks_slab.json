@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:painted_acacia_planks"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:painted_acacia_planks_slab",
+    "count": 6
+  }
+}

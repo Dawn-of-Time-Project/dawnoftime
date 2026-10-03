@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " o ",
+    "III",
+    " x "
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:sandstone_bricks_edge",
+    "o": "dawnoftimebuilder:clay_tile_blue",
+    "x": "dawnoftimebuilder:clay_tile_cyan"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:moraq_mosaic_relief",
+    "count": 6
+  }
+}

@@ -1,5 +1,7 @@
 package org.dawnoftime.dawnoftime.block.general;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -11,7 +13,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -27,6 +29,10 @@ import static org.dawnoftime.dawnoftime.util.Utils.isShapeIncludedInShape;
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.*;
 
 public class IronColumnBlock extends ConnectedVerticalBlock {
+    {
+        this.blocksLandPathing = true;
+    }
+
     public IronColumnBlock(Properties properties) {
         super(properties, IRON_COLUMN_SHAPES);
         this.registerDefaultState(this.defaultBlockState().setValue(SMALL_TOP, true).setValue(AXIS_Y, false).setValue(AXIS_X, false).setValue(AXIS_Z, false));
@@ -108,8 +114,8 @@ public class IronColumnBlock extends ConnectedVerticalBlock {
     }
 
     @Override
-    public @NotNull BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor worldIn, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
-        stateIn = super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
+        stateIn = super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
         if (!worldIn.isClientSide()) {
             if (facing == Direction.UP && stateIn.getValue(AXIS_Y)) {
                 if (!facingState.is(this)) {
@@ -124,13 +130,13 @@ public class IronColumnBlock extends ConnectedVerticalBlock {
     }
 
     @Override
-    public boolean isConnectible(BlockState stateIn, LevelAccessor worldIn, BlockPos pos, Direction faceToConnect) {
+    public boolean isConnectible(BlockState stateIn, LevelReader worldIn, BlockPos pos, Direction faceToConnect) {
         BlockState adjState = worldIn.getBlockState(pos);
         return adjState.getBlock() == this && adjState.getValue(AXIS_Y);
     }
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         return InteractionResult.PASS;
     }
 

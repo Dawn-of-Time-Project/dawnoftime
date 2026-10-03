@@ -28,6 +28,10 @@ import static org.dawnoftime.dawnoftime.util.Utils.clickedOnLeftHalf;
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.MORAQ_MOSAIC_COLUMN_SHAPES;
 
 public class MoraqMosaicColumnBlock extends ConnectedVerticalBlock {
+    {
+        this.blocksLandPathing = true;
+    }
+
 
     public MoraqMosaicColumnBlock(Properties properties) {
         super(properties, MORAQ_MOSAIC_COLUMN_SHAPES);
@@ -48,9 +52,9 @@ public class MoraqMosaicColumnBlock extends ConnectedVerticalBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         state = state.setValue(BlockStateProperties.INVERTED, clickedOnLeftHalf(pos, hit.getDirection(), hit.getLocation()));
-        return super.use(state, worldIn, pos, player, handIn, hit);
+        return super.useItemOn(useStack_, state, worldIn, pos, player, handIn, hit);
     }
 
     @Override

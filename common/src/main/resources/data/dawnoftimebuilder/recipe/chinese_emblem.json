@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "xox",
+    "bbb"
+  ],
+  "key": {
+    "b": "minecraft:stone",
+    "i": "dawnoftimebuilder:waxed_acacia_stairs",
+    "o": "minecraft:gold_nugget",
+    "x": "minecraft:red_dye"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:chinese_emblem",
+    "count": 4
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ooo",
+    "xyz",
+    "ooo"
+  ],
+  "key": {
+    "o": "minecraft:smooth_sandstone",
+    "x": "dawnoftimebuilder:clay_tile_blue",
+    "y": "dawnoftimebuilder:clay_tile_white",
+    "z": "dawnoftimebuilder:clay_tile_cyan"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:moraq_mosaic_traditional",
+    "count": 6
+  }
+}

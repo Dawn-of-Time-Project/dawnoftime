@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " i ",
+    "oxo",
+    "o o"
+  ],
+  "key": {
+    "i": "minecraft:gold_nugget",
+    "x": "minecraft:feather",
+    "o": "dawnoftimebuilder:marble"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:roman_emblem",
+    "count": 4
+  }
+}

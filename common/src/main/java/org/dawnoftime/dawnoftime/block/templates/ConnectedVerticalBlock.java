@@ -1,5 +1,7 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -8,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -46,29 +48,29 @@ public class ConnectedVerticalBlock extends WaterloggedBlock {
     }
 
     @Override
-    public @NotNull BlockState updateShape(BlockState stateIn, final @NotNull Direction facing, final @NotNull BlockState facingState, final @NotNull LevelAccessor worldIn, final @NotNull BlockPos currentPos, final @NotNull BlockPos facingPos) {
-        stateIn = super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
+        stateIn = super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
         return facing.getAxis().isVertical() ? stateIn.setValue(ConnectedVerticalBlock.VERTICAL_CONNECTION, this.getColumnState(worldIn, currentPos, stateIn)) : stateIn;
     }
 
-    public BlockStatePropertiesAA.VerticalConnection getColumnState(final LevelAccessor worldIn, final BlockPos pos, final BlockState stateIn) {
+    public BlockStatePropertiesAA.VerticalConnection getColumnState(final LevelReader worldIn, final BlockPos pos, final BlockState stateIn) {
         if(this.isConnectible(stateIn, worldIn, pos.above(), Direction.DOWN)) {
             return this.isConnectible(stateIn, worldIn, pos.below(), Direction.UP) ? BlockStatePropertiesAA.VerticalConnection.BOTH : BlockStatePropertiesAA.VerticalConnection.ABOVE;
         }
         return this.isConnectible(stateIn, worldIn, pos.below(), Direction.UP) ? BlockStatePropertiesAA.VerticalConnection.UNDER : BlockStatePropertiesAA.VerticalConnection.NONE;
     }
 
-    public boolean isConnectible(final BlockState stateIn, final LevelAccessor worldIn, final BlockPos pos, final Direction faceToConnect) {
+    public boolean isConnectible(final BlockState stateIn, final LevelReader worldIn, final BlockPos pos, final Direction faceToConnect) {
         return worldIn.getBlockState(pos).getBlock() == this;
     }
 
     @Override
-    public InteractionResult use(final BlockState state, final Level worldIn, final BlockPos pos, final Player player, final InteractionHand handIn, final BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, final BlockState state, final Level worldIn, final BlockPos pos, final Player player, final InteractionHand handIn, final BlockHitResult hit) {
         final ItemStack heldItemStack = player.getItemInHand(handIn);
         if(player.isCrouching()) {
             //We remove the highest ColumnBlock
             if(state.getValue(ConnectedVerticalBlock.VERTICAL_CONNECTION) == BlockStatePropertiesAA.VerticalConnection.NONE) {
-                return super.use(state, worldIn, pos, player, handIn, hit);
+                return super.useItemOn(useStack_, state, worldIn, pos, player, handIn, hit);
             }
             final BlockPos topPos = this.getHighestColumnPos(worldIn, pos);
             if(topPos != pos) {
@@ -95,7 +97,7 @@ public class ConnectedVerticalBlock extends WaterloggedBlock {
                 }
             }
         }
-        return super.use(state, worldIn, pos, player, handIn, hit);
+        return super.useItemOn(useStack_, state, worldIn, pos, player, handIn, hit);
     }
 
     private BlockPos getHighestColumnPos(final Level worldIn, final BlockPos pos) {

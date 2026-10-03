@@ -1,5 +1,6 @@
 package org.dawnoftime.dawnoftime.block.japanese;
 
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
@@ -9,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,7 +28,7 @@ import java.util.List;
 
 public class TatamiFloorBlock extends BlockDoT {
 
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<Half> HALF = BlockStateProperties.HALF;
 
     public TatamiFloorBlock(Properties properties) {
@@ -35,6 +36,11 @@ public class TatamiFloorBlock extends BlockDoT {
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(HALF, Half.TOP));
+    }
+
+    @Override
+    protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
+        return new ItemStack(DoTBBlocksRegistry.INSTANCE.TATAMI_MAT.get());
     }
 
     @Override
@@ -52,8 +58,8 @@ public class TatamiFloorBlock extends BlockDoT {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        if(!worldIn.isClientSide) {
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+        if(!worldIn.isClientSide()) {
             if(player.isCrouching()) {
                 boolean isTop = state.getValue(HALF) == Half.TOP;
                 BlockPos otherPos = (isTop) ? pos.relative(state.getValue(FACING)) : pos.relative(state.getValue(FACING).getOpposite());
@@ -72,7 +78,7 @@ public class TatamiFloorBlock extends BlockDoT {
     }
 
     @Override
-    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
+    protected void affectNeighborsAfterRemoval(BlockState state, net.minecraft.server.level.ServerLevel world, BlockPos pos, boolean isMoving) {
         Direction facing = state.getValue(FACING);
         Half half = state.getValue(HALF);
         BlockPos otherPos = (half == Half.TOP) ? pos.relative(facing) : pos.relative(facing.getOpposite());

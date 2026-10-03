@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "dawnoftimebuilder:gray_roof_tiles",
+    "minecraft:green_dye"
+  ],
+  "result": {
+    "id": "dawnoftimebuilder:green_roof_tiles",
+    "count": 8
+  }
+}

@@ -51,7 +51,7 @@ public abstract class DisplayerBlock extends WaterloggedBlock implements EntityB
     }
 
     @Override
-    public @NotNull InteractionResult use(@NotNull BlockState blockState, Level world, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, @NotNull BlockState blockState, Level world, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         if (hit.getDirection() != Direction.UP) {
             return InteractionResult.PASS;
         }
@@ -98,16 +98,6 @@ public abstract class DisplayerBlock extends WaterloggedBlock implements EntityB
         return InteractionResult.SUCCESS;
     }
 
-    @Override
-    public void onRemove(BlockState oldState, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if(oldState.getBlock() != newState.getBlock()) {
-            BlockEntity tileEntity = worldIn.getBlockEntity(pos);
-            if(tileEntity instanceof DisplayerBlockEntity displayerEntity) {
-                displayerEntity.removeAllItems().forEach(itemStack -> dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), itemStack));
-            }
-        }
-        super.onRemove(oldState, worldIn, pos, newState, isMoving);
-    }
 
     public abstract double getDisplayerX(BlockState state);
 

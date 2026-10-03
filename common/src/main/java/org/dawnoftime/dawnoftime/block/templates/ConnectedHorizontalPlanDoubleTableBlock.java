@@ -1,5 +1,8 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -74,8 +77,8 @@ public class ConnectedHorizontalPlanDoubleTableBlock extends DisplayerBlock {
     }
 
     @Override
-    public @NotNull InteractionResult use(@NotNull BlockState blockState, Level world, @NotNull BlockPos pos, @NotNull Player playerEntity, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-        return blockState.getValue(HALF) == Half.TOP ? super.use(blockState, world, pos, playerEntity, hand, hit) : InteractionResult.PASS;
+    protected InteractionResult useItemOn(ItemStack useStack_, @NotNull BlockState blockState, Level world, @NotNull BlockPos pos, @NotNull Player playerEntity, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+        return blockState.getValue(HALF) == Half.TOP ? super.useItemOn(useStack_, blockState, world, pos, playerEntity, hand, hit) : InteractionResult.PASS;
     }
 
     @Override
@@ -89,9 +92,9 @@ public class ConnectedHorizontalPlanDoubleTableBlock extends DisplayerBlock {
     }
 
     @Override
-    public @NotNull BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor worldIn, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
         if(facing.getAxis().isHorizontal()) {
-            BlockState state = super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+            BlockState state = super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
             boolean canConnect = facingState.getBlock().equals(this);
             return switch (facing) {
                 default -> state.setValue(NORTH, canConnect);
@@ -105,7 +108,7 @@ public class ConnectedHorizontalPlanDoubleTableBlock extends DisplayerBlock {
                 if(facingState.getBlock() != this)
                     return Blocks.AIR.defaultBlockState();
             }
-            return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+            return super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
         }
     }
 
@@ -122,7 +125,7 @@ public class ConnectedHorizontalPlanDoubleTableBlock extends DisplayerBlock {
     }
 
     @Override
-    public void playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
+    public BlockState playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
         // Prevents item from dropping in creative by removing the part that gives the item with a setBlock.
         if (!level.isClientSide() && player.isCreative()) {
             if (state.getValue(HALF) == Half.TOP) {
@@ -135,7 +138,7 @@ public class ConnectedHorizontalPlanDoubleTableBlock extends DisplayerBlock {
                 }
             }
         }
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     @Override

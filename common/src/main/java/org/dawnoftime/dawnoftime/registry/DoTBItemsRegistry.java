@@ -1,13 +1,14 @@
 package org.dawnoftime.dawnoftime.registry;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.BannerPatternItem;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import org.dawnoftime.dawnoftime.DoTBCommon;
 import org.dawnoftime.dawnoftime.item.templates.ItemDoTB;
+import org.dawnoftime.dawnoftime.util.DoTBProperties;
 
 import java.util.function.Supplier;
 
@@ -16,22 +17,22 @@ public abstract class DoTBItemsRegistry {
     public static DoTBItemsRegistry INSTANCE;
 
     // Banner pattern tag keys
-    private static final TagKey<BannerPattern> CHINESE_BANNER_PATTERN_TAG      = TagKey.create(Registries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "pattern_item/chinese_emblem"));
-    private static final TagKey<BannerPattern> GERMAN_BANNER_PATTERN_TAG       = TagKey.create(Registries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "pattern_item/german_emblem"));
-    private static final TagKey<BannerPattern> FRENCH_BANNER_PATTERN_TAG       = TagKey.create(Registries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "pattern_item/french_emblem"));
-    private static final TagKey<BannerPattern> JAPANESE_BANNER_PATTERN_TAG     = TagKey.create(Registries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "pattern_item/japanese_emblem"));
-    private static final TagKey<BannerPattern> PERSIAN_BANNER_PATTERN_TAG      = TagKey.create(Registries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "pattern_item/persian_emblem"));
-    private static final TagKey<BannerPattern> PRECOLUMBIAN_BANNER_PATTERN_TAG = TagKey.create(Registries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "pattern_item/precolumbian_emblem"));
-    private static final TagKey<BannerPattern> ROMAN_BANNER_PATTERN_TAG        = TagKey.create(Registries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "pattern_item/roman_emblem"));
+    private static final TagKey<BannerPattern> CHINESE_BANNER_PATTERN_TAG      = TagKey.create(Registries.BANNER_PATTERN, Identifier.fromNamespaceAndPath(DoTBCommon.MOD_ID, "pattern_item/chinese_emblem"));
+    private static final TagKey<BannerPattern> GERMAN_BANNER_PATTERN_TAG       = TagKey.create(Registries.BANNER_PATTERN, Identifier.fromNamespaceAndPath(DoTBCommon.MOD_ID, "pattern_item/german_emblem"));
+    private static final TagKey<BannerPattern> FRENCH_BANNER_PATTERN_TAG       = TagKey.create(Registries.BANNER_PATTERN, Identifier.fromNamespaceAndPath(DoTBCommon.MOD_ID, "pattern_item/french_emblem"));
+    private static final TagKey<BannerPattern> JAPANESE_BANNER_PATTERN_TAG     = TagKey.create(Registries.BANNER_PATTERN, Identifier.fromNamespaceAndPath(DoTBCommon.MOD_ID, "pattern_item/japanese_emblem"));
+    private static final TagKey<BannerPattern> PERSIAN_BANNER_PATTERN_TAG      = TagKey.create(Registries.BANNER_PATTERN, Identifier.fromNamespaceAndPath(DoTBCommon.MOD_ID, "pattern_item/persian_emblem"));
+    private static final TagKey<BannerPattern> PRECOLUMBIAN_BANNER_PATTERN_TAG = TagKey.create(Registries.BANNER_PATTERN, Identifier.fromNamespaceAndPath(DoTBCommon.MOD_ID, "pattern_item/precolumbian_emblem"));
+    private static final TagKey<BannerPattern> ROMAN_BANNER_PATTERN_TAG        = TagKey.create(Registries.BANNER_PATTERN, Identifier.fromNamespaceAndPath(DoTBCommon.MOD_ID, "pattern_item/roman_emblem"));
 
     // Banner pattern items
-    public final Supplier<Item> CHINESE_BANNER_PATTERN      = register("chinese_banner_pattern",      () -> new BannerPatternItem(CHINESE_BANNER_PATTERN_TAG,      new Item.Properties().stacksTo(1)));
-    public final Supplier<Item> GERMAN_BANNER_PATTERN       = register("german_banner_pattern",       () -> new BannerPatternItem(GERMAN_BANNER_PATTERN_TAG,       new Item.Properties().stacksTo(1)));
-    public final Supplier<Item> FRENCH_BANNER_PATTERN       = register("french_banner_pattern",       () -> new BannerPatternItem(FRENCH_BANNER_PATTERN_TAG,       new Item.Properties().stacksTo(1)));
-    public final Supplier<Item> JAPANESE_BANNER_PATTERN     = register("japanese_banner_pattern",     () -> new BannerPatternItem(JAPANESE_BANNER_PATTERN_TAG,     new Item.Properties().stacksTo(1)));
-    public final Supplier<Item> PERSIAN_BANNER_PATTERN      = register("persian_banner_pattern",      () -> new BannerPatternItem(PERSIAN_BANNER_PATTERN_TAG,      new Item.Properties().stacksTo(1)));
-    public final Supplier<Item> PRECOLUMBIAN_BANNER_PATTERN = register("precolumbian_banner_pattern", () -> new BannerPatternItem(PRECOLUMBIAN_BANNER_PATTERN_TAG, new Item.Properties().stacksTo(1)));
-    public final Supplier<Item> ROMAN_BANNER_PATTERN        = register("roman_banner_pattern",        () -> new BannerPatternItem(ROMAN_BANNER_PATTERN_TAG,        new Item.Properties().stacksTo(1)));
+    public final Supplier<Item> CHINESE_BANNER_PATTERN      = register("chinese_banner_pattern",      () -> new Item(DoTBProperties.item().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(CHINESE_BANNER_PATTERN_TAG))));
+    public final Supplier<Item> GERMAN_BANNER_PATTERN       = register("german_banner_pattern",       () -> new Item(DoTBProperties.item().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(GERMAN_BANNER_PATTERN_TAG))));
+    public final Supplier<Item> FRENCH_BANNER_PATTERN       = register("french_banner_pattern",       () -> new Item(DoTBProperties.item().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(FRENCH_BANNER_PATTERN_TAG))));
+    public final Supplier<Item> JAPANESE_BANNER_PATTERN     = register("japanese_banner_pattern",     () -> new Item(DoTBProperties.item().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(JAPANESE_BANNER_PATTERN_TAG))));
+    public final Supplier<Item> PERSIAN_BANNER_PATTERN      = register("persian_banner_pattern",      () -> new Item(DoTBProperties.item().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(PERSIAN_BANNER_PATTERN_TAG))));
+    public final Supplier<Item> PRECOLUMBIAN_BANNER_PATTERN = register("precolumbian_banner_pattern", () -> new Item(DoTBProperties.item().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(PRECOLUMBIAN_BANNER_PATTERN_TAG))));
+    public final Supplier<Item> ROMAN_BANNER_PATTERN        = register("roman_banner_pattern",        () -> new Item(DoTBProperties.item().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(ROMAN_BANNER_PATTERN_TAG))));
 
     // General
     public final Supplier<Item> DOT_ITEM = register("dawn_of_time", () -> new ItemDoTB());

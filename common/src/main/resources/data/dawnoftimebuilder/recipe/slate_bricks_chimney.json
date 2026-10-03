@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "II",
+    "ii"
+  ],
+  "key": {
+    "i": "dawnoftimebuilder:slate_bricks",
+    "I": "dawnoftimebuilder:slate_bricks_slab"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:slate_bricks_chimney"
+  }
+}

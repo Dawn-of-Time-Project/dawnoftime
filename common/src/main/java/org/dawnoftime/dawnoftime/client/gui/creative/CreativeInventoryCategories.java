@@ -1,7 +1,7 @@
 package org.dawnoftime.dawnoftime.client.gui.creative;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import org.dawnoftime.dawnoftime.registry.DoTBBlocksRegistry;
@@ -618,11 +618,11 @@ public enum CreativeInventoryCategories {
         return subTabs.get(idx).items();
     }
 
-    public record SubTab(String nameKey, ResourceLocation textureOn, ResourceLocation textureOff, List<Item> items) {
+    public record SubTab(String nameKey, Identifier textureOn, Identifier textureOff, List<Item> items) {
         public SubTab(String nameKey, Item... items) {
             this(nameKey,
-                new ResourceLocation(MOD_ID, "textures/gui/subtab_" + nameKey + "_on.png"),
-                new ResourceLocation(MOD_ID, "textures/gui/subtab_" + nameKey + "_off.png"),
+                Identifier.fromNamespaceAndPath(MOD_ID, "textures/gui/subtab_" + nameKey + "_on.png"),
+                Identifier.fromNamespaceAndPath(MOD_ID, "textures/gui/subtab_" + nameKey + "_off.png"),
                 Arrays.asList(items));
         }
 

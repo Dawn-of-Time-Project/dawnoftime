@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "II"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:marble_slab"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:marble_edge",
+    "count": 6
+  }
+}

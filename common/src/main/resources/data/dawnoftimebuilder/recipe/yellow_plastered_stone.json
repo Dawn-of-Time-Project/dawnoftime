@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iI",
+    "Ii"
+  ],
+  "key": {
+    "I": "minecraft:stone",
+    "i": "minecraft:yellow_dye"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:yellow_plastered_stone",
+    "count": 6
+  }
+}

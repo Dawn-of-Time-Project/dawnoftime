@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:paper",
+    "dawnoftimebuilder:french_emblem"
+  ],
+  "result": {
+    "id": "dawnoftimebuilder:french_banner_pattern",
+    "count": 1
+  }
+}

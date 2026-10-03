@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IiI",
+    "IxI",
+    "III"
+  ],
+  "key": {
+    "I": "minecraft:stone",
+    "i": "minecraft:iron_nugget",
+    "x": "minecraft:furnace"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:stone_oven",
+    "count": 1
+  }
+}

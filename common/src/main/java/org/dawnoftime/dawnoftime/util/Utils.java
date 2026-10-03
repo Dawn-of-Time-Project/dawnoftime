@@ -9,7 +9,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -67,7 +68,7 @@ public class Utils {
         final ItemStack itemInHand = player.getItemInHand(handIn);
         if (!itemInHand.isEmpty() && itemInHand.is(DoTBTags.INSTANCE.LIGHTERS)) {
             worldIn.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            itemInHand.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(handIn));
+            itemInHand.hurtAndBreak(1, player, handIn);
             return true;
         }
         return false;
@@ -89,7 +90,7 @@ public class Utils {
             } else if (itemStackInHand.is(DoTBTags.INSTANCE.LIGHTERS)) {
                 worldIn.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 if (!player.isCreative()) {
-                    itemStackInHand.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(handIn));
+                    itemStackInHand.hurtAndBreak(1, player, handIn);
                 }
                 return true;
             }
@@ -108,14 +109,12 @@ public class Utils {
         if (mainItemStack.is(DoTBTags.INSTANCE.LIGHTERS)) {
             worldIn.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
             if (!player.isCreative()) {
-                mainItemStack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(handIn));
+                mainItemStack.hurtAndBreak(1, player, handIn);
             }
             return true;
         }
         if (mainItemStack.getItem() instanceof PotionItem && !(mainItemStack.getItem() instanceof SplashPotionItem)) {
-            final Potion potion = PotionUtils.getPotion(mainItemStack);
-
-            if (potion != null && potion.getEffects().size() <= 0) {
+            if (!mainItemStack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).hasEffects()) {
                 player.getMainHandItem().shrink(1);
                 player.getInventory().add(new ItemStack(Items.GLASS_BOTTLE));
 
@@ -143,14 +142,14 @@ public class Utils {
             final boolean isActivated = activation == 1;
             worldIn.setBlock(pos, stateIn.setValue(BlockStateProperties.LIT, isActivated), 10);
             worldIn.playSound(null, pos, isActivated ? SoundEvents.FIRE_AMBIENT : SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
-            if (worldIn.isClientSide) {
+            if (worldIn.isClientSide()) {
                 if (!isActivated) {
-                    for (int i = 0; i < worldIn.random.nextInt(4) + 2; ++i) {
-                        worldIn.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, worldIn.random.nextFloat() / 4.0F, 2.5E-5D, worldIn.random.nextFloat() / 4.0F);
+                    for (int i = 0; i < worldIn.getRandom().nextInt(4) + 2; ++i) {
+                        worldIn.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, worldIn.getRandom().nextFloat() / 4.0F, 2.5E-5D, worldIn.getRandom().nextFloat() / 4.0F);
                     }
                 } else {
-                    for (int i = 0; i < worldIn.random.nextInt(4) + 2; ++i) {
-                        worldIn.addParticle(ParticleTypes.LARGE_SMOKE, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, worldIn.random.nextFloat() / 4.0F, 2.5E-5D, worldIn.random.nextFloat() / 4.0F);
+                    for (int i = 0; i < worldIn.getRandom().nextInt(4) + 2; ++i) {
+                        worldIn.addParticle(ParticleTypes.LARGE_SMOKE, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, worldIn.getRandom().nextFloat() / 4.0F, 2.5E-5D, worldIn.getRandom().nextFloat() / 4.0F);
                     }
                 }
             }
@@ -159,4 +158,17 @@ public class Utils {
         return activation;
     }
 
+
+    public static boolean isEffectlessThrownPotion(final net.minecraft.world.entity.projectile.Projectile projectile) {
+        return projectile instanceof net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion potion
+                && !potion.getItem().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).hasEffects();
+    }
+
+    public static boolean hasFrostWalker(final net.minecraft.world.entity.LivingEntity entity) {
+        final ItemStack boots = entity.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET);
+        return entity.level().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT)
+                .get(net.minecraft.world.item.enchantment.Enchantments.FROST_WALKER)
+                .map(holder -> net.minecraft.world.item.enchantment.EnchantmentHelper.getItemEnchantmentLevel(holder, boots) > 0)
+                .orElse(false);
+    }
 }

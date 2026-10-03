@@ -1,6 +1,8 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Blocks;
+import org.dawnoftime.dawnoftime.util.DoTBProperties;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -22,19 +24,19 @@ public class FlowerPotBlockDoT extends BlockDoT implements IBlockSpecialDisplay 
     private Item itemInPot;
 
     public FlowerPotBlockDoT(@Nullable Item itemInPot) {
-        super(Properties.copy(FLOWER_POT), FLOWER_POT_SHAPE);
+        super(DoTBProperties.copy(Blocks.FLOWER_POT), FLOWER_POT_SHAPE);
         this.itemInPot = itemInPot;
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult ray) {
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState state, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult ray) {
         if(this.itemInPot != null && !world.isClientSide()) {
             if(entity.getItemInHand(hand).isEmpty()) {
                 Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(this.itemInPot));
                 world.setBlock(pos, Blocks.FLOWER_POT.defaultBlockState(), 2);
             }
         }
-        return super.use(state, world, pos, entity, hand, ray);
+        return super.useItemOn(useStack_, state, world, pos, entity, hand, ray);
     }
 
     @Override

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "x x",
+    "bib",
+    "obo"
+  ],
+  "key": {
+    "b": "dawnoftimebuilder:stone_bricks_masonry",
+    "i": "minecraft:feather",
+    "o": "minecraft:red_dye",
+    "x": "minecraft:gold_nugget"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:german_emblem",
+    "count": 4
+  }
+}

@@ -1,16 +1,17 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +21,7 @@ import javax.annotation.Nullable;
 public class WallOrFloorBlockDoT extends BlockDoT {
 
     // UP = floor. NORTH/SOUTH/EAST/WEST = the wall face the carpet is visible from.
-    public static final DirectionProperty PLACED_FACE = DirectionProperty.create("placed_face",
+    public static final EnumProperty<Direction> PLACED_FACE = EnumProperty.create("placed_face", Direction.class,
         Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
     // shapes[0]=floor, [1]=SOUTH wall, [2]=WEST wall, [3]=NORTH wall, [4]=EAST wall
@@ -57,9 +58,7 @@ public class WallOrFloorBlockDoT extends BlockDoT {
     }
 
     @Override
-    public @NotNull BlockState updateShape(@NotNull BlockState stateIn, @NotNull Direction facing,
-            @NotNull BlockState facingState, @NotNull LevelAccessor worldIn,
-            @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
         Direction face = stateIn.getValue(PLACED_FACE);
         // Determine the direction where the support block sits
         Direction supportDir = (face == Direction.UP) ? Direction.DOWN : face.getOpposite();

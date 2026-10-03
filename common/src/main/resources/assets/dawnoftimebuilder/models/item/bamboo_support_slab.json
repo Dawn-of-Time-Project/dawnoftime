@@ -1,5 +1,6 @@
 {
     "textures": {
+        "particle": "block/bamboo_planks",
         "slab": "block/bamboo_planks"
     },
     "elements": [

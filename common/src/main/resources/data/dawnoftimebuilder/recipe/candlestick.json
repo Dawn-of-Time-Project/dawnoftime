@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " i ",
+    " o "
+  ],
+  "key": {
+    "i": "minecraft:candle",
+    "o": "minecraft:iron_ingot"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:candlestick"
+  }
+}

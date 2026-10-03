@@ -1,5 +1,10 @@
 package org.dawnoftime.dawnoftime.block.japanese;
 
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -34,7 +39,7 @@ import static org.dawnoftime.dawnoftime.util.VoxelShapes.TATAMI_MAT_SHAPES;
 
 public class TatamiMatBlock extends WaterloggedBlock {
     public static final EnumProperty<Half> HALF = BlockStateProperties.HALF;
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty ROLLED = BlockStatePropertiesAA.ROLLED;
     public static final IntegerProperty STACK = BlockStatePropertiesAA.STACK;
 
@@ -96,10 +101,10 @@ public class TatamiMatBlock extends WaterloggedBlock {
     }
 
     @Override
-    public @NotNull BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor worldIn, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
-        stateIn = super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
+        stateIn = super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
         if(facing.getAxis().isVertical()) {
-            return !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : this.tryMergingWithSprucePlanks(stateIn, worldIn, currentPos);
+            return !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : (worldIn instanceof LevelAccessor levelAccessor_ ? this.tryMergingWithSprucePlanks(stateIn, levelAccessor_, currentPos) : stateIn);
         } else {
             boolean mustDisappear = false;
             if(stateIn.getValue(ROLLED))
@@ -122,7 +127,7 @@ public class TatamiMatBlock extends WaterloggedBlock {
             }
             if(mustDisappear) {
                 stateIn = Blocks.AIR.defaultBlockState();
-                worldIn.setBlock(currentPos, stateIn, 2); //Avoid the breaking particles
+                if (worldIn instanceof LevelAccessor levelAccessor_) levelAccessor_.setBlock(currentPos, stateIn, 2); //Avoid the breaking particles
             }
         }
         return stateIn;
@@ -143,7 +148,7 @@ public class TatamiMatBlock extends WaterloggedBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if(player.isCrouching()) {
             int stack = state.getValue(STACK);
             boolean isRolled = state.getValue(ROLLED);
@@ -167,7 +172,7 @@ public class TatamiMatBlock extends WaterloggedBlock {
                     state = state.setValue(HALF, Half.TOP).setValue(FACING, facing.getOpposite());
                 }
             }
-            state = this.updateShape(state, Direction.DOWN, worldIn.getBlockState(pos.below()), worldIn, pos, pos.below());
+            state = this.updateShape(state, worldIn, worldIn, pos, Direction.DOWN, pos.below(), worldIn.getBlockState(pos.below()), worldIn.getRandom());
             worldIn.setBlock(pos, state, 2);
             worldIn.playSound(player, pos, this.soundType.getPlaceSound(), SoundSource.BLOCKS, (this.soundType.getVolume() + 1.0F) / 2.0F, this.soundType.getPitch() * 0.8F);
             return InteractionResult.SUCCESS;

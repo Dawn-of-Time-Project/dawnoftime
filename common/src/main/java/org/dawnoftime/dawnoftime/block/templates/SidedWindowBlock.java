@@ -38,8 +38,8 @@ public class SidedWindowBlock extends WaterloggedHorizontalBlock {
     }
 
     @Override
-    public void neighborChanged(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, @NotNull Block blockIn, @NotNull BlockPos fromPos, boolean isMoving) {
-        super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
+    protected void neighborChanged(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, @NotNull Block blockIn, @org.jetbrains.annotations.Nullable net.minecraft.world.level.redstone.Orientation orientation, boolean isMoving) {
+        super.neighborChanged(state, worldIn, pos, blockIn, orientation, isMoving);
         boolean changeTOP = canConnectVertical(state, worldIn, pos);
         boolean changeSIDE = canConnectHorizontal(state, worldIn, pos);
         BlockState newState = state;

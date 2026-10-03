@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "iIi",
+    "IIi"
+  ],
+  "key": {
+    "i": "dawnoftimebuilder:blue_painted_stone",
+    "I": "dawnoftimebuilder:red_painted_stone"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:red_painted_blue_wave",
+    "count": 6
+  }
+}

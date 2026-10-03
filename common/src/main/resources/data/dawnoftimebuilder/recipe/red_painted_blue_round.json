@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IiI",
+    "iIi",
+    "IiI"
+  ],
+  "key": {
+    "i": "dawnoftimebuilder:blue_painted_stone",
+    "I": "dawnoftimebuilder:red_painted_stone"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:red_painted_blue_round",
+    "count": 6
+  }
+}

@@ -1,5 +1,6 @@
 {
     "textures": {
+        "particle": "block/acacia_planks",
         "slab": "block/acacia_planks"
     },
     "elements": [

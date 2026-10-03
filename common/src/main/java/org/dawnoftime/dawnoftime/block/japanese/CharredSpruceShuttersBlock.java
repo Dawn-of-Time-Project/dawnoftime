@@ -1,5 +1,8 @@
 package org.dawnoftime.dawnoftime.block.japanese;
 
+import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -14,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
@@ -28,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 public class CharredSpruceShuttersBlock extends WaterloggedBlock {
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 
@@ -50,7 +53,7 @@ public class CharredSpruceShuttersBlock extends WaterloggedBlock {
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState state, BlockGetter reader, BlockPos pos) {
+    protected boolean propagatesSkylightDown(final BlockState state) {
         return true;
     }
 
@@ -63,7 +66,7 @@ public class CharredSpruceShuttersBlock extends WaterloggedBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         state = state.setValue(OPEN, !state.getValue(OPEN));
         worldIn.setBlock(pos, state, 10);
         worldIn.levelEvent(player, state.getValue(OPEN) ? this.getOpenSound() : this.getCloseSound(), pos, 0);
@@ -73,7 +76,7 @@ public class CharredSpruceShuttersBlock extends WaterloggedBlock {
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    protected void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, @org.jetbrains.annotations.Nullable Orientation orientation, boolean isMoving) {
         boolean isPowered = worldIn.hasNeighborSignal(pos);
         if(blockIn != this && isPowered != state.getValue(POWERED)) {
             if(isPowered != state.getValue(OPEN))

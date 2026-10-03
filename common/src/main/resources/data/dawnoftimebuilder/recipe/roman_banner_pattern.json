@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:paper",
+    "dawnoftimebuilder:roman_emblem"
+  ],
+  "result": {
+    "id": "dawnoftimebuilder:roman_banner_pattern",
+    "count": 1
+  }
+}

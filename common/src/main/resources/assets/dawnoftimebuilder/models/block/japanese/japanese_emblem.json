@@ -3,8 +3,8 @@
 	"credit": "Made with Blockbench",
 	"render_type": "minecraft:cutout",
 	"textures": {
-		"0": "dawnoftimebuilder:item/logo_japanese",
-		"particle": "dawnoftimebuilder:item/logo_japanese"
+		"0": "dawnoftimebuilder:block/logo_japanese",
+		"particle": "dawnoftimebuilder:block/logo_japanese"
 	},
 	"elements": [
 		{

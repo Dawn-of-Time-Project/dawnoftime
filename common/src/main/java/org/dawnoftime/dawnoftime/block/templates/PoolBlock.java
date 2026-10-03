@@ -1,5 +1,7 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -11,11 +13,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -98,7 +101,7 @@ public class PoolBlock extends BlockDoT {
     }
 
     @Override
-    public InteractionResult use(BlockState blockStateIn, final Level worldIn, final BlockPos blockPosIn, final Player playerEntityIn, final InteractionHand handIn, final BlockHitResult blockRayTraceResultIn) {
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState blockStateIn, final Level worldIn, final BlockPos blockPosIn, final Player playerEntityIn, final InteractionHand handIn, final BlockHitResult blockRayTraceResultIn) {
         final ItemStack itemStack = playerEntityIn.getMainHandItem();
         if(!playerEntityIn.isCrouching()) {
             final int lastLevel = blockStateIn.getValue(BlockStatePropertiesAA.LEVEL);
@@ -122,9 +125,7 @@ public class PoolBlock extends BlockDoT {
                 }
                 tryToChangeLevel = true;
             } else if(itemStack.getItem() instanceof PotionItem) {
-                final Potion potion = PotionUtils.getPotion(itemStack);
-
-                if(potion.getEffects().isEmpty() && nextLevel + 1 < this.maxLevel) {
+                if(!itemStack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).hasEffects() && nextLevel + 1 < this.maxLevel) {
                     nextLevel++;
 
                     if(!playerEntityIn.isCreative()) {
@@ -133,9 +134,7 @@ public class PoolBlock extends BlockDoT {
                 }
                 tryToChangeLevel = true;
             } else if(itemStack.getItem() instanceof BottleItem) {
-                final Potion potion = PotionUtils.getPotion(itemStack);
-
-                if(potion.getEffects().isEmpty() && nextLevel - 1 >= 0) {
+                if(nextLevel - 1 >= 0) {
                     nextLevel--;
 
                     if(!playerEntityIn.isCreative()) {
@@ -221,7 +220,7 @@ public class PoolBlock extends BlockDoT {
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, final Direction directionIn, final BlockState facingStateIn, final LevelAccessor worldIn, final BlockPos currentPosIn, final BlockPos facingPosIn) {
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPosIn, Direction directionIn, BlockPos facingPosIn, BlockState facingStateIn, RandomSource randomIn_) {
         if(directionIn.getAxis().isHorizontal()) {
             final boolean hasPoolInSide = facingStateIn.getBlock() == this;
             if(hasPoolInSide && facingStateIn.getValue(BlockStatePropertiesAA.LEVEL) >= 0) {
@@ -262,7 +261,7 @@ public class PoolBlock extends BlockDoT {
             stateIn = stateIn.setValue(BlockStatePropertiesAA.LEVEL, level);
 
             if(!worldIn.isClientSide() && lastLevel != level) {
-                (worldIn).scheduleTick(currentPosIn, this, 5);
+                ticksIn_.scheduleTick(currentPosIn, this, 5);
             }
         }
 
@@ -270,17 +269,17 @@ public class PoolBlock extends BlockDoT {
     }
 
     @Override
-    public int getLightBlock(final BlockState p_200011_1_In, final BlockGetter p_200011_2_In, final BlockPos p_200011_3_In) {
+    protected int getLightDampening(final BlockState p_200011_1_In) {
         return 1;
     }
 
     @Override
-    public boolean useShapeForLightOcclusion(final BlockState p_220074_1_In) {
+    protected boolean useShapeForLightOcclusion(final BlockState p_220074_1_In) {
         return false;
     }
 
     @Override
-    public boolean propagatesSkylightDown(final BlockState p_200123_1_In, final BlockGetter p_200123_2_In, final BlockPos p_200123_3_In) {
+    protected boolean propagatesSkylightDown(final BlockState p_200123_1_In) {
         return true;
     }
 
@@ -323,11 +322,11 @@ public class PoolBlock extends BlockDoT {
         return false;
     }
 
-    public static EnumActivatorState hasOnePoolActivatorAround(final BlockPos blockPosIn, final LevelAccessor worldIn) {
+    public static EnumActivatorState hasOnePoolActivatorAround(final BlockPos blockPosIn, final LevelReader worldIn) {
         return PoolBlock.hasOnePoolActivatorAround(new LinkedHashMap<>(), blockPosIn, worldIn, 0.0f, 0.0f);
     }
 
-    private static EnumActivatorState hasOnePoolActivatorAround(final Map<BlockPos, BlockState> testedPositionsIn, final BlockPos blockPosIn, final LevelAccessor worldIn, final float prohibitedXIn, final float prohibitedZIn) {
+    private static EnumActivatorState hasOnePoolActivatorAround(final Map<BlockPos, BlockState> testedPositionsIn, final BlockPos blockPosIn, final LevelReader worldIn, final float prohibitedXIn, final float prohibitedZIn) {
         if(testedPositionsIn.containsKey(blockPosIn)) {
             return EnumActivatorState.NO;
         }
@@ -345,7 +344,7 @@ public class PoolBlock extends BlockDoT {
         return EnumActivatorState.NO;
     }
 
-    public static EnumActivatorState hasOnePoolActivatorAroundOffset(final Map<BlockPos, BlockState> testedPositionsIn, final LevelAccessor worldIn, final BlockPos baseBlockPosIn, final int xOffsetIn, final int zOffsetIn) {
+    public static EnumActivatorState hasOnePoolActivatorAroundOffset(final Map<BlockPos, BlockState> testedPositionsIn, final LevelReader worldIn, final BlockPos baseBlockPosIn, final int xOffsetIn, final int zOffsetIn) {
         final BlockPos offsetBlockPos = baseBlockPosIn.offset(xOffsetIn, 0, zOffsetIn);
         final BlockState offsetState = worldIn.getBlockState(offsetBlockPos);
 
@@ -356,11 +355,11 @@ public class PoolBlock extends BlockDoT {
         return EnumActivatorState.NO;
     }
 
-    private static PoolLevelAndSides levelOfPoolAround(final BlockPos blockPosIn, final LevelAccessor worldIn) {
+    private static PoolLevelAndSides levelOfPoolAround(final BlockPos blockPosIn, final LevelReader worldIn) {
         return PoolBlock.levelOfPoolAround(new LinkedHashMap<>(), new PoolLevelAndSides(), blockPosIn, worldIn, 0.0f, 0.0f);
     }
 
-    private static PoolLevelAndSides levelOfPoolAround(final Map<BlockPos, BlockState> testedPositionsIn, final PoolLevelAndSides poolLevelAndSidesIn, final BlockPos blockPosIn, final LevelAccessor worldIn, final float prohibitedXIn, final float prohibitedZIn) {
+    private static PoolLevelAndSides levelOfPoolAround(final Map<BlockPos, BlockState> testedPositionsIn, final PoolLevelAndSides poolLevelAndSidesIn, final BlockPos blockPosIn, final LevelReader worldIn, final float prohibitedXIn, final float prohibitedZIn) {
         final boolean center = prohibitedXIn == 0 && prohibitedZIn == 0;
 
         if(prohibitedXIn != 1) {
@@ -407,7 +406,7 @@ public class PoolBlock extends BlockDoT {
         return poolLevelAndSidesIn;
     }
 
-    private static int poolLevelAroundOffset(final Map<BlockPos, BlockState> testedPositionsIn, final PoolLevelAndSides poolLevelAndSidesIn, final BlockPos baseBlockPosIn, final LevelAccessor worldIn, final int xOffsetIn, final int zOffsetIn) {
+    private static int poolLevelAroundOffset(final Map<BlockPos, BlockState> testedPositionsIn, final PoolLevelAndSides poolLevelAndSidesIn, final BlockPos baseBlockPosIn, final LevelReader worldIn, final int xOffsetIn, final int zOffsetIn) {
         final BlockPos pos = baseBlockPosIn.offset(xOffsetIn, 0, zOffsetIn);
         if(testedPositionsIn.containsKey(pos)) {
             return -1;

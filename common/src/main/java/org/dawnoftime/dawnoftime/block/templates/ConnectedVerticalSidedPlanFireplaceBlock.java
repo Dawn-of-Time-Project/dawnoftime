@@ -1,5 +1,8 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -11,13 +14,16 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball;
+import net.minecraft.world.entity.projectile.hurtingprojectile.Fireball;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -62,7 +68,7 @@ public class ConnectedVerticalSidedPlanFireplaceBlock extends ConnectedVerticalS
     }
 
     @Override
-    public InteractionResult use(final BlockState stateIn, final Level worldIn, final BlockPos pos, final Player player, final InteractionHand handIn, final BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, final BlockState stateIn, final Level worldIn, final BlockPos pos, final Player player, final InteractionHand handIn, final BlockHitResult hit) {
         if(player.getMainHandItem() != null && player.getMainHandItem().getItem() instanceof BlockItem &&
                 ((BlockItem) player.getMainHandItem().getItem()).getBlock() instanceof ConnectedVerticalSidedPlanFireplaceBlock) {
             return InteractionResult.PASS;
@@ -71,8 +77,8 @@ public class ConnectedVerticalSidedPlanFireplaceBlock extends ConnectedVerticalS
             final int activation = Utils.changeBlockLitStateWithItemOrCreativePlayer(stateIn, worldIn, pos, player, handIn);
             if(activation >= 0) {
                 final Direction direction = stateIn.getValue(ConnectedVerticalSidedBlock.FACING);
-                worldIn.getBlockState(pos.relative(direction.getCounterClockWise())).neighborChanged(worldIn, pos.relative(direction.getCounterClockWise()), this, pos, false);
-                worldIn.getBlockState(pos.relative(direction.getClockWise())).neighborChanged(worldIn, pos.relative(direction.getClockWise()), stateIn.getBlock(), pos, false);
+                worldIn.getBlockState(pos.relative(direction.getCounterClockWise())).handleNeighborChanged(worldIn, pos.relative(direction.getCounterClockWise()), this, null, false);
+                worldIn.getBlockState(pos.relative(direction.getClockWise())).handleNeighborChanged(worldIn, pos.relative(direction.getClockWise()), stateIn.getBlock(), null, false);
 
                 ConnectedVerticalSidedPlanFireplaceBlock.updateChimneys(activation == 1, stateIn, pos, worldIn);
 
@@ -93,7 +99,7 @@ public class ConnectedVerticalSidedPlanFireplaceBlock extends ConnectedVerticalS
             if(projectile instanceof AbstractArrow) {
                 activation = 1;
             }
-        } else if(state.getValue(FireplaceBlock.LIT) && (projectile instanceof Snowball || projectile instanceof ThrowableProjectile && PotionUtils.getPotion(((ThrowableItemProjectile) projectile).getItem()).getEffects().size() <= 0)) {
+        } else if(state.getValue(FireplaceBlock.LIT) && (projectile instanceof Snowball || Utils.isEffectlessThrownPotion(projectile))) {
             activation = 0;
         }
 
@@ -106,21 +112,41 @@ public class ConnectedVerticalSidedPlanFireplaceBlock extends ConnectedVerticalS
                 worldIn.setBlock(pos, state, 10);
                 worldIn.playSound(null, pos, isActivated ? SoundEvents.FIRE_AMBIENT : SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
             } else if(!isActivated && worldIn.isClientSide()) {
-                for(int i = 0; i < worldIn.random.nextInt(1) + 1; ++i) {
-                    worldIn.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, worldIn.random.nextFloat() / 4.0F, 2.5E-5D, worldIn.random.nextFloat() / 4.0F);
+                for(int i = 0; i < worldIn.getRandom().nextInt(1) + 1; ++i) {
+                    worldIn.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, worldIn.getRandom().nextFloat() / 4.0F, 2.5E-5D, worldIn.getRandom().nextFloat() / 4.0F);
                 }
             }
 
             ConnectedVerticalSidedPlanFireplaceBlock.updateChimneys(isActivated, state, pos, worldIn);
 
             final Direction direction = state.getValue(ConnectedVerticalSidedBlock.FACING);
-            worldIn.getBlockState(pos.relative(direction.getClockWise())).neighborChanged(worldIn, pos.relative(direction.getClockWise()), this, pos, false);
-            worldIn.getBlockState(pos.relative(direction.getCounterClockWise())).neighborChanged(worldIn, pos.relative(direction.getCounterClockWise()), this, pos, false);
+            worldIn.getBlockState(pos.relative(direction.getClockWise())).handleNeighborChanged(worldIn, pos.relative(direction.getClockWise()), this, null, false);
+            worldIn.getBlockState(pos.relative(direction.getCounterClockWise())).handleNeighborChanged(worldIn, pos.relative(direction.getCounterClockWise()), this, null, false);
         }
     }
 
     @Override
-    public void neighborChanged(final BlockState state, final Level worldIn, final BlockPos pos, final Block blockIn, final BlockPos fromPos, final boolean isMoving) {
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos, Direction direction, BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
+        BlockState result = super.updateShape(state, level, ticks, pos, direction, neighbourPos, neighbourState, random);
+        if (direction == Direction.DOWN
+                && neighbourState.getBlock() instanceof ConnectedVerticalSidedPlanFireplaceBlock
+                && result.getBlock() instanceof ConnectedVerticalSidedPlanFireplaceBlock
+                && neighbourState.hasProperty(BlockStateProperties.LIT)
+                && result.hasProperty(BlockStateProperties.LIT)
+                && result.getValue(BlockStateProperties.LIT) != neighbourState.getValue(BlockStateProperties.LIT)) {
+            result = result.setValue(BlockStateProperties.LIT, neighbourState.getValue(BlockStateProperties.LIT));
+        }
+        return result;
+    }
+
+    @Override
+    protected void neighborChanged(final BlockState state, final Level worldIn, final BlockPos pos, final Block blockIn, @org.jetbrains.annotations.Nullable final Orientation orientation, final boolean isMoving) {
+        final Direction plane = state.getValue(ConnectedVerticalSidedBlock.FACING);
+        this.updateFromNeighbor(state, worldIn, pos, pos.relative(plane.getClockWise()));
+        this.updateFromNeighbor(state, worldIn, pos, pos.relative(plane.getCounterClockWise()));
+    }
+
+    private void updateFromNeighbor(final BlockState state, final Level worldIn, final BlockPos pos, final BlockPos fromPos) {
         if(state.getValue(ConnectedVerticalBlock.VERTICAL_CONNECTION) != BlockStatePropertiesAA.VerticalConnection.BOTH && state.getValue(ConnectedVerticalBlock.VERTICAL_CONNECTION) != BlockStatePropertiesAA.VerticalConnection.UNDER) {
             final BlockState newState = worldIn.getBlockState(fromPos);
             if(newState.getBlock() == this) {
@@ -138,7 +164,7 @@ public class ConnectedVerticalSidedPlanFireplaceBlock extends ConnectedVerticalS
                         }
                         worldIn.setBlock(pos, state.setValue(ConnectedVerticalSidedPlanFireplaceBlock.LIT, burning), 10);
                         final BlockPos newPos = pos.relative(facing.getClockWise()).equals(fromPos) ? pos.relative(facing.getCounterClockWise()) : pos.relative(facing.getClockWise());
-                        worldIn.getBlockState(newPos).neighborChanged(worldIn, newPos, this, pos, false);
+                        worldIn.getBlockState(newPos).handleNeighborChanged(worldIn, newPos, this, null, false);
                     }
                 }
             }

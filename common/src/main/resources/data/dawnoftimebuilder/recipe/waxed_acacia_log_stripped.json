@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:honeycomb",
+    "minecraft:stripped_acacia_log",
+    "minecraft:stripped_acacia_log",
+    "minecraft:stripped_acacia_log",
+    "minecraft:stripped_acacia_log",
+    "minecraft:stripped_acacia_log",
+    "minecraft:stripped_acacia_log",
+    "minecraft:stripped_acacia_log",
+    "minecraft:stripped_acacia_log"
+  ],
+  "result": {
+    "id": "dawnoftimebuilder:waxed_acacia_log_stripped",
+    "count": 8
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "dawnoftimebuilder:item/birch_leaves_edge",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -8345771
+      }
+    ]
+  }
+}

@@ -1,5 +1,5 @@
 {
-	"parent": "block/cube_all",
+	"parent": "minecraft:block/block",
 	"textures": {
 		"1": "dawnoftimebuilder:block/red_painted_stone",
 		"all": "dawnoftimebuilder:block/red_painted_blue_wave",

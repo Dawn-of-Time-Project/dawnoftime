@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iI",
+    "IX"
+  ],
+  "key": {
+    "I": "minecraft:clay_ball",
+    "i": "minecraft:wheat",
+    "X": "minecraft:white_dye"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:white_wattle_and_daub",
+    "count": 8
+  }
+}

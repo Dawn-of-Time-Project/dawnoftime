@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:red_dye",
+    "minecraft:stripped_spruce_log"
+  ],
+  "result": {
+    "id": "dawnoftimebuilder:red_painted_log",
+    "count": 6
+  }
+}

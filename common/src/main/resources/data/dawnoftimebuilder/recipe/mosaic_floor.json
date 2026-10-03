@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iui",
+    "ooo",
+    "ooo"
+  ],
+  "key": {
+    "o": "minecraft:smooth_sandstone",
+    "i": "dawnoftimebuilder:clay_tile_black",
+    "u": "dawnoftimebuilder:clay_tile_orange"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:mosaic_floor",
+    "count": 6
+  }
+}

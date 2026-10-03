@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -25,6 +25,10 @@ import javax.annotation.Nullable;
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.MARBLE_COLUMN_SHAPES;
 
 public class MarbleColumnBlock extends ConnectedVerticalBlock implements IBlockPillar {
+    {
+        this.blocksLandPathing = true;
+    }
+
     public static final BooleanProperty AXIS_X = BlockStatePropertiesAA.AXIS_X;
 
     public MarbleColumnBlock(Properties properties) {
@@ -60,7 +64,7 @@ public class MarbleColumnBlock extends ConnectedVerticalBlock implements IBlockP
     }
 
     @Override
-    public boolean isConnectible(BlockState stateIn, LevelAccessor worldIn, BlockPos pos, Direction faceToConnect) {
+    public boolean isConnectible(BlockState stateIn, LevelReader worldIn, BlockPos pos, Direction faceToConnect) {
         BlockState testedState = worldIn.getBlockState(pos);
         if (faceToConnect == Direction.DOWN && IBlockPillar.getPillarConnectionUnder(worldIn, pos) == BlockStatePropertiesAA.PillarConnection.EIGHT_PX) {
             return true;

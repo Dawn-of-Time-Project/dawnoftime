@@ -1,5 +1,6 @@
 {
 	"textures": {
+		"particle": "block/cherry_planks",
 		"slab": "block/cherry_planks",
 		"texture": "dawnoftimebuilder:block/cherry_beam"
 	},

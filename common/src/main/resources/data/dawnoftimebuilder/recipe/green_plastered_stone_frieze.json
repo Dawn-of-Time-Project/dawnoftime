@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    " i ",
+    " I "
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:plastered_stone",
+    "i": "minecraft:green_dye"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:green_plastered_stone_frieze",
+    "count": 6
+  }
+}

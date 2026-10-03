@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IiI"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:red_plastered_stone",
+    "i": "minecraft:blue_dye"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:red_painted_stone_frieze_edge",
+    "count": 6
+  }
+}

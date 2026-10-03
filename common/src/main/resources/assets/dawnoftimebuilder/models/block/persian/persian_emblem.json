@@ -3,8 +3,8 @@
     "credit": "Made with Blockbench",
     "render_type": "minecraft:cutout",
     "textures": {
-        "0": "dawnoftimebuilder:item/logo_persian",
-        "particle": "dawnoftimebuilder:item/logo_persian"
+        "0": "dawnoftimebuilder:block/logo_persian",
+        "particle": "dawnoftimebuilder:block/logo_persian"
     },
     "elements": [
         {

@@ -2,13 +2,13 @@ package org.dawnoftime.dawnoftime.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
@@ -43,7 +43,7 @@ public class ChairEntity extends Entity {
             if(seats.isEmpty()) {
                 final ChairEntity seat = new ChairEntity(level, pos, direction, pixelsXOffset, pixelsYOffset, pixelsZOffset);
                 level.addFreshEntity(seat);
-                if(player.startRiding(seat, false)) {
+                if(player.startRiding(seat, false, true)) {
                     return InteractionResult.SUCCESS;
                 }
             }
@@ -58,8 +58,13 @@ public class ChairEntity extends Entity {
     }
 
     @Override
-    protected void defineSynchedData() {
+    protected void defineSynchedData(final SynchedEntityData.Builder builder) {
 
+    }
+
+    @Override
+    public boolean hurtServer(final net.minecraft.server.level.ServerLevel level, final net.minecraft.world.damagesource.DamageSource source, final float damage) {
+        return false;
     }
 
     @Override
@@ -75,17 +80,13 @@ public class ChairEntity extends Entity {
     }
 
     @Override
-    protected void readAdditionalSaveData(final @NotNull CompoundTag p_70037_1_) {
+    protected void readAdditionalSaveData(final @NotNull ValueInput input) {
     }
 
     @Override
-    protected void addAdditionalSaveData(final @NotNull CompoundTag p_213281_1_) {
+    protected void addAdditionalSaveData(final @NotNull ValueOutput output) {
     }
 
-    @Override
-    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return new ClientboundAddEntityPacket(this);
-    }
 
     protected void clampRotation(Entity player) {
         player.setYBodyRot(this.getYRot());
@@ -101,14 +102,15 @@ public class ChairEntity extends Entity {
         this.clampRotation(pEntityToUpdate);
     }
 
-    @Override
-    public double getPassengersRidingOffset() {
-        return 0.0D;
-    }
 
     @Override
     protected boolean canRide(final Entity entity) {
         return true;
+    }
+
+    @Override
+    protected @NotNull Vec3 getPassengerAttachmentPoint(@NotNull Entity passenger, @NotNull EntityDimensions dimensions, float scale) {
+        return new Vec3(0.0D, 0.25D, 0.0D);
     }
 
     @Override

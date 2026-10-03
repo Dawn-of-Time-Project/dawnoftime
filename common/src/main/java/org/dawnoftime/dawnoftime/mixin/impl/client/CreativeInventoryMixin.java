@@ -1,13 +1,13 @@
 package org.dawnoftime.dawnoftime.mixin.impl.client;
 
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
-import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.CreativeModeTab;
@@ -35,8 +35,8 @@ import static org.dawnoftime.dawnoftime.DoTBCommon.MOD_ID;
 
 @SuppressWarnings("unused")
 @Mixin(CreativeModeInventoryScreen.class)
-public abstract class CreativeInventoryMixin extends EffectRenderingInventoryScreen<CreativeModeInventoryScreen.ItemPickerMenu> implements CreativeScreen {
-    @Shadow public abstract boolean mouseScrolled(double p_98527_, double p_98528_, double p_98529_);
+public abstract class CreativeInventoryMixin extends AbstractContainerScreen<CreativeModeInventoryScreen.ItemPickerMenu> implements CreativeScreen {
+    @Shadow public abstract boolean mouseScrolled(double x, double y, double scrollX, double scrollY);
 
     @Unique
     private List<CategoryButton> dOTBuilder$buttons;
@@ -124,8 +124,8 @@ public abstract class CreativeInventoryMixin extends EffectRenderingInventoryScr
 
     @Unique
     private static boolean dOTBuilder$hasSetItemsYet = false;
-    @Inject(method = "render", at = @At(value = "HEAD"))
-    public void dawnoftimebuilder$render(GuiGraphics $$0, int $$1, int $$2, float $$3, CallbackInfo ci) {
+    @Inject(method = "extractRenderState", at = @At(value = "HEAD"))
+    public void dawnoftimebuilder$render(GuiGraphicsExtractor $$0, int $$1, int $$2, float $$3, CallbackInfo ci) {
         if (!dOTBuilder$hasSetItemsYet && this.dOTBuilder$tabDoTBSelected) {
             dOTBuilder$updateItems((CreativeModeInventoryScreen) (Object) this);
             dOTBuilder$hasSetItemsYet = true;
@@ -157,7 +157,7 @@ public abstract class CreativeInventoryMixin extends EffectRenderingInventoryScr
     }
 
     @Inject(method = "mouseScrolled", at = @At(value = "HEAD"), cancellable = true)
-    public void dawnoftimebuilder$mouseScrolled(double mouseX, double mouseY, double delta, CallbackInfoReturnable<Boolean> cir) {
+    public void dawnoftimebuilder$mouseScrolled(double mouseX, double mouseY, double scrollX, double delta, CallbackInfoReturnable<Boolean> cir) {
         int guiLeft = this.leftPos;
         int guiTop = this.topPos;
         int startX = guiLeft - 32;
@@ -193,7 +193,7 @@ public abstract class CreativeInventoryMixin extends EffectRenderingInventoryScr
 
     @Unique
     private void dOTBuilder$updateItems(CreativeModeInventoryScreen screen) {
-        this.mouseScrolled(0, 0, Float.MAX_VALUE);
+        this.mouseScrolled(0, 0, 0, Float.MAX_VALUE);
         CreativeModeInventoryScreen.ItemPickerMenu container = screen.getMenu();
         container.items.clear();
         CreativeInventoryCategories.values()[dOTBuilder$selectedCategoryID].getSubTabItems(dOTBuilder$selectedSubTabID).forEach(item -> container.items.add(new ItemStack(item)));

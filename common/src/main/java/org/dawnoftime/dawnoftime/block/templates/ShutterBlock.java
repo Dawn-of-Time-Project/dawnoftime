@@ -1,5 +1,7 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -7,7 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -70,7 +71,7 @@ public class ShutterBlock extends SmallShutterBlock {
     }
 
     @Override
-    public @NotNull BlockState updateShape(BlockState stateIn, final @NotNull Direction facing, final @NotNull BlockState facingState, final @NotNull LevelAccessor worldIn, final @NotNull BlockPos currentPos, final @NotNull BlockPos facingPos) {
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
         final Direction halfDirection = stateIn.getValue(ShutterBlock.HALF) == Half.TOP ? Direction.DOWN : Direction.UP;
         if(facing == halfDirection) {
             if(facingState.getBlock() != this || facingState.getValue(ShutterBlock.HALF) == stateIn.getValue(ShutterBlock.HALF) || facingState.getValue(SmallShutterBlock.FACING) != stateIn.getValue(SmallShutterBlock.FACING)
@@ -79,11 +80,11 @@ public class ShutterBlock extends SmallShutterBlock {
             }
             stateIn = stateIn.setValue(SmallShutterBlock.OPEN_POSITION, facingState.getValue(SmallShutterBlock.OPEN_POSITION));
         }
-        return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
     }
 
     @Override
-    protected BlockStatePropertiesAA.OpenPosition getOpenState(final BlockState stateIn, final LevelAccessor worldIn, final BlockPos pos) {
+    protected BlockStatePropertiesAA.OpenPosition getOpenState(final BlockState stateIn, final LevelReader worldIn, final BlockPos pos) {
         final BlockPos secondPos = pos.relative(stateIn.getValue(ShutterBlock.HALF) == Half.TOP ? Direction.DOWN : Direction.UP);
         if(!worldIn.getBlockState(secondPos).getCollisionShape(worldIn, pos).isEmpty() || !worldIn.getBlockState(pos).getCollisionShape(worldIn, pos).isEmpty()) {
             return BlockStatePropertiesAA.OpenPosition.HALF;
@@ -92,7 +93,7 @@ public class ShutterBlock extends SmallShutterBlock {
     }
 
     @Override
-    public void playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
+    public BlockState playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
         // Prevents item from dropping in creative by removing the part that gives the item with a setBlock.
         if (!level.isClientSide() && player.isCreative()) {
             if (state.getValue(HALF) == Half.TOP) {
@@ -105,6 +106,6 @@ public class ShutterBlock extends SmallShutterBlock {
                 }
             }
         }
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 }

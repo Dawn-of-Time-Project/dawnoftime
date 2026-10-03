@@ -1,5 +1,7 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -11,7 +13,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -54,12 +56,12 @@ public class ConnectedVerticalSidedPlanBlock extends ConnectedVerticalSidedBlock
     }
 
     @Override
-    public @NotNull BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor worldIn, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
-        stateIn = super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
+        stateIn = super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
         return (facing.getAxis() == stateIn.getValue(FACING).getClockWise().getAxis()) ? stateIn.setValue(HORIZONTAL_CONNECTION, this.getLineState(worldIn, currentPos, stateIn)) : stateIn;
     }
 
-    public BlockStatePropertiesAA.HorizontalConnection getLineState(LevelAccessor worldIn, BlockPos pos, BlockState stateIn) {
+    public BlockStatePropertiesAA.HorizontalConnection getLineState(LevelReader worldIn, BlockPos pos, BlockState stateIn) {
         Direction direction = stateIn.getValue(FACING).getClockWise();
         if(isConnectible(stateIn, worldIn, pos.relative(direction, -1), direction)) {
             return (isConnectible(stateIn, worldIn, pos.relative(direction), direction)) ? BlockStatePropertiesAA.HorizontalConnection.BOTH : BlockStatePropertiesAA.HorizontalConnection.LEFT;
@@ -69,7 +71,7 @@ public class ConnectedVerticalSidedPlanBlock extends ConnectedVerticalSidedBlock
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         return InteractionResult.PASS;
     }
 

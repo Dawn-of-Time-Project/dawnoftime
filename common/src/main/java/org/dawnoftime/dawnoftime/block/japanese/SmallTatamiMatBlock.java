@@ -1,6 +1,10 @@
 package org.dawnoftime.dawnoftime.block.japanese;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
@@ -79,6 +83,9 @@ public class SmallTatamiMatBlock extends WaterloggedBlock implements IBlockChain
                 return oldState.setValue(STACK, stack + 1);
             }
         }
+        final Block blockBelow = world.getBlockState(pos.below()).getBlock();
+        if(blockBelow instanceof SmallTatamiFloorBlock)
+            return null;
         return super.getStateForPlacement(context)
                 .setValue(ROLLED, world.getBlockState(pos.below()).is(DoTBTags.INSTANCE.COVERED_BLOCKS))
                 .setValue(HORIZONTAL_AXIS, context.getHorizontalDirection().getAxis());
@@ -98,8 +105,8 @@ public class SmallTatamiMatBlock extends WaterloggedBlock implements IBlockChain
     }
 
     @Override
-    public @NotNull BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor worldIn, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
-        stateIn = super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
+        stateIn = super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
         if(facing.getAxis().isVertical()) {
             stateIn = stateIn.setValue(ATTACHED, false);
             if(stateIn.getValue(ROLLED) && stateIn.getValue(STACK) == 1) {
@@ -143,7 +150,7 @@ public class SmallTatamiMatBlock extends WaterloggedBlock implements IBlockChain
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if(player.isCrouching()) {
             int stack = state.getValue(STACK);
             boolean isRolled = state.getValue(ROLLED);
@@ -155,7 +162,7 @@ public class SmallTatamiMatBlock extends WaterloggedBlock implements IBlockChain
                 Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(this.asItem()));
             } else
                 state = state.setValue(ROLLED, !isRolled);
-            state = this.updateShape(state, Direction.DOWN, worldIn.getBlockState(pos.below()), worldIn, pos, pos.below());
+            state = this.updateShape(state, worldIn, worldIn, pos, Direction.DOWN, pos.below(), worldIn.getBlockState(pos.below()), worldIn.getRandom());
             worldIn.setBlock(pos, state, 10);
             worldIn.playSound(player, pos, this.soundType.getPlaceSound(), SoundSource.BLOCKS, (this.soundType.getVolume() + 1.0F) / 2.0F, this.soundType.getPitch() * 0.8F);
 

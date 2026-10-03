@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "I I",
+    "  I"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:puuc_limestone"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:puuc_limestone_wave",
+    "count": 6
+  }
+}

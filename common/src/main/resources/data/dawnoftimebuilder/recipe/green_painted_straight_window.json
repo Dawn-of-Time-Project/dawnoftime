@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:green_painted_window"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:green_painted_straight_window",
+    "count": 8
+  }
+}

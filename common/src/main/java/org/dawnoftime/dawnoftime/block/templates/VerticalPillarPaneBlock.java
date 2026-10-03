@@ -1,9 +1,11 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -39,12 +41,12 @@ public class VerticalPillarPaneBlock extends PillarPaneBlock {
     }
 
     @Override
-    public @NotNull BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor worldIn, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
-        stateIn = super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
+        stateIn = super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
         return facing.getAxis().isVertical() ? stateIn.setValue(VERTICAL_CONNECTION, this.getVerticalConnectionState(worldIn, currentPos)) : stateIn;
     }
 
-    private BlockStatePropertiesAA.VerticalConnection getVerticalConnectionState(LevelAccessor world, BlockPos pos) {
+    private BlockStatePropertiesAA.VerticalConnection getVerticalConnectionState(LevelReader world, BlockPos pos) {
         boolean above = world.getBlockState(pos.above()).getBlock() == this;
         boolean below = world.getBlockState(pos.below()).getBlock() == this;
         if (above && below) return BlockStatePropertiesAA.VerticalConnection.BOTH;

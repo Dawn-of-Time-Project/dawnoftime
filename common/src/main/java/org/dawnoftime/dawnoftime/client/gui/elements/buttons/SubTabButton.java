@@ -1,25 +1,27 @@
 package org.dawnoftime.dawnoftime.client.gui.elements.buttons;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class SubTabButton extends Button {
-    private final ResourceLocation textureOn;
-    private final ResourceLocation textureOff;
+    private static final int HOVER_COLOR = 0xFFB3B3B3;
+
+    private final Identifier textureOn;
+    private final Identifier textureOff;
+    private final Tooltip tooltip;
     private boolean selected;
 
-    public SubTabButton(int x, int y, ResourceLocation textureOn, ResourceLocation textureOff, Component tooltip, OnPress pressable) {
+    public SubTabButton(int x, int y, Identifier textureOn, Identifier textureOff, Component tooltip, OnPress pressable) {
         super(x, y, 12, 12, Component.empty(), pressable, DEFAULT_NARRATION);
         this.textureOn = textureOn;
         this.textureOff = textureOff;
-        this.setTooltip(Tooltip.create(tooltip));
+        this.tooltip = Tooltip.create(tooltip);
+        this.setTooltip(this.tooltip);
         this.selected = false;
     }
 
@@ -32,26 +34,11 @@ public class SubTabButton extends Button {
     }
 
     @Override
-    protected void renderWidget(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
-        PoseStack ps = pGuiGraphics.pose();
+    protected void extractContents(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        this.setTooltip(this.active ? this.tooltip : null);
 
-        if (this.isHovered() && this.active) {
-            pGuiGraphics.setColor(0.7F, 0.7F, 0.7F, 1.0F);
-        }
-
-        ResourceLocation texture = this.selected ? textureOn : textureOff;
-
-        ps.pushPose();
-        RenderSystem.enableBlend();
-        pGuiGraphics.blit(texture, this.getX() - 1, this.getY(), 0, 0, 12, 12, 12, 12);
-        RenderSystem.disableBlend();
-        ps.popPose();
-
-        pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
-    }
-
-    @Override
-    public @Nullable Tooltip getTooltip() {
-        return this.active ? super.getTooltip() : null;
+        final int color = this.isHovered() && this.active ? HOVER_COLOR : 0xFFFFFFFF;
+        final Identifier texture = this.selected ? this.textureOn : this.textureOff;
+        graphics.blit(RenderPipelines.GUI_TEXTURED, texture, this.getX() - 1, this.getY(), 0.0F, 0.0F, 12, 12, 12, 12, color);
     }
 }

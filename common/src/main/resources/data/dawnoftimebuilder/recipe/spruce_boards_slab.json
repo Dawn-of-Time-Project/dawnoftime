@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:spruce_boards"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:spruce_boards_slab",
+    "count": 6
+  }
+}

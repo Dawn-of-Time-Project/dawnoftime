@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "II",
+    "II",
+    "ii"
+  ],
+  "key": {
+    "i": "minecraft:spruce_planks",
+    "I": "minecraft:paper"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:spruce_paper_door",
+    "count": 4
+  }
+}

@@ -1,24 +1,24 @@
 package org.dawnoftime.dawnoftime;
 
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -39,8 +39,10 @@ import org.dawnoftime.dawnoftime.client.renderer.blockentity.DisplayerBERenderer
 import org.dawnoftime.dawnoftime.client.renderer.entity.ChairRenderer;
 import org.dawnoftime.dawnoftime.item.IconItem;
 import org.dawnoftime.dawnoftime.registry.*;
+import org.dawnoftime.dawnoftime.util.DoTBProperties;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiFunction;
@@ -48,10 +50,14 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class RegistryImpls {
+    private static Identifier id(String name) {
+        return Identifier.fromNamespaceAndPath(DoTBCommon.MOD_ID, name);
+    }
+
     public static class FabricMenusRegistry extends DoTBMenusRegistry {
         @Override
-        public <T extends AbstractContainerMenu> Supplier<MenuType<T>> register(String name, java.util.function.BiFunction<Integer, net.minecraft.world.entity.player.Inventory, T> factory) {
-            MenuType<T> menuType = Registry.register(BuiltInRegistries.MENU, new ResourceLocation(DoTBCommon.MOD_ID, name), new MenuType<>(factory::apply, FeatureFlags.DEFAULT_FLAGS));
+        public <T extends AbstractContainerMenu> Supplier<MenuType<T>> register(String name, BiFunction<Integer, Inventory, T> factory) {
+            MenuType<T> menuType = Registry.register(BuiltInRegistries.MENU, id(name), new MenuType<T>(factory::apply, FeatureFlags.DEFAULT_FLAGS));
             return () -> menuType;
         }
     }
@@ -59,7 +65,7 @@ public class RegistryImpls {
     public static class FabricBlockEntitiesRegistry extends DoTBBlockEntitiesRegistry {
         @Override
         public <T extends BlockEntity> Supplier<BlockEntityType<T>> register(String name, BiFunction<BlockPos, BlockState, T> factoryIn, Supplier<Block[]> validBlocksSupplier) {
-            BlockEntityType<T> blockEntity = (BlockEntityType<T>) Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, new ResourceLocation(DoTBCommon.MOD_ID, name), FabricBlockEntityTypeBuilder.create((FabricBlockEntityTypeBuilder.Factory<BlockEntity>) factoryIn::apply, validBlocksSupplier.get()).build());
+            BlockEntityType<T> blockEntity = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id(name), FabricBlockEntityTypeBuilder.<T>create(factoryIn::apply, validBlocksSupplier.get()).build());
             return () -> blockEntity;
         }
     }
@@ -67,11 +73,10 @@ public class RegistryImpls {
     public static class FabricBlocksRegistry extends DoTBBlocksRegistry {
         public FabricBlocksRegistry() {
             postRegister();
-
             for (Map.Entry<ResourceKey<Block>, Block> resourceKeyBlockEntry : BuiltInRegistries.BLOCK.entrySet()) {
                 Block block = resourceKeyBlockEntry.getValue();
-                if (block instanceof IFlammable) {
-                    FlammableBlockRegistry.getDefaultInstance().add(block, ((IFlammable) block).getFireSpreadSpeed(block.defaultBlockState(), null, null, null), ((IFlammable) block).getFlammability(block.defaultBlockState(), null, null, null));
+                if (block instanceof IFlammable flammable) {
+                    FlammableBlockRegistry.getDefaultInstance().add(block, flammable.getFireSpreadSpeed(block.defaultBlockState(), null, null, null), flammable.getFlammability(block.defaultBlockState(), null, null, null));
                 }
             }
         }
@@ -79,13 +84,13 @@ public class RegistryImpls {
         @SafeVarargs
         @Override
         public final <T extends Block, Y extends Item> Supplier<T> registerWithItem(String id, Supplier<T> block, Function<T, Y> item, TagKey<Block>... tags) {
-            T registryBlock = Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(DoTBCommon.MOD_ID, id), block.get());
-            if(item != null) {
-                Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(DoTBCommon.MOD_ID, id), item.apply(registryBlock));
+            T registryBlock = Registry.register(BuiltInRegistries.BLOCK, id(id), DoTBProperties.withId(id, block));
+            if (item != null) {
+                Registry.register(BuiltInRegistries.ITEM, id(id), item.apply(registryBlock));
             }
-            if(tags.length == 0){
+            if (tags.length == 0) {
                 addBlockTag(() -> registryBlock, BlockTags.MINEABLE_WITH_PICKAXE);
-            }else{
+            } else {
                 for (TagKey<Block> tag : tags) {
                     addBlockTag(() -> registryBlock, tag);
                 }
@@ -97,7 +102,7 @@ public class RegistryImpls {
     public static class FabricItemsRegistry extends DoTBItemsRegistry {
         @Override
         public <T extends Item> Supplier<Item> register(String name, Supplier<T> itemSupplier) {
-            T item = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(DoTBCommon.MOD_ID, name), itemSupplier.get());
+            T item = Registry.register(BuiltInRegistries.ITEM, id(name), DoTBProperties.withId(name, itemSupplier));
             return () -> item;
         }
     }
@@ -105,7 +110,7 @@ public class RegistryImpls {
     public static class FabricEntitiesRegistry extends DoTBEntitiesRegistry {
         @Override
         public <T extends Entity> Supplier<EntityType<T>> register(String name, Supplier<EntityType.Builder<T>> builder) {
-            var entity = Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(DoTBCommon.MOD_ID, name), builder.get().build(name));
+            EntityType<T> entity = Registry.register(BuiltInRegistries.ENTITY_TYPE, id(name), builder.get().build(ResourceKey.create(Registries.ENTITY_TYPE, id(name))));
             return () -> entity;
         }
     }
@@ -113,7 +118,7 @@ public class RegistryImpls {
     public static class FabricRecipeSerializersRegistry extends DoTBRecipeSerializersRegistry {
         @Override
         public <T extends RecipeSerializer<? extends Recipe<?>>> Supplier<T> register(String name, Supplier<T> recipeSerializer) {
-            var recipe = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, new ResourceLocation(DoTBCommon.MOD_ID, name), recipeSerializer.get());
+            T recipe = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, id(name), recipeSerializer.get());
             return () -> recipe;
         }
     }
@@ -121,7 +126,12 @@ public class RegistryImpls {
     public static class FabricRecipeTypesRegistry extends DoTBRecipeTypesRegistry {
         @Override
         public <T extends Recipe<?>> Supplier<RecipeType<T>> register(String name) {
-            RecipeType<T> type = RecipeType.register(name);
+            RecipeType<T> type = Registry.register(BuiltInRegistries.RECIPE_TYPE, id(name), new RecipeType<T>() {
+                @Override
+                public String toString() {
+                    return id(name).toString();
+                }
+            });
             return () -> type;
         }
     }
@@ -129,7 +139,7 @@ public class RegistryImpls {
     public static class FabricCreativeModeTabsRegistry extends DoTBCreativeModeTabsRegistry {
         @Override
         public <T extends CreativeModeTab> Supplier<CreativeModeTab> register(String name, Supplier<ItemStack> iconSupplier, Component title) {
-            var group = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, new ResourceLocation(DoTBCommon.MOD_ID, name), FabricItemGroup.builder().icon(iconSupplier).title(title).displayItems((itemDisplayParameters, output) -> {
+            CreativeModeTab group = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, id(name), FabricCreativeModeTab.builder().icon(iconSupplier).title(title).displayItems((itemDisplayParameters, output) -> {
                 Set<Item> addedItems = new HashSet<>();
                 for (CreativeInventoryCategories category : CreativeInventoryCategories.values()) {
                     for (Item item : category.getItems()) {
@@ -145,42 +155,30 @@ public class RegistryImpls {
 
     public static class FabricTagsRegistry extends DoTBTags {
         @Override
-        public TagKey<Block> registerBlock(ResourceLocation id) {
+        public TagKey<Block> registerBlock(Identifier id) {
             return TagKey.create(Registries.BLOCK, id);
         }
 
         @Override
-        public TagKey<Item> registerItem(ResourceLocation id) {
+        public TagKey<Item> registerItem(Identifier id) {
             return TagKey.create(Registries.ITEM, id);
         }
     }
 
     public static void initClient() {
         EntityRendererRegistry.register(DoTBEntitiesRegistry.INSTANCE.CHAIR_ENTITY.get(), ChairRenderer::new);
-        BlockEntityRenderers.register(DoTBBlockEntitiesRegistry.INSTANCE.DISPLAYER.get(), DisplayerBERenderer::new);
+        BlockEntityRendererRegistry.register(DoTBBlockEntitiesRegistry.INSTANCE.DISPLAYER.get(), DisplayerBERenderer::new);
         MenuScreens.register(DoTBMenusRegistry.INSTANCE.STONE_OVEN.get(), StoneOvenScreen::new);
 
         DoTBColorsRegistry.initialize();
-        DoTBColorsRegistry.getBlocksColorRegistry().forEach((blockColor, blocks) -> {
-            ColorProviderRegistry.BLOCK.register(blockColor, blocks.stream().map(Supplier::get).toArray(Block[]::new));
-        });
-        DoTBColorsRegistry.getItemsColorRegistry().forEach((itemColor, items) -> {
-            ColorProviderRegistry.ITEM.register(itemColor, items.stream().map(Supplier::get).toArray(Item[]::new));
-        });
+        DoTBColorsRegistry.getBlocksColorRegistry().forEach((tintSource, blocks) ->
+                BlockColorRegistry.register(List.of(tintSource), blocks.stream().map(Supplier::get).toArray(Block[]::new)));
     }
 
     public static void init() {
-        Registry.register(BuiltInRegistries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "chinese_emblem"), new BannerPattern("dawnoftimebuilder_cn"));
-        Registry.register(BuiltInRegistries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "german_emblem"),       new BannerPattern("dawnoftimebuilder_ge"));
-        Registry.register(BuiltInRegistries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "french_emblem"),       new BannerPattern("dawnoftimebuilder_fr"));
-        Registry.register(BuiltInRegistries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "japanese_emblem"),     new BannerPattern("dawnoftimebuilder_jp"));
-        Registry.register(BuiltInRegistries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "persian_emblem"),      new BannerPattern("dawnoftimebuilder_pe"));
-        Registry.register(BuiltInRegistries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "precolumbian_emblem"), new BannerPattern("dawnoftimebuilder_pc"));
-        Registry.register(BuiltInRegistries.BANNER_PATTERN, new ResourceLocation(DoTBCommon.MOD_ID, "roman_emblem"),        new BannerPattern("dawnoftimebuilder_ro"));
-
         DoTBEntitiesRegistry.INSTANCE = new FabricEntitiesRegistry();
         DoTBBlocksRegistry.INSTANCE = new FabricBlocksRegistry();
-        FabricItemsRegistry.INSTANCE = new FabricItemsRegistry();
+        DoTBItemsRegistry.INSTANCE = new FabricItemsRegistry();
         DoTBBlockEntitiesRegistry.INSTANCE = new FabricBlockEntitiesRegistry();
         DoTBMenusRegistry.INSTANCE = new FabricMenusRegistry();
         DoTBRecipeSerializersRegistry.INSTANCE = new FabricRecipeSerializersRegistry();

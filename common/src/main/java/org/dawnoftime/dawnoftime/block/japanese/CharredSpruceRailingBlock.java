@@ -1,5 +1,8 @@
 package org.dawnoftime.dawnoftime.block.japanese;
 
+import org.dawnoftime.dawnoftime.block.IBlockTooltip;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -12,7 +15,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class CharredSpruceRailingBlock extends FenceBlock {
+public class CharredSpruceRailingBlock extends FenceBlock implements IBlockTooltip {
     private static final EnumProperty<FencePillar> FENCE_PILLAR = BlockStatePropertiesAA.FENCE_PILLAR;
 
     public CharredSpruceRailingBlock(Properties properties) {
@@ -54,8 +57,8 @@ public class CharredSpruceRailingBlock extends FenceBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        if(super.use(state, worldIn, pos, player, handIn, hit) == InteractionResult.SUCCESS)
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+        if(super.useItemOn(useStack_, state, worldIn, pos, player, handIn, hit) == InteractionResult.SUCCESS)
             return InteractionResult.SUCCESS;
         if(player.isCrouching()) {
             switch(state.getValue(FENCE_PILLAR)) {
@@ -89,8 +92,8 @@ public class CharredSpruceRailingBlock extends FenceBlock {
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
-        stateIn = super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
+        stateIn = super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
         if(facing == Direction.UP && !isSmallPillar(stateIn)) {
             stateIn = stateIn.setValue(FENCE_PILLAR, getBigPillar(worldIn, currentPos));
         }
@@ -101,14 +104,12 @@ public class CharredSpruceRailingBlock extends FenceBlock {
         return state.getValue(FENCE_PILLAR) == FencePillar.NONE || state.getValue(FENCE_PILLAR) == FencePillar.PILLAR_SMALL;
     }
 
-    private FencePillar getBigPillar(LevelAccessor world, BlockPos pos) {
+    private FencePillar getBigPillar(LevelReader world, BlockPos pos) {
         pos = pos.above();
         return (world.getBlockState(pos).getCollisionShape(world, pos).isEmpty()) ? FencePillar.CAP_PILLAR_BIG : FencePillar.PILLAR_BIG;
     }
 
-    @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.charred_spruce_railing"));
     }
 

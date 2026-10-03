@@ -1,7 +1,8 @@
 plugins {
-    id 'fabric-loom' version '1.11-SNAPSHOT' apply(false)
-    id 'net.neoforged.moddev.legacyforge' version '2.0.106' apply(false)
-    id "me.modmuss50.mod-publish-plugin" version "2.2.1" apply(false)}
+    id 'net.fabricmc.fabric-loom' version '1.18.2' apply(false)
+    id 'net.neoforged.moddev' version '2.0.148' apply(false)
+    id "me.modmuss50.mod-publish-plugin" version "1.1.0" apply(false)
+}
 
 def patchNoteProvider = providers.provider {
     def file = rootProject.layout.projectDirectory.file("patch_notes.md").asFile
@@ -11,7 +12,7 @@ def patchNoteProvider = providers.provider {
     file.text
 }
 
-configure([project(":fabric"), project(":forge")]) {
+configure([project(":fabric"), project(":neoforge")]) {
     apply plugin: 'me.modmuss50.mod-publish-plugin'
 
     publishMods {
@@ -23,8 +24,7 @@ configure([project(":fabric"), project(":forge")]) {
             projectId = "312359"
             accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
             minecraftVersions.add(project.property("minecraft_version"))
-            client = true
-            server = true
+
             changelogType = "markdown"
 
             requires("fusion-connected-textures")

@@ -1,5 +1,6 @@
 {
     "textures": {
+        "particle": "dawnoftimebuilder:block/red_painted_log",
         "slab": "dawnoftimebuilder:block/red_painted_log"
     },
     "elements": [

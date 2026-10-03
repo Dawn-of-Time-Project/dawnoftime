@@ -1,5 +1,6 @@
 package org.dawnoftime.dawnoftime.block.french;
 
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -14,7 +15,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
@@ -24,7 +25,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -40,7 +41,7 @@ import java.util.Random;
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.LIMESTONE_GARGOYLE_SHAPES;
 
 public class LimestoneGargoyleBlock extends WaterloggedBlock {
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
     private static final IntegerProperty HUMIDITY = BlockStatePropertiesAA.HUMIDITY_0_8;
 
@@ -76,7 +77,7 @@ public class LimestoneGargoyleBlock extends WaterloggedBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (state.getValue(PERSISTENT)) {
             if (player.isCreative()) {
                 int humidity = state.getValue(HUMIDITY);
@@ -104,7 +105,7 @@ public class LimestoneGargoyleBlock extends WaterloggedBlock {
                 return InteractionResult.SUCCESS;
             }
         }
-        return super.use(state, worldIn, pos, player, handIn, hit);
+        return super.useItemOn(useStack_, state, worldIn, pos, player, handIn, hit);
     }
 
     @Override

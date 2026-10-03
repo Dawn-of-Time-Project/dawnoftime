@@ -1,5 +1,7 @@
 package org.dawnoftime.dawnoftime.block.roman;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -8,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
@@ -16,7 +18,7 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
@@ -28,7 +30,7 @@ import javax.annotation.Nullable;
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.MARBLE_STATUE_SHAPES;
 
 public class MarbleStatueBlock extends WaterloggedBlock {
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final IntegerProperty MULTIBLOCK = BlockStatePropertiesAA.MULTIBLOCK_0_2;
 
     public MarbleStatueBlock(final Properties properties) {
@@ -43,7 +45,7 @@ public class MarbleStatueBlock extends WaterloggedBlock {
     }
 
     @Override
-    public void playerWillDestroy(final Level worldIn, final BlockPos blockPosIn, final BlockState blockStateIn, final Player playerEntityIn) {
+    public BlockState playerWillDestroy(final Level worldIn, final BlockPos blockPosIn, final BlockState blockStateIn, final Player playerEntityIn) {
         // Prevents item from dropping in creative by removing the part that gives the item with a setBlock.
         if (!worldIn.isClientSide() && playerEntityIn.isCreative()) {
             BlockPos blockPos;
@@ -56,7 +58,7 @@ public class MarbleStatueBlock extends WaterloggedBlock {
                 worldIn.levelEvent(playerEntityIn, 2001, blockPos, Block.getId(blockState));
             }
         }
-        super.playerWillDestroy(worldIn, blockPosIn, blockStateIn, playerEntityIn);
+        return super.playerWillDestroy(worldIn, blockPosIn, blockStateIn, playerEntityIn);
     }
 
     @Override
@@ -84,7 +86,7 @@ public class MarbleStatueBlock extends WaterloggedBlock {
     }
 
     @Override
-    public @NotNull BlockState updateShape(final BlockState stateIn, final @NotNull Direction facing, final @NotNull BlockState facingState, final @NotNull LevelAccessor worldIn, final @NotNull BlockPos currentPos, final @NotNull BlockPos facingPos) {
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
         if (facing.getAxis().isHorizontal()) {
             return stateIn;
         }

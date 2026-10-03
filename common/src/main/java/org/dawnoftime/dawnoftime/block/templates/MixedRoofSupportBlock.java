@@ -1,5 +1,13 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.world.level.LevelAccessor;
+import org.dawnoftime.dawnoftime.util.DoTBProperties;
+import org.dawnoftime.dawnoftime.item.templates.DoTBBlockItem;
+import org.dawnoftime.dawnoftime.block.IBlockTooltip;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,8 +37,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class MixedRoofSupportBlock extends SlabBlockDoT {
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+public class MixedRoofSupportBlock extends SlabBlockDoT implements IBlockTooltip {
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<StairsShape> SHAPE = BlockStateProperties.STAIRS_SHAPE;
     private final Supplier<Block> roofSlabBlockSupplier;
 
@@ -71,8 +79,7 @@ public class MixedRoofSupportBlock extends SlabBlockDoT {
     }
 
     @Override
-    public InteractionResult use(final BlockState state, final Level worldIn, final BlockPos pos,
-                                 final Player player, final InteractionHand handIn, final BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, final BlockState state, final Level worldIn, final BlockPos pos, final Player player, final InteractionHand handIn, final BlockHitResult hit) {
         final Direction facing = hit.getDirection();
         final ItemStack itemStack = player.getItemInHand(handIn);
         if(!player.isCrouching() && player.mayUseItemAt(pos, facing, itemStack) && facing.getAxis().isVertical()
@@ -94,11 +101,11 @@ public class MixedRoofSupportBlock extends SlabBlockDoT {
                 }
             }
         }
-        return super.use(state, worldIn, pos, player, handIn, hit);
+        return super.useItemOn(useStack_, state, worldIn, pos, player, handIn, hit);
     }
 
     public static Item getBlockItem(MixedRoofSupportBlock block) {
-        return new BlockItem(block, new Item.Properties()) {
+        return new DoTBBlockItem(block, DoTBProperties.blockItem(block)) {
             @Override
             public InteractionResult place(final BlockPlaceContext context) {
                 final Direction facing = context.getClickedFace();
@@ -146,9 +153,8 @@ public class MixedRoofSupportBlock extends SlabBlockDoT {
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, final Direction facing, final BlockState facingState,
-                                  final LevelAccessor worldIn, final BlockPos currentPos, final BlockPos facingPos) {
-        stateIn = super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
+        stateIn = super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
         return facing.getAxis().isHorizontal()
                 ? stateIn.setValue(MixedRoofSupportBlock.SHAPE, this.getShapeProperty(stateIn, worldIn, currentPos))
                 : stateIn;
@@ -208,7 +214,7 @@ public class MixedRoofSupportBlock extends SlabBlockDoT {
     }
 
     @Override
-    public boolean canPlaceLiquid(final BlockGetter world, final BlockPos pos, final BlockState state,
+    public boolean canPlaceLiquid(@org.jetbrains.annotations.Nullable final net.minecraft.world.entity.LivingEntity user, final BlockGetter world, final BlockPos pos, final BlockState state,
                                   final Fluid fluid) {
         return !state.getValue(BlockStateProperties.WATERLOGGED) && fluid == Fluids.WATER;
     }
@@ -269,9 +275,7 @@ public class MixedRoofSupportBlock extends SlabBlockDoT {
         return super.mirror(state, mirrorIn);
     }
 
-    @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.mixed_roof_support"));
     }
 }

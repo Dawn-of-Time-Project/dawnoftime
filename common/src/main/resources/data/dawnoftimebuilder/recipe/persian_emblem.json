@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "i b",
+    "ibb",
+    "x x"
+  ],
+  "key": {
+    "b": "dawnoftimebuilder:sandstone_bricks",
+    "i": "minecraft:gold_nugget",
+    "x": "minecraft:sandstone"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:persian_emblem",
+    "count": 4
+  }
+}

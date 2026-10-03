@@ -2,7 +2,10 @@ package org.dawnoftime.dawnoftime.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
@@ -32,23 +35,21 @@ public class DisplayerBlockEntity extends BlockEntity implements Container {
 	}
 
 	@Override
-	public @NotNull CompoundTag getUpdateTag() {
-		CompoundTag tag = super.getUpdateTag();
-		ContainerHelper.saveAllItems(tag, this.items);
-		return tag;
+	public @NotNull CompoundTag getUpdateTag(@NotNull HolderLookup.Provider registries) {
+		return this.saveWithoutMetadata(registries);
 	}
 
 	@Override
-	public void saveAdditional(@NotNull CompoundTag tag) {
-		super.saveAdditional(tag);
-		ContainerHelper.saveAllItems(tag, this.items);
+	protected void saveAdditional(@NotNull ValueOutput output) {
+		super.saveAdditional(output);
+		ContainerHelper.saveAllItems(output, this.items);
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag tag) {
-		super.load(tag);
+	protected void loadAdditional(@NotNull ValueInput input) {
+		super.loadAdditional(input);
 		this.items.clear();
-		ContainerHelper.loadAllItems(tag, this.items);
+		ContainerHelper.loadAllItems(input, this.items);
 	}
 
 	@Override

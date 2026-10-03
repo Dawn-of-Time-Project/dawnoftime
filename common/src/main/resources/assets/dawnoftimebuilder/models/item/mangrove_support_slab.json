@@ -1,5 +1,6 @@
 {
     "textures": {
+        "particle": "block/mangrove_planks",
         "slab": "block/mangrove_planks"
     },
     "elements": [

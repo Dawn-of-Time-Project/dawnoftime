@@ -4,7 +4,7 @@
 		"lantern": "dawnoftimebuilder:block/iron_fancy_lantern",
 		"light": "dawnoftimebuilder:block/iron_fancy_lantern_light",
 		"particle": "#lantern",
-		"chain": "minecraft:block/chain"
+		"chain": "minecraft:block/iron_chain"
 	},
 	"elements": [
 		{

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:paper",
+    "dawnoftimebuilder:german_emblem"
+  ],
+  "result": {
+    "id": "dawnoftimebuilder:german_banner_pattern",
+    "count": 1
+  }
+}

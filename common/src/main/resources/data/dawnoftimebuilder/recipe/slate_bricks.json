@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IiI",
+    "iIi",
+    "IiI"
+  ],
+  "key": {
+    "I": "minecraft:diorite",
+    "i": "minecraft:packed_mud"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:slate_bricks",
+    "count": 12
+  }
+}

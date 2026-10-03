@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OxO",
+    "IuI"
+  ],
+  "key": {
+    "O": "minecraft:sandstone_slab",
+    "x": "minecraft:water_bucket",
+    "I": "minecraft:iron_nugget",
+    "u": "minecraft:redstone"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:sandstone_water_jet",
+    "count": 2
+  }
+}

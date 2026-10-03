@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "III",
+    "iii"
+  ],
+  "key": {
+    "i": "dawnoftimebuilder:waxed_oak_planks",
+    "I": "minecraft:stick"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:reinforced_waxed_oak",
+    "count": 9
+  }
+}

@@ -13,6 +13,7 @@
     },
     "ambientocclusion": false,
     "textures": {
+        "particle": "dawnoftimebuilder:block/charred_spruce_fence",
         "texture": "dawnoftimebuilder:block/charred_spruce_fence",
         "planks": "dawnoftimebuilder:block/charred_spruce_planks"
     },

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "Ii ",
+    "Ioo"
+  ],
+  "key": {
+    "I": "minecraft:stone",
+    "i": "minecraft:green_dye",
+    "o": "minecraft:gold_nugget"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:feathered_serpent_sculpture"
+  }
+}

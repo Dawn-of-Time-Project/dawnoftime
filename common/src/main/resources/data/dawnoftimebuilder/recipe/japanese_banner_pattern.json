@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:paper",
+    "dawnoftimebuilder:japanese_emblem"
+  ],
+  "result": {
+    "id": "dawnoftimebuilder:japanese_banner_pattern",
+    "count": 1
+  }
+}

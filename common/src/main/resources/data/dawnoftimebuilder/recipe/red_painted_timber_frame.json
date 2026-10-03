@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "iii",
+    "III"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:red_painted_log",
+    "i": "dawnoftimebuilder:white_wattle_and_daub"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:red_painted_timber_frame",
+    "count": 6
+  }
+}

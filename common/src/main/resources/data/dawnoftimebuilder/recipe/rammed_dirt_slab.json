@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:rammed_dirt"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:rammed_dirt_slab",
+    "count": 6
+  }
+}

@@ -1,5 +1,6 @@
 {
 	"textures": {
+		"particle": "block/warped_planks",
 		"slab": "block/warped_planks",
 		"texture": "dawnoftimebuilder:block/warped_beam"
 	},

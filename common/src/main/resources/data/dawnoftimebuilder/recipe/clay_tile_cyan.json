@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "dawnoftimebuilder:clay_tile",
+    "dawnoftimebuilder:clay_tile",
+    "dawnoftimebuilder:clay_tile",
+    "dawnoftimebuilder:clay_tile",
+    "dawnoftimebuilder:clay_tile",
+    "dawnoftimebuilder:clay_tile",
+    "dawnoftimebuilder:clay_tile",
+    "dawnoftimebuilder:clay_tile",
+    "minecraft:cyan_dye"
+  ],
+  "result": {
+    "id": "dawnoftimebuilder:clay_tile_cyan",
+    "count": 8
+  }
+}

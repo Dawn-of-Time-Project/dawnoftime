@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
@@ -35,6 +35,11 @@ public class SmallTatamiFloorBlock extends BlockDoT {
     }
 
     @Override
+    protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
+        return new ItemStack(DoTBBlocksRegistry.INSTANCE.SMALL_TATAMI_MAT.get());
+    }
+
+    @Override
     protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(HORIZONTAL_AXIS);
@@ -49,7 +54,7 @@ public class SmallTatamiFloorBlock extends BlockDoT {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack useStack_, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if(player.isCrouching()) {
             if(worldIn.isEmptyBlock(pos.above())) {
                 worldIn.setBlock(pos.above(), DoTBBlocksRegistry.INSTANCE.SMALL_TATAMI_MAT.get().defaultBlockState().setValue(SmallTatamiMatBlock.ROLLED, true).setValue(SmallTatamiMatBlock.HORIZONTAL_AXIS, state.getValue(HORIZONTAL_AXIS)), 10);
@@ -78,7 +83,7 @@ public class SmallTatamiFloorBlock extends BlockDoT {
     }
 
     @Override
-    public void onRemove(@NotNull BlockState state, Level world, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
+    protected void affectNeighborsAfterRemoval(@NotNull BlockState state, @NotNull net.minecraft.server.level.ServerLevel world, @NotNull BlockPos pos, boolean isMoving) {
         world.setBlock(pos, Blocks.SPRUCE_PLANKS.defaultBlockState(), 10);
         Containers.dropItemStack(world, pos.getX(), pos.getY() + 1, pos.getZ(),
                 new ItemStack(DoTBBlocksRegistry.INSTANCE.SMALL_TATAMI_MAT.get().asItem(), 1));

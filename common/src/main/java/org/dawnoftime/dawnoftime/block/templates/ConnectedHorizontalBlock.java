@@ -1,17 +1,19 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -54,12 +56,12 @@ public class ConnectedHorizontalBlock extends WaterloggedHorizontalBlock {
     }
 
     @Override
-    public @NotNull BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor worldIn, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
-        stateIn = super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    protected BlockState updateShape(BlockState stateIn, LevelReader worldIn, ScheduledTickAccess ticksIn_, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource randomIn_) {
+        stateIn = super.updateShape(stateIn, worldIn, ticksIn_, currentPos, facing, facingPos, facingState, randomIn_);
         return (facing.getAxis() == stateIn.getValue(FACING).getClockWise().getAxis()) ? stateIn.setValue(HORIZONTAL_CONNECTION, this.getLineState(worldIn, currentPos, stateIn)) : stateIn;
     }
 
-    private BlockStatePropertiesAA.HorizontalConnection getLineState(LevelAccessor worldIn, BlockPos pos, BlockState stateIn) {
+    private BlockStatePropertiesAA.HorizontalConnection getLineState(LevelReader worldIn, BlockPos pos, BlockState stateIn) {
         Direction direction = stateIn.getValue(FACING).getClockWise();
         if(isConnectible(worldIn, pos.relative(direction, -1), stateIn)) {
             return (isConnectible(worldIn, pos.relative(direction), stateIn)) ? BlockStatePropertiesAA.HorizontalConnection.BOTH : BlockStatePropertiesAA.HorizontalConnection.LEFT;
@@ -68,7 +70,7 @@ public class ConnectedHorizontalBlock extends WaterloggedHorizontalBlock {
         }
     }
 
-    private boolean isConnectible(LevelAccessor worldIn, BlockPos offset, BlockState stateIn) {
+    private boolean isConnectible(LevelReader worldIn, BlockPos offset, BlockState stateIn) {
         BlockState state = worldIn.getBlockState(offset);
         if(state.getBlock() == this) {
             return state.getValue(FACING) == stateIn.getValue(FACING);

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " x ",
+    "xix",
+    "ibi"
+  ],
+  "key": {
+    "b": "dawnoftimebuilder:limestone_bricks",
+    "i": "minecraft:blue_dye",
+    "x": "minecraft:gold_nugget"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:french_emblem",
+    "count": 4
+  }
+}
