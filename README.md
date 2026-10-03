@@ -16,7 +16,7 @@
 
 </div>
 
----
+<div align="center"><img src="https://i.imgur.com/yhha6Zo.png"></div>
 
 ## 🌅 What is Dawn of Time?
 
@@ -24,7 +24,7 @@
 
 Every block has been designed with builders in mind: a clean and well-organized creative inventory, multiple skin variants per block type, and seamless connectivity between blocks. Build Roman forums, Japanese dojos, Persian palaces, or medieval French villages, all in one mod.
 
----
+<div align="center"><img src="https://i.imgur.com/yhha6Zo.png"></div>
 
 ## Features
 
@@ -56,7 +56,7 @@ The creative inventory features a **custom tabbing system** with subtabs and ico
 ### Connected Textures
 Seamless connected textures via [Fusion](https://modrinth.com/mod/fusion-connected-textures), giving walls, columns, and structural elements a polished, continuous look (CTM for earlier versions)
 
----
+<div align="center"><img src="https://i.imgur.com/yhha6Zo.png"></div>
 
 ## Compatibility
 
@@ -68,7 +68,7 @@ Seamless connected textures via [Fusion](https://modrinth.com/mod/fusion-connect
 | [CTM](https://www.curseforge.com/minecraft/mc-mods/ctm) (1.16.5 and below) | ✅ Connected textures support |
 | Lightspeed optimizations | ⚠️ Not compatible in 1.19.2 |
 
----
+<div align="center"><img src="https://i.imgur.com/yhha6Zo.png"></div>
 
 ## Credits
 
@@ -80,17 +80,13 @@ Seamless connected textures via [Fusion](https://modrinth.com/mod/fusion-connect
 - **Special thanks:** to [Millénaire](https://www.millenaire.org/), the mod of our childhood that inspired this whole project.
 - **Font** used in assets: [Minecrafter](https://www.dafont.com/minecrafter.font)
 
----
-
-## Support the Mod
-
-If you enjoy Dawn of Time and want to help us keep building, consider supporting us on Patreon:
-
-[![Support on Patreon](https://img.shields.io/badge/Support%20us%20on-Patreon-f96854?style=for-the-badge&logo=patreon)](https://www.patreon.com/cw/dawnoftimemod)
-
----
-
-## License
-
 Dawn of Time is released under the [MIT License](LICENSE.md).
-© Poulpinou & TheGoldenWorld — Founder of Dawn of Time.
+
+Poulpinou & TheGoldenWorld — Founder of Dawn of Time.
+
+<div align="center"><img src="https://i.imgur.com/yhha6Zo.png"></div>
+
+## Socials
+
+<a href="https://linktr.ee/TheGoldenWorld"><img src="https://i.imgur.com/Hpz5KXl.png" alt="Socials"></a>
+<br><br>
