@@ -5,12 +5,13 @@
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BedBlockEntityMixin",
+    "BlockEntityTypeMixin",
     "BucketItemAccessor",
     "MixinStateDefinitionBuilder"
   ],
   "client": [
     "client.AbstractButtonAccessor",
+    "client.BedRendererMixin",
     "client.CreativeInventoryMixin"
   ],
   "server": [
