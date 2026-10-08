@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.dawnoftime.dawnoftime.client.gui.GuiTexts;
 import static org.dawnoftime.dawnoftime.DoTBCommon.MOD_ID;
 
 public enum CreativeInventoryCategories {
@@ -79,6 +80,7 @@ public enum CreativeInventoryCategories {
                     DoTBBlocksRegistry.INSTANCE.PAPER_WALL.get().asItem(),
                     DoTBBlocksRegistry.INSTANCE.PAPER_WALL_WINDOWS.get().asItem(),
                     DoTBBlocksRegistry.INSTANCE.PAPER_WALL_FLOWERY.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.PAPER_DECORATED_WINDOW.get().asItem(),
                     DoTBBlocksRegistry.INSTANCE.PAPER_DOOR.get().asItem(),
 
                     DoTBBlocksRegistry.INSTANCE.WHITE_WATTLE_AND_DAUB.get().asItem(),
@@ -227,6 +229,67 @@ public enum CreativeInventoryCategories {
                     DoTBBlocksRegistry.INSTANCE.IRON_PORTCULLIS.get().asItem(),
                     DoTBBlocksRegistry.INSTANCE.WROUGHT_IRON_FENCE.get().asItem()
             ),
+            new SubTab("rustic",
+                    DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_LOG_STRIPPED.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_PLANKS.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_PLANKS_STAIRS.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_PLANKS_PLATE.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_PLANKS_SLAB.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_PLANKS_EDGE.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_TRAPDOOR.get().asItem(),
+
+                    DoTBBlocksRegistry.INSTANCE.LIME_WATTLE_AND_DAUB.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.LIME_WATTLE_AND_DAUB_STAIRS.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.LIME_WATTLE_AND_DAUB_PLATE.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.LIME_WATTLE_AND_DAUB_SLAB.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.LIME_WATTLE_AND_DAUB_EDGE.get().asItem(),
+
+                    DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_TIMBER_FRAME.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_TIMBER_FRAME_PILLAR.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_TIMBER_FRAME_CORNER.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_TIMBER_FRAME_CROSSED.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_TIMBER_FRAME_SQUARED.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_TIMBER_FRAME_FANCY.get().asItem(),
+
+                    DoTBBlocksRegistry.INSTANCE.RED_PAINTED_OAK_LOG_STRIPPED.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.RED_PAINTED_OAK_PLANKS.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.RED_PAINTED_OAK_PLANKS_STAIRS.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.RED_PAINTED_OAK_PLANKS_PLATE.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.RED_PAINTED_OAK_PLANKS_SLAB.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.RED_PAINTED_OAK_PLANKS_EDGE.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.RED_PAINTED_OAK_SHUTTERS.get().asItem(),
+
+                    DoTBBlocksRegistry.INSTANCE.RED_OAK_TIMBER_FRAME.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.RED_OAK_TIMBER_FRAME_PILLAR.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.RED_OAK_TIMBER_FRAME_CORNER.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.RED_OAK_TIMBER_FRAME_CROSSED.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.RED_OAK_TIMBER_FRAME_SQUARED.get().asItem(),
+
+                    DoTBBlocksRegistry.INSTANCE.YELLOW_WATTLE_AND_DAUB.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.YELLOW_WATTLE_AND_DAUB_STAIRS.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.YELLOW_WATTLE_AND_DAUB_PLATE.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.YELLOW_WATTLE_AND_DAUB_SLAB.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.YELLOW_WATTLE_AND_DAUB_EDGE.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.YELLOW_OAK_TIMBER_FRAME.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.YELLOW_OAK_TIMBER_FRAME_PILLAR.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.YELLOW_OAK_TIMBER_FRAME_CORNER.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.YELLOW_OAK_TIMBER_FRAME_CROSSED.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.YELLOW_OAK_TIMBER_FRAME_SQUARED.get().asItem(),
+
+                    DoTBBlocksRegistry.INSTANCE.WHITE_PAINTED_OAK_WINDOW.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.GREEN_PAINTED_OAK_DOOR.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.GREEN_PAINTED_OAK_SHUTTERS.get().asItem(),
+
+                    DoTBBlocksRegistry.INSTANCE.COPPER_ROOF_TILES.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.COPPER_ROOF_TILES_STAIRS.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.COPPER_ROOF_TILES_PLATE.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.COPPER_ROOF_TILES_SLAB.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.COPPER_ROOF_TILES_EDGE.get().asItem(),
+
+                    DoTBItemsRegistry.INSTANCE.CALCITE_POWDER.get(),
+                    DoTBItemsRegistry.INSTANCE.LIME.get(),
+                    DoTBItemsRegistry.INSTANCE.YELLOW_PIGMENTED_LIME.get()
+            ),
             new SubTab("furniture",
                     DoTBBlocksRegistry.INSTANCE.WAXED_OAK_TABLE.get().asItem(),
                     DoTBBlocksRegistry.INSTANCE.WAXED_OAK_CHAIR.get().asItem(),
@@ -250,6 +313,7 @@ public enum CreativeInventoryCategories {
             DoTBBlocksRegistry.INSTANCE.SANDSTONE_WATER_JET.get().asItem(),
 
             DoTBBlocksRegistry.INSTANCE.BIRCH_FANCY_FENCE.get().asItem(),
+            DoTBBlocksRegistry.INSTANCE.BIRCH_WINDOW.get().asItem(),
             DoTBBlocksRegistry.INSTANCE.BIRCH_FOOTSTOOL.get().asItem(),
             DoTBBlocksRegistry.INSTANCE.BIRCH_COUCH.get().asItem(),
 
@@ -408,6 +472,7 @@ public enum CreativeInventoryCategories {
                     DoTBBlocksRegistry.INSTANCE.BLUE_PAINTED_STONE_EDGE.get().asItem(),
                     DoTBBlocksRegistry.INSTANCE.BLUE_WAVE_TEMPLATE.get().asItem(),
                     DoTBBlocksRegistry.INSTANCE.BLUE_ROUND_TEMPLATE.get().asItem(),
+                    DoTBBlocksRegistry.INSTANCE.BLUE_PAINTED_LATTICE.get().asItem(),
                     DoTBBlocksRegistry.INSTANCE.GREEN_PAINTED_STONE.get().asItem(),
                     DoTBBlocksRegistry.INSTANCE.GREEN_PAINTED_STONE_STAIRS.get().asItem(),
                     DoTBBlocksRegistry.INSTANCE.GREEN_PAINTED_STONE_PLATE.get().asItem(),
@@ -554,6 +619,8 @@ public enum CreativeInventoryCategories {
             DoTBBlocksRegistry.INSTANCE.GREEN_ROOF_TILES_PLATE.get().asItem(),
             DoTBBlocksRegistry.INSTANCE.GREEN_ROOF_TILES_SLAB.get().asItem(),
             DoTBBlocksRegistry.INSTANCE.GREEN_ROOF_TILES_STAIRS.get().asItem(),
+            DoTBItemsRegistry.INSTANCE.UNFIRED_CLAY_ROUND_TILE.get(),
+            DoTBItemsRegistry.INSTANCE.GREEN_CLAY_ROOF_TILE.get(),
 
             DoTBBlocksRegistry.INSTANCE.RED_ROUND_PAPER_LANTERN.get().asItem(),
             DoTBBlocksRegistry.INSTANCE.STONE_OVEN.get().asItem(),
@@ -570,7 +637,7 @@ public enum CreativeInventoryCategories {
     CreativeInventoryCategories(String name, @Nullable String youtubePlaylist, Item... items) {
         this.name = name;
         this.youtubePlaylist = youtubePlaylist;
-        this.translation = Component.translatable("gui." + MOD_ID + "." + name);
+        this.translation = GuiTexts.category(name);
         this.items.addAll(Arrays.asList(items));
         this.subTabs = List.of();
     }
@@ -578,7 +645,7 @@ public enum CreativeInventoryCategories {
     CreativeInventoryCategories(String name, @Nullable String youtubePlaylist, List<SubTab> subTabs) {
         this.name = name;
         this.youtubePlaylist = youtubePlaylist;
-        this.translation = Component.translatable("gui." + MOD_ID + "." + name);
+        this.translation = GuiTexts.category(name);
         this.subTabs = subTabs;
     }
 
@@ -627,7 +694,7 @@ public enum CreativeInventoryCategories {
         }
 
         public Component getTooltip() {
-            return Component.translatable("tooltip." + MOD_ID + ".subtab." + nameKey);
+            return GuiTexts.subtab(nameKey);
         }
     }
 }

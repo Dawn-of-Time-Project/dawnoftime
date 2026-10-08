@@ -2,12 +2,9 @@ package org.dawnoftime.dawnoftime.block.templates;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -24,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import org.dawnoftime.dawnoftime.client.tooltip.TooltipLabel;
 
 public class ConnectedVerticalSidedPlanBlock extends ConnectedVerticalSidedBlock {
     public static final EnumProperty<BlockStatePropertiesAA.HorizontalConnection> HORIZONTAL_CONNECTION = BlockStatePropertiesAA.HORIZONTAL_CONNECTION;
@@ -74,8 +72,8 @@ public class ConnectedVerticalSidedPlanBlock extends ConnectedVerticalSidedBlock
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        // No tooltip — reliefs and framed windows inherit no tooltip behavior
+    public List<TooltipLabel> getTooltipLabels() {
+        return List.of();
     }
 
 }

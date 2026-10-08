@@ -13,20 +13,27 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
-public class WallOrFloorBlockDoT extends BlockDoT {
+public class WallOrFloorBlockDoT extends BlockDoT implements ITooltipSource {
 
     // UP = floor. NORTH/SOUTH/EAST/WEST = the wall face the carpet is visible from.
     public static final DirectionProperty PLACED_FACE = DirectionProperty.create("placed_face",
         Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
     // shapes[0]=floor, [1]=SOUTH wall, [2]=WEST wall, [3]=NORTH wall, [4]=EAST wall
-    public WallOrFloorBlockDoT(Properties properties, VoxelShape[] shapes, String... tooltipKeys) {
-        super(properties, shapes, tooltipKeys);
+    public WallOrFloorBlockDoT(Properties properties, VoxelShape[] shapes) {
+        super(properties, shapes);
         this.registerDefaultState(this.defaultBlockState().setValue(PLACED_FACE, Direction.UP));
+    }
+
+    @Override
+    public List<String> getTooltipTexts() {
+        return List.of("wall_or_floor");
     }
 
     @Override

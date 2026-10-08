@@ -3,7 +3,6 @@ package org.dawnoftime.dawnoftime.block.general;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -13,8 +12,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.*;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -45,8 +42,9 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.FIREPLACE_SHAPES;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public class FireplaceBlock extends WaterloggedBlock {
+public class FireplaceBlock extends WaterloggedBlock implements ITooltipSource {
     public static final EnumProperty<Direction.Axis> HORIZONTAL_AXIS = BlockStateProperties.HORIZONTAL_AXIS;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final EnumProperty<HorizontalConnection> HORIZONTAL_CONNECTION = BlockStatePropertiesAA.HORIZONTAL_CONNECTION;
@@ -201,9 +199,8 @@ public class FireplaceBlock extends WaterloggedBlock {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.fireplace"));
+    public List<String> getTooltipTexts() {
+        return List.of("fireplace");
     }
 
 }

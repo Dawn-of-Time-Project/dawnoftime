@@ -1,3 +1,4 @@
 {
-    "parent": "dawnoftimebuilder:block/precolumbian/white_painted_lattice"
+    "parent": "dawnoftimebuilder:block/precolumbian/white_painted_lattice",
+    "gui_light": "front"
 }

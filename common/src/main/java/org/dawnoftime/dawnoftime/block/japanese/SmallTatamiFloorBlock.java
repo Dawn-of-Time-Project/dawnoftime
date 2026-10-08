@@ -83,4 +83,9 @@ public class SmallTatamiFloorBlock extends BlockDoT {
         Containers.dropItemStack(world, pos.getX(), pos.getY() + 1, pos.getZ(),
                 new ItemStack(DoTBBlocksRegistry.INSTANCE.SMALL_TATAMI_MAT.get().asItem(), 1));
     }
+
+    @Override
+    protected boolean blocksLandPathing(BlockState state) {
+        return false;
+    }
 }

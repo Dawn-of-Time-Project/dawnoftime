@@ -1,10 +1,12 @@
 package org.dawnoftime.dawnoftime;
 
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import org.dawnoftime.dawnoftime.client.tooltip.BlockTooltips;
 import org.dawnoftime.dawnoftime.datagen.DataGenerators;
 
 @Mod(DoTBCommon.MOD_ID)
@@ -17,6 +19,7 @@ public class DoTBForge {
 
         if (FMLEnvironment.dist.isClient()) {
             modEventBus.register(DoTBForgeClient.class);
+            MinecraftForge.EVENT_BUS.addListener((ItemTooltipEvent event) -> BlockTooltips.append(event.getItemStack(), event.getToolTip()));
         }
 
         modEventBus.register(DataGenerators.class);

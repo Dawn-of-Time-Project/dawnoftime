@@ -1,8 +1,10 @@
 {
   "replace": false,
   "values": [
+      "dawnoftimebuilder:weathered_oak_planks_stairs",
       "dawnoftimebuilder:charred_spruce_planks_stairs",
       "dawnoftimebuilder:waxed_oak_planks_stairs",
+      "dawnoftimebuilder:red_painted_oak_planks_stairs",
       "dawnoftimebuilder:sculpted_waxed_oak_stairs",
       "dawnoftimebuilder:spruce_boards_stairs",
       "dawnoftimebuilder:charred_spruce_boards_stairs",

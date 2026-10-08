@@ -1,0 +1,9 @@
+{
+	"type": "minecraft:blasting",
+	"ingredient": {
+		"item": "dawnoftimebuilder:unfired_clay_round_tile"
+	},
+	"result": "dawnoftimebuilder:green_clay_roof_tile",
+	"experience": 0.1,
+	"cookingtime": 100
+}

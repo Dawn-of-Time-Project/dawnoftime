@@ -4,12 +4,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -17,10 +13,10 @@ import org.dawnoftime.dawnoftime.block.general.FireplaceBlock;
 import org.dawnoftime.dawnoftime.platform.Services;
 import org.dawnoftime.dawnoftime.registry.DoTBBlocksRegistry;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import java.util.List;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public class TeapotSpecialDisplayBlock extends SpecialDisplayBlock {
+public class TeapotSpecialDisplayBlock extends SpecialDisplayBlock implements ITooltipSource {
 
     public TeapotSpecialDisplayBlock(Properties properties, VoxelShape[] shapes) {
         super(properties, shapes);
@@ -46,8 +42,7 @@ public class TeapotSpecialDisplayBlock extends SpecialDisplayBlock {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.teapot"));
+    public List<String> getTooltipTexts() {
+        return List.of("teapot");
     }
 }

@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"CCC",
+		"CDC",
+		"C  "
+	],
+	"key": {
+		"C": {
+			"item": "minecraft:clay_ball"
+		},
+		"D": {
+			"item": "minecraft:green_dye"
+		}
+	},
+	"result": {
+		"item": "dawnoftimebuilder:unfired_clay_round_tile",
+		"count": 8
+	}
+}

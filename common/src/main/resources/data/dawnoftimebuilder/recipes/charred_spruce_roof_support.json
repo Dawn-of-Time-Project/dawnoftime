@@ -2,11 +2,14 @@
 	"type": "minecraft:crafting_shaped",
 	"pattern": [
 		"I I",
-		"III"
+		"SSS"
 	],
 	"key": {
 		"I": {
 			"item": "dawnoftimebuilder:charred_spruce_planks"
+		},
+		"S": {
+			"item": "dawnoftimebuilder:charred_spruce_planks_slab"
 		}
 	},
 	"result": {

@@ -1,5 +1,7 @@
 package org.dawnoftime.dawnoftime.block.chinese;
 
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -65,5 +67,10 @@ public class StoneOvenBlock extends AbstractFurnaceBlock {
             return this.defaultBlockState().setValue(FACING, clicked.getOpposite());
         }
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+    }
+
+    @Override
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
+        return type != PathComputationType.LAND && super.isPathfindable(state, level, pos, type);
     }
 }

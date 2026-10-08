@@ -1,5 +1,6 @@
 {
     "parent": "dawnoftimebuilder:block/japanese/green_painted_decorated_window_none_none",
+    "gui_light": "front",
     "display": {
         "thirdperson_righthand": {
             "translation": [0, -0.25, 0.5],

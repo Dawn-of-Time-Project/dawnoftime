@@ -7,17 +7,17 @@
   ],
   "key": {
     "x": {
-      "item": "minecraft:stone"
+      "item": "minecraft:smooth_sandstone"
     },
     "i": {
-      "item": "minecraft:blue_dye"
+      "item": "dawnoftimebuilder:clay_tile_blue"
     },
     "X": {
-      "item": "minecraft:lapis_lazuli"
+      "item": "dawnoftimebuilder:clay_tile_white"
     }
   },
   "result": {
     "item": "dawnoftimebuilder:moraq_mosaic_recess",
-    "count": 16
+    "count": 6
   }
 }

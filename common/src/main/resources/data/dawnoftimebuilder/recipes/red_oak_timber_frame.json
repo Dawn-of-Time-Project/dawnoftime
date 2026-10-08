@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WWW",
+        "www",
+        "WWW"
+    ],
+    "key": {
+        "W": {
+            "item": "dawnoftimebuilder:red_painted_oak_planks"
+        },
+        "w": {
+            "item": "dawnoftimebuilder:lime_wattle_and_daub"
+        }
+    },
+    "result": {
+        "item": "dawnoftimebuilder:red_oak_timber_frame",
+        "count": 6
+    }
+}

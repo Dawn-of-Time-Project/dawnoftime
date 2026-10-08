@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "axis=x": { "model": "dawnoftimebuilder:block/german/white_painted_oak_window" },
+        "axis=z": { "model": "dawnoftimebuilder:block/german/white_painted_oak_window", "y": 90 }
+    }
+}

@@ -2,6 +2,7 @@ package org.dawnoftime.dawnoftime.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import org.dawnoftime.dawnoftime.client.gui.GuiTexts;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -17,7 +18,7 @@ public class StoneOvenBlockEntity extends AbstractFurnaceBlockEntity {
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("container.stone_oven");
+        return GuiTexts.stoneOven();
     }
 
     @Override

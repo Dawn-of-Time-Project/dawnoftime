@@ -1,0 +1,23 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"II ",
+		"iiD",
+		"II "
+	],
+	"key": {
+		"I": {
+			"item": "minecraft:iron_ingot"
+		},
+		"i": {
+			"item": "minecraft:oak_planks"
+		},
+		"D": {
+			"item": "minecraft:green_dye"
+		}
+	},
+	"result": {
+		"item": "dawnoftimebuilder:green_painted_oak_door",
+		"count": 6
+	}
+}

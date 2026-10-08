@@ -24,6 +24,7 @@ import java.util.function.Supplier;
 @Mod.EventBusSubscriber(modid = DoTBCommon.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class DoTBForgeClient {
     public DoTBForgeClient() {}
+
     @SubscribeEvent
     public static void setupBlockColors(final RegisterColorHandlersEvent.Block event) {
         DoTBColorsRegistry.getBlocksColorRegistry().forEach((blockColor, blocks) -> event.register(blockColor, blocks.stream().map(Supplier::get).toArray(Block[]::new)));

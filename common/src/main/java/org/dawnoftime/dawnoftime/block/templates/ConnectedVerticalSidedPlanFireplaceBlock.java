@@ -3,7 +3,6 @@ package org.dawnoftime.dawnoftime.block.templates;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -12,8 +11,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -35,10 +32,10 @@ import org.dawnoftime.dawnoftime.util.BlockStatePropertiesAA.HorizontalConnectio
 import org.dawnoftime.dawnoftime.util.Utils;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.MULTIBLOCK_FIREPLACE_SHAPES;
+import org.dawnoftime.dawnoftime.client.tooltip.TooltipLabel;
 
 public class ConnectedVerticalSidedPlanFireplaceBlock extends ConnectedVerticalSidedPlanBlock {
 
@@ -236,10 +233,13 @@ public class ConnectedVerticalSidedPlanFireplaceBlock extends ConnectedVerticalS
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.dynamic_model_label"));
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.dynamic_model"));
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.fireplace"));
+    public List<TooltipLabel> getTooltipLabels() {
+        return List.of(TooltipLabel.DYNAMIC_MODEL);
+    }
+
+    @Override
+    public List<String> getTooltipTexts() {
+        return List.of("fireplace");
     }
 
 }

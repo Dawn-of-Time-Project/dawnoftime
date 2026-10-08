@@ -46,6 +46,11 @@ public abstract class DoTBItemsRegistry {
     public final Supplier<Item> CLAY_TILE_CYAN = register("clay_tile_cyan", ItemDoTB::new);
     public final Supplier<Item> UNFIRED_CLAY_ROOF_TILE = register("unfired_clay_roof_tile", ItemDoTB::new);
     public final Supplier<Item> GRAY_CLAY_ROOF_TILE = register("gray_clay_roof_tile", ItemDoTB::new);
+    public final Supplier<Item> UNFIRED_CLAY_ROUND_TILE = register("unfired_clay_round_tile", ItemDoTB::new);
+    public final Supplier<Item> GREEN_CLAY_ROOF_TILE = register("green_clay_roof_tile", ItemDoTB::new);
+    public final Supplier<Item> CALCITE_POWDER = register("calcite_powder", ItemDoTB::new);
+    public final Supplier<Item> LIME = register("lime", ItemDoTB::new);
+    public final Supplier<Item> YELLOW_PIGMENTED_LIME = register("yellow_pigmented_lime", ItemDoTB::new);
 
     public abstract <T extends Item> Supplier<Item> register(final String name, final Supplier<T> itemSupplier);
 

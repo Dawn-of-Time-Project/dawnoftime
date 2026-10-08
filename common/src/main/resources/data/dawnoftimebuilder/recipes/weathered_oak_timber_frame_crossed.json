@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WwW",
+        "wWw",
+        "WwW"
+    ],
+    "key": {
+        "W": {
+            "item": "dawnoftimebuilder:weathered_oak_planks"
+        },
+        "w": {
+            "item": "dawnoftimebuilder:lime_wattle_and_daub"
+        }
+    },
+    "result": {
+        "item": "dawnoftimebuilder:weathered_oak_timber_frame_crossed",
+        "count": 6
+    }
+}

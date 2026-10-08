@@ -1,0 +1,48 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"0": "dawnoftimebuilder:block/birch_lattice_2",
+		"1": "dawnoftimebuilder:block/birch_window_frame",
+		"particle": "dawnoftimebuilder:block/birch_lattice_2"
+	},
+	"elements": [
+		{
+			"from": [14, 2, 5.99],
+			"to": [16, 16, 9.99],
+			"rotation": {"angle": 0, "axis": "y", "origin": [14, 0, -10]},
+			"faces": {
+				"north": {"uv": [0, 11, 14, 9], "rotation": 90, "texture": "#1"},
+				"east": {"uv": [0, 6, 14, 10], "rotation": 90, "texture": "#1"},
+				"south": {"uv": [0, 9, 14, 11], "rotation": 90, "texture": "#1"},
+				"west": {"uv": [0, 10, 14, 14], "rotation": 90, "texture": "#1"}
+			}
+		},
+		{
+			"from": [0, 0, 6],
+			"to": [16, 2, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 2]},
+			"faces": {
+				"north": {"uv": [16, 2, 0, 0], "texture": "#1"},
+				"east": {"uv": [12, 16, 16, 14], "texture": "#1"},
+				"south": {"uv": [0, 2, 16, 0], "texture": "#1"},
+				"up": {"uv": [0, 14, 16, 10], "texture": "#1"},
+				"down": {"uv": [0, 10, 16, 6], "texture": "#1"}
+			}
+		},
+		{
+			"from": [-1.066, -1.066, 8],
+			"to": [17.067, 17.067, 8],
+			"rotation": {"angle": 45, "axis": "z", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#0"},
+				"east": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#0"},
+				"south": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#0"},
+				"west": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#0"},
+				"up": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#0"}
+			}
+		}
+	]
+}

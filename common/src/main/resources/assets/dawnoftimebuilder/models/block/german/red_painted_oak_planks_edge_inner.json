@@ -1,0 +1,8 @@
+{
+	"parent": "dawnoftimebuilder:block/general/small_plate_inner",
+	"textures": {
+		"side": "dawnoftimebuilder:block/red_painted_oak_planks",
+		"top": "dawnoftimebuilder:block/red_painted_oak_planks",
+		"frieze": "dawnoftimebuilder:block/red_painted_oak_planks"
+	}
+}

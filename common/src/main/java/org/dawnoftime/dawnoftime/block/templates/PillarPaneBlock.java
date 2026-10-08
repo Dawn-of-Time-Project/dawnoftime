@@ -12,12 +12,8 @@ public class PillarPaneBlock extends PaneBlockDoT {
     private static final VoxelShape[] SHAPES_PILLAR = makeShapesPillar(true);
     private static final VoxelShape[] SHAPES_NO_PILLAR = makeShapesPillar(false);
 
-    public PillarPaneBlock(Properties properties, String... tooltipKeys) {
-        super(properties, tooltipKeys);
-    }
-
     public PillarPaneBlock(Properties properties) {
-        this(properties, (String[]) null);
+        super(properties);
     }
 
     @Override

@@ -1,10 +1,8 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -14,9 +12,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.dawnoftime.dawnoftime.DoTBCommon;
 import org.dawnoftime.dawnoftime.block.IFlammable;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 import static org.dawnoftime.dawnoftime.DoTBCommon.MOD_ID;
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.FULL_SHAPE;
@@ -25,26 +20,14 @@ public class BlockDoT extends Block implements IFlammable {
     private int fireSpreadSpeed = 0;
     private int fireDestructionSpeed = 0;
     private final VoxelShape[] shapes;
-    private final String[] tooltipKeys;
-
-    // Base constructor used by all others
-    public BlockDoT(Properties properties, VoxelShape[] shapes, String... tooltipKeys) {
-        super(properties);
-        this.shapes = shapes;
-        this.tooltipKeys = tooltipKeys != null ? tooltipKeys : new String[0];
-    }
 
     public BlockDoT(Properties properties, VoxelShape[] shapes) {
-        this(properties, shapes, (String[]) null);
+        super(properties);
+        this.shapes = shapes;
     }
 
     public BlockDoT(Properties properties) {
         this(properties, FULL_SHAPE);
-    }
-
-    // For blocks that use FULL_SHAPE and need one or more tooltips
-    public BlockDoT(Properties properties, String... tooltipKeys) {
-        this(properties, FULL_SHAPE, tooltipKeys);
     }
 
     /**
@@ -82,12 +65,18 @@ public class BlockDoT extends Block implements IFlammable {
         return 0;
     }
 
+    /**
+     * Land mobs (villagers, zombies...) treat partial blocks as open air and try to walk through them.
+     * By default every DoT block is solid for land pathfinding. Override to return false for blocks mobs may cross.
+     */
+    protected boolean blocksLandPathing(BlockState state) {
+        return true;
+    }
+
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, world, tooltip, flag);
-        for (String key : tooltipKeys) {
-            tooltip.add(Component.translatable(key));
-        }
+    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
+        if (type == PathComputationType.LAND && this.blocksLandPathing(state)) return false;
+        return super.isPathfindable(state, level, pos, type);
     }
 
     /**

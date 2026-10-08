@@ -1,0 +1,23 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"iII",
+		" ID",
+		"iII"
+	],
+	"key": {
+		"I": {
+			"item": "minecraft:oak_planks"
+		},
+		"i": {
+			"item": "minecraft:stick"
+		},
+		"D": {
+			"item": "minecraft:green_dye"
+		}
+	},
+	"result": {
+		"item": "dawnoftimebuilder:green_painted_oak_shutters",
+		"count": 4
+	}
+}

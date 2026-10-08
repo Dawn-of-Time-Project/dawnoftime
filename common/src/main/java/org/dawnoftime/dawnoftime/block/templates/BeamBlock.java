@@ -1,12 +1,9 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -26,8 +23,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.BEAM_SHAPES;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public class BeamBlock extends PergolaBlock {
+public class BeamBlock extends PergolaBlock implements ITooltipSource {
     public static final BooleanProperty BOTTOM = BlockStateProperties.BOTTOM;
 
     public BeamBlock(Properties properties, VoxelShape[] shapes) {
@@ -101,8 +99,7 @@ public class BeamBlock extends PergolaBlock {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.beam"));
+    public List<String> getTooltipTexts() {
+        return List.of("beam");
     }
 }

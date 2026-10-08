@@ -1,3 +1,4 @@
 {
-    "parent": "dawnoftimebuilder:block/precolumbian/blue_wave_template"
+    "parent": "dawnoftimebuilder:block/precolumbian/blue_wave_template",
+    "gui_light": "front"
 }

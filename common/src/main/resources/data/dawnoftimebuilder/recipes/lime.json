@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"PWP",
+		"PPP",
+		"SSS"
+	],
+	"key": {
+		"P": { "item": "dawnoftimebuilder:calcite_powder" },
+		"W": { "item": "minecraft:water_bucket" },
+		"S": { "item": "dawnoftimebuilder:weathered_oak_planks_slab" }
+	},
+	"result": {
+		"item": "dawnoftimebuilder:lime",
+		"count": 32
+	}
+}

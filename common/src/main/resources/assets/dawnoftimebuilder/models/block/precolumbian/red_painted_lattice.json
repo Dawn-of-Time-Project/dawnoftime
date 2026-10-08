@@ -1,4 +1,5 @@
 {
+	"format_version": "1.9.0",
 	"render_type": "minecraft:cutout",
 	"textures": {
 		"0": "dawnoftimebuilder:block/red_painted_lattice",
@@ -18,37 +19,37 @@
 			}
 		}
 	],
-    "display": {
-        "thirdperson_righthand": {
-            "translation": [0, -0.25, 3.5],
-            "scale": [0.4, 0.4, 0.4]
-        },
-        "thirdperson_lefthand": {
-            "translation": [0, -0.25, 3.5],
-            "scale": [0.4, 0.4, 0.4]
-        },
-        "firstperson_righthand": {
-            "translation": [0, -0.25, 3.5],
-            "scale": [0.4, 0.4, 0.4]
-        },
-        "firstperson_lefthand": {
-            "translation": [0, -0.25, 3.5],
-            "scale": [0.4, 0.4, 0.4]
-        },
-        "ground": {
-            "translation": [0, -0.25, 3.5],
-            "scale": [0.6, 0.6, 0.6]
-        },
-        "gui": {
-            "scale": [0.9, 0.9, 0.9]
-        },
-        "fixed": {
-            "translation": [0, 0, 7.75],
-            "scale": [0.9, 0.9, 0.9]
-        },
-        "on_shelf": {
-            "translation": [0, 0, 7.75],
-            "scale": [0.9, 0.9, 0.9]
-        }
-    }
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, -0.25, 3.5],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"thirdperson_lefthand": {
+			"translation": [0, -0.25, 3.5],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_righthand": {
+			"translation": [0, -0.25, 3.5],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"translation": [0, -0.25, 3.5],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, -0.25, 3.5],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"gui": {
+			"scale": [0.7, 0.7, 0.7]
+		},
+		"fixed": {
+			"translation": [0, 0, 7.75],
+			"scale": [0.9, 0.9, 0.9]
+		},
+		"on_shelf": {
+			"translation": [0, 0, 7.75],
+			"scale": [0.9, 0.9, 0.9]
+		}
+	}
 }

@@ -2,11 +2,14 @@
 	"type": "minecraft:crafting_shaped",
 	"pattern": [
 		"I I",
-		"III"
+		"iii"
 	],
 	"key": {
 		"I": {
 			"item": "dawnoftimebuilder:waxed_acacia_planks"
+		},
+		"i": {
+			"item": "dawnoftimebuilder:waxed_acacia_slab"
 		}
 	},
 	"result": {

@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2i;
 
 import static org.dawnoftime.dawnoftime.DoTBCommon.CREATIVE_ICONS;
+import org.dawnoftime.dawnoftime.client.gui.GuiTexts;
 import static org.dawnoftime.dawnoftime.DoTBCommon.MOD_ID;
 
 public class CategoryButton extends Button {
@@ -87,7 +88,7 @@ public class CategoryButton extends Button {
         int number = CreativeInventoryCategories.values().length;
         Tooltip[] tooltips = new Tooltip[number];
         for(int i = 0; i < number; i++) {
-            tooltips[i] = Tooltip.create(Component.translatable("gui.dawnoftimebuilder." + CreativeInventoryCategories.values()[i].getName()));
+            tooltips[i] = Tooltip.create(GuiTexts.category(CreativeInventoryCategories.values()[i].getName()));
         }
         return tooltips;
     }

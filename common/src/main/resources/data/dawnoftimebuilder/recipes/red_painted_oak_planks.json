@@ -1,0 +1,12 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "dawnoftimebuilder:red_painted_oak_log_stripped"
+		}
+	],
+	"result": {
+		"item": "dawnoftimebuilder:red_painted_oak_planks",
+		"count": 4
+	}
+}

@@ -2,12 +2,10 @@ package org.dawnoftime.dawnoftime.block.general;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -27,8 +25,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.IRON_FENCE_SHAPES;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
+import org.dawnoftime.dawnoftime.client.tooltip.TooltipLabel;
 
-public class IronFenceBlock extends PlateBlock {
+public class IronFenceBlock extends PlateBlock implements ITooltipSource {
     private static final BooleanProperty UP = BlockStateProperties.UP;
 
     public IronFenceBlock(Properties properties) {
@@ -121,10 +121,8 @@ public class IronFenceBlock extends PlateBlock {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.column_label"));
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.column"));
+    public List<TooltipLabel> getTooltipLabels() {
+        return List.of(TooltipLabel.COLUMN);
     }
 
 }

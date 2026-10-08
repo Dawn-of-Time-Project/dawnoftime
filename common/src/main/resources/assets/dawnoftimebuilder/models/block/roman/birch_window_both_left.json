@@ -1,0 +1,35 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"0": "dawnoftimebuilder:block/birch_window_frame",
+		"1": "dawnoftimebuilder:block/birch_lattice_1",
+		"particle": "dawnoftimebuilder:block/birch_window_frame"
+	},
+	"elements": [
+		{
+			"from": [14, 0, 6],
+			"to": [16, 16, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 4]},
+			"faces": {
+				"north": {"uv": [0, 6, 16, 4], "rotation": 90, "texture": "#0"},
+				"east": {"uv": [0, 6, 16, 10], "rotation": 90, "texture": "#0"},
+				"south": {"uv": [0, 4, 16, 6], "rotation": 90, "texture": "#0"},
+				"west": {"uv": [0, 10, 16, 14], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"from": [-1.066, -1.066, 8],
+			"to": [17.067, 17.067, 8],
+			"rotation": {"angle": 45, "axis": "z", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"east": {"uv": [9, 13, 14, 14], "rotation": 90, "texture": "#missing"},
+				"south": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#1"},
+				"west": {"uv": [9, 13, 14, 14], "rotation": 90, "texture": "#missing"},
+				"up": {"uv": [9, 13, 10, 14], "rotation": 90, "texture": "#missing"}
+			}
+		}
+	]
+}

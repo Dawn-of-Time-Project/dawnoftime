@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.dawnoftime.dawnoftime.DoTBCommon.CREATIVE_ICONS;
+import org.dawnoftime.dawnoftime.client.gui.GuiTexts;
 import static org.dawnoftime.dawnoftime.DoTBCommon.MOD_ID;
 
 @SuppressWarnings("unused")
@@ -143,8 +144,8 @@ public abstract class CreativeInventoryMixin extends EffectRenderingInventoryScr
         boolean hasPlaylist = CreativeInventoryCategories.values()[dOTBuilder$selectedCategoryID].getYoutubePlaylist() != null;
         this.dOT$youtubePlaylist.visible = val && hasPlaylist;
         if (hasPlaylist) {
-            String key = "tooltip." + MOD_ID + ".youtube_" + CreativeInventoryCategories.values()[dOTBuilder$selectedCategoryID].getName();
-            this.dOT$youtubePlaylist.setTooltip(Tooltip.create(Component.translatable(key)));
+            Component youtubeTooltip = GuiTexts.youtube(CreativeInventoryCategories.values()[dOTBuilder$selectedCategoryID].getName());
+            this.dOT$youtubePlaylist.setTooltip(Tooltip.create(youtubeTooltip));
         }
         this.dOTBuilder$buttons.forEach(button -> button.visible = val);
         boolean hasSubTabs = CreativeInventoryCategories.values()[dOTBuilder$selectedCategoryID].hasSubTabs();

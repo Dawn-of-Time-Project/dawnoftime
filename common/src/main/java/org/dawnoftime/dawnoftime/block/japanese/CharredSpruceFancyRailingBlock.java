@@ -2,9 +2,6 @@ package org.dawnoftime.dawnoftime.block.japanese;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -16,12 +13,12 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.dawnoftime.dawnoftime.block.templates.PaneBlockDoT;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.CHARRED_SPRUCE_FANCY_RAILING_SHAPES;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public class CharredSpruceFancyRailingBlock extends PaneBlockDoT {
+public class CharredSpruceFancyRailingBlock extends PaneBlockDoT implements ITooltipSource {
     private static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 
     public CharredSpruceFancyRailingBlock(Properties properties) {
@@ -56,8 +53,7 @@ public class CharredSpruceFancyRailingBlock extends PaneBlockDoT {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable BlockGetter worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.charred_spruce_fancy_railing"));
+    public List<String> getTooltipTexts() {
+        return List.of("charred_spruce_fancy_railing");
     }
 }
