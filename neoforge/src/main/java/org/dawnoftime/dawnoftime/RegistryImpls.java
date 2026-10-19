@@ -55,10 +55,6 @@ public class RegistryImpls {
     public static class ForgeBlocksRegistry extends DoTBBlocksRegistry {
         public static final DeferredRegister<Block> BLOCKS_REGISTRY = DeferredRegister.create(BuiltInRegistries.BLOCK, DoTBCommon.MOD_ID);
         public static final DeferredRegister<Item> BLOCK_ITEMS_REGISTRY = DeferredRegister.create(BuiltInRegistries.ITEM, org.dawnoftime.dawnoftime.DoTBCommon.MOD_ID);
-        public ForgeBlocksRegistry() {
-            postRegister();
-        }
-
         @SafeVarargs
         @Override
         public final <T extends Block, Y extends Item> Supplier<T> registerWithItem(String id, Supplier<T> block, Function<T, Y> item, TagKey<Block>... tags) {

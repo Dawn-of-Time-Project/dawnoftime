@@ -33,14 +33,6 @@ public class PaperLampBlock extends ConnectedVerticalBlock implements IBlockSpec
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.column_label"));
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.column"));
-    }
-
-    @Override
     public boolean emitsLight() {
         return true;
     }

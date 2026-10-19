@@ -287,10 +287,7 @@ public class PortcullisBlock extends WaterloggedBlock {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.iron_portcullis"));
+    protected boolean blocksLandPathing(BlockState state) {
+        return !state.getValue(OPEN);
     }
-
 }

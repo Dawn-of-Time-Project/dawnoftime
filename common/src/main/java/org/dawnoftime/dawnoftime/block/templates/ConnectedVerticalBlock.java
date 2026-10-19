@@ -17,21 +17,28 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
+import org.dawnoftime.dawnoftime.client.tooltip.TooltipLabel;
 import org.dawnoftime.dawnoftime.util.BlockStatePropertiesAA;
 import org.dawnoftime.dawnoftime.util.Utils;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 
-public class ConnectedVerticalBlock extends WaterloggedBlock {
+public class ConnectedVerticalBlock extends WaterloggedBlock implements ITooltipSource {
     public static final EnumProperty<BlockStatePropertiesAA.VerticalConnection> VERTICAL_CONNECTION = BlockStatePropertiesAA.VERTICAL_CONNECTION;
 
-    public ConnectedVerticalBlock(final Properties properties, VoxelShape[] shapes, String... tooltipKeys) {
-        super(properties, shapes, tooltipKeys);
+    public ConnectedVerticalBlock(final Properties properties, VoxelShape[] shapes) {
+        super(properties, shapes);
         this.registerDefaultState(this.defaultBlockState().setValue(ConnectedVerticalBlock.VERTICAL_CONNECTION, BlockStatePropertiesAA.VerticalConnection.NONE));
     }
 
-    public ConnectedVerticalBlock(final Properties properties, VoxelShape[] shapes) {
-        this(properties, shapes, new String[0]);
+    /**
+     * Stackable column behavior. Subclasses that disable the stacking in {@link #useWithoutItem} must return an empty list.
+     */
+    @Override
+    public List<TooltipLabel> getTooltipLabels() {
+        return List.of(TooltipLabel.COLUMN);
     }
 
     @Override

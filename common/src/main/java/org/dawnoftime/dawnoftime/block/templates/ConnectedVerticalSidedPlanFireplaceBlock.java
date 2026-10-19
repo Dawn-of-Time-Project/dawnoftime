@@ -36,6 +36,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.MULTIBLOCK_FIREPLACE_SHAPES;
+import org.dawnoftime.dawnoftime.client.tooltip.TooltipLabel;
 
 public class ConnectedVerticalSidedPlanFireplaceBlock extends ConnectedVerticalSidedPlanBlock {
 
@@ -238,11 +239,13 @@ public class ConnectedVerticalSidedPlanFireplaceBlock extends ConnectedVerticalS
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.dynamic_model_label"));
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.dynamic_model"));
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.fireplace"));
+    public List<TooltipLabel> getTooltipLabels() {
+        return List.of(TooltipLabel.DYNAMIC_MODEL);
+    }
+
+    @Override
+    public List<String> getTooltipTexts() {
+        return List.of("fireplace");
     }
 
 }

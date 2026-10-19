@@ -14,13 +14,9 @@ import org.jetbrains.annotations.NotNull;
 public class VerticalPillarPaneBlock extends PillarPaneBlock {
     public static final EnumProperty<BlockStatePropertiesAA.VerticalConnection> VERTICAL_CONNECTION = BlockStatePropertiesAA.VERTICAL_CONNECTION;
 
-    public VerticalPillarPaneBlock(Properties properties, String... tooltipKeys) {
-        super(properties, tooltipKeys);
-        this.registerDefaultState(this.defaultBlockState().setValue(VERTICAL_CONNECTION, BlockStatePropertiesAA.VerticalConnection.NONE));
-    }
-
     public VerticalPillarPaneBlock(Properties properties) {
-        this(properties, (String[]) null);
+        super(properties);
+        this.registerDefaultState(this.defaultBlockState().setValue(VERTICAL_CONNECTION, BlockStatePropertiesAA.VerticalConnection.NONE));
     }
 
     @Override

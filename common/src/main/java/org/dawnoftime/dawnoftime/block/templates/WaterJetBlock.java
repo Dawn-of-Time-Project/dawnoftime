@@ -2,7 +2,6 @@ package org.dawnoftime.dawnoftime.block.templates;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.Item;
@@ -28,8 +27,9 @@ import org.dawnoftime.dawnoftime.util.BlockStatePropertiesAA.VerticalLimitedConn
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public class WaterJetBlock extends BlockDoT {
+public class WaterJetBlock extends BlockDoT implements ITooltipSource {
     public WaterJetBlock(Properties propertiesIn) {
         super(propertiesIn);
         this.registerDefaultState(this.defaultBlockState()
@@ -192,9 +192,7 @@ public class WaterJetBlock extends BlockDoT {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.water_jet"));
+    public List<String> getTooltipTexts() {
+        return List.of("water_jet");
     }
 }

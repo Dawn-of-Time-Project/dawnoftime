@@ -50,12 +50,4 @@ public class SandstoneColumnBlock extends ConnectedVerticalBlock implements IBlo
         }
         return testedState.getBlock() == this;
     }
-
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.column_label"));
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.column"));
-    }
 }

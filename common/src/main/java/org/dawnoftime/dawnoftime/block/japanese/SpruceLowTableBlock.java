@@ -74,10 +74,4 @@ public class SpruceLowTableBlock extends DisplayerBlock {
             return super.rotate(state, rot);
     }
 
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.table"));
-    }
 }

@@ -7,7 +7,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -30,8 +29,10 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.IRON_FENCE_SHAPES;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
+import org.dawnoftime.dawnoftime.client.tooltip.TooltipLabel;
 
-public class IronFenceBlock extends PlateBlock {
+public class IronFenceBlock extends PlateBlock implements ITooltipSource {
     private static final BooleanProperty UP = BlockStateProperties.UP;
 
     public IronFenceBlock(Properties properties) {
@@ -124,11 +125,8 @@ public class IronFenceBlock extends PlateBlock {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.column_label"));
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.column"));
+    public List<TooltipLabel> getTooltipLabels() {
+        return List.of(TooltipLabel.COLUMN);
     }
 
 }

@@ -8,7 +8,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -26,8 +25,9 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 import java.util.List;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public class CharredSpruceRailingBlock extends FenceBlock {
+public class CharredSpruceRailingBlock extends FenceBlock implements ITooltipSource {
     private static final EnumProperty<FencePillar> FENCE_PILLAR = BlockStatePropertiesAA.FENCE_PILLAR;
 
     public CharredSpruceRailingBlock(Properties properties) {
@@ -109,10 +109,8 @@ public class CharredSpruceRailingBlock extends FenceBlock {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.charred_spruce_railing"));
+    public List<String> getTooltipTexts() {
+        return List.of("charred_spruce_railing");
     }
 
 }

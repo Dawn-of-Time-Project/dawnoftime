@@ -1,5 +1,6 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -25,24 +26,14 @@ public class BlockDoT extends Block implements IFlammable {
     private int fireSpreadSpeed = 0;
     private int fireDestructionSpeed = 0;
     private final VoxelShape[] shapes;
-    private final String[] tooltipKeys;
-
-    public BlockDoT(Properties properties, VoxelShape[] shapes, String... tooltipKeys) {
-        super(properties);
-        this.shapes = shapes;
-        this.tooltipKeys = tooltipKeys != null ? tooltipKeys : new String[0];
-    }
 
     public BlockDoT(Properties properties, VoxelShape[] shapes) {
-        this(properties, shapes, new String[0]);
+        super(properties);
+        this.shapes = shapes;
     }
 
-    public BlockDoT(Properties properties, String... tooltipKeys) {
-        this(properties, FULL_SHAPE, tooltipKeys);
-    }
-
-    public BlockDoT(Properties properties){
-        this(properties, FULL_SHAPE, new String[0]);
+    public BlockDoT(Properties properties) {
+        this(properties, FULL_SHAPE);
     }
 
     /**
@@ -81,6 +72,20 @@ public class BlockDoT extends Block implements IFlammable {
     }
 
     /**
+     * Land mobs (villagers, zombies...) treat partial blocks as open air and try to walk through them.
+     * By default every DoT block is solid for land pathfinding. Override to return false for blocks mobs may cross.
+     */
+    protected boolean blocksLandPathing(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType type) {
+        if (type == PathComputationType.LAND && this.blocksLandPathing(state)) return false;
+        return super.isPathfindable(state, type);
+    }
+
+    /**
      * Set Encouragement to 5 and Flammability to 20
      *
      * @return this
@@ -101,15 +106,6 @@ public class BlockDoT extends Block implements IFlammable {
         this.fireSpreadSpeed = fireSpreadSpeed;
         this.fireDestructionSpeed = fireDestructionSpeed;
         return this;
-    }
-
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        for (String key : tooltipKeys) {
-            tooltip.add(Component.translatable(key));
-        }
     }
 
     @Override

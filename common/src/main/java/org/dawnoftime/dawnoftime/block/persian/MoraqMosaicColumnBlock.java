@@ -50,13 +50,4 @@ public class MoraqMosaicColumnBlock extends ConnectedVerticalBlock {
         return super.useWithoutItem(state, worldIn, pos, player, hit);
     }
 
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.column_label"));
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.moraq_mosaic_column"));
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.column"));
-    }
-
 }

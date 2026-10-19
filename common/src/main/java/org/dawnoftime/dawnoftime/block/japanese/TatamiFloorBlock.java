@@ -101,4 +101,9 @@ public class TatamiFloorBlock extends BlockDoT {
                 return super.mirror(state, mirrorIn);
         }
     }
+
+    @Override
+    protected boolean blocksLandPathing(BlockState state) {
+        return false;
+    }
 }

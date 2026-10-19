@@ -1,5 +1,6 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -21,10 +22,9 @@ import org.dawnoftime.dawnoftime.block.IBlockChain;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-import javax.annotation.Nullable;
-
-public class LanternBlock extends SpecialDisplayBlock implements IBlockChain {
+public class LanternBlock extends SpecialDisplayBlock implements ITooltipSource, IBlockChain {
 
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
@@ -85,9 +85,7 @@ public class LanternBlock extends SpecialDisplayBlock implements IBlockChain {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.lantern"));
+    public List<String> getTooltipTexts() {
+        return List.of("lantern");
     }
 }

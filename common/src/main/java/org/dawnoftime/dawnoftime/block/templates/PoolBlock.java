@@ -2,7 +2,6 @@ package org.dawnoftime.dawnoftime.block.templates;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
@@ -32,8 +31,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public class PoolBlock extends BlockDoT {
+public class PoolBlock extends BlockDoT implements ITooltipSource {
 
     public final int maxLevel;
     public final int faucetLevel;
@@ -90,7 +90,6 @@ public class PoolBlock extends BlockDoT {
         }
 
         state = state.setValue(BlockStatePropertiesAA.LEVEL, level);
-
 
         return state;
     }
@@ -423,13 +422,6 @@ public class PoolBlock extends BlockDoT {
         return -1;
     }
 
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.add_column"));
-    }
-
     public static final class PoolLevelAndSides {
         public boolean left;
         public boolean right;
@@ -444,5 +436,10 @@ public class PoolBlock extends BlockDoT {
 
     public enum EnumActivatorState {
         NO, DISABLED, ENABLED,
+    }
+
+    @Override
+    public List<String> getTooltipTexts() {
+        return List.of("add_column");
     }
 }

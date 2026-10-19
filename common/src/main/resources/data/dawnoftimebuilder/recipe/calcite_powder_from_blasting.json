@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "minecraft:calcite"
+  },
+  "result": {
+    "id": "dawnoftimebuilder:calcite_powder"
+  },
+  "experience": 0.1,
+  "cookingtime": 100
+}

@@ -13,12 +13,4 @@ public class FlatPaperWallBlock extends PillarPaneBlock {
     public FlatPaperWallBlock(Properties properties) {
         super(properties);
     }
-
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.connected_texture_label"));
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.connected_texture"));
-    }
 }

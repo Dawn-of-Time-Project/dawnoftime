@@ -9,17 +9,15 @@ import org.dawnoftime.dawnoftime.block.templates.ConnectedHorizontalBlock;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public class StoneBricksMachicolationBlock extends ConnectedHorizontalBlock {
+public class StoneBricksMachicolationBlock extends ConnectedHorizontalBlock implements ITooltipSource {
     public StoneBricksMachicolationBlock(Properties properties, VoxelShape[] shapes) {
         super(properties, shapes);
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Item.TooltipContext context,
-            @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.stone_bricks_defense_label"));
-        tooltip.add(Component.translatable("tooltip.dawnoftimebuilder.stone_bricks_defense"));
+    public List<String> getTooltipTexts() {
+        return List.of("stone_bricks_defense");
     }
 }

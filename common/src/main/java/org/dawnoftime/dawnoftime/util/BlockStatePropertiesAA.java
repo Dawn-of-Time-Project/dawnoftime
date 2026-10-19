@@ -24,9 +24,6 @@ public class BlockStatePropertiesAA {
     public static final BooleanProperty ACTIVATED = BooleanProperty.create("activated");
     public static final BooleanProperty SMALL_TOP = BooleanProperty.create("small_top");
     public static final IntegerProperty MULTIBLOCK_0_2 = IntegerProperty.create("multiblock", 0, 2);
-    public static final IntegerProperty MULTIBLOCK_3X = IntegerProperty.create("multiblock_3x", 0, 2);
-    public static final IntegerProperty MULTIBLOCK_2Y = IntegerProperty.create("multiblock_2y", 0, 1);
-    public static final IntegerProperty MULTIBLOCK_3Z = IntegerProperty.create("multiblock_3z", 0, 2);
     public static final IntegerProperty HUMIDITY_0_8 = IntegerProperty.create("humidity", 0, 8);
     public static final IntegerProperty STACK = IntegerProperty.create("stack", 1, 3);
     public static final IntegerProperty LEVEL = IntegerProperty.create("level", 0, 16);
