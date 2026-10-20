@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "inverted=false": {
+            "model": "dawnoftimebuilder:block/german/red_oak_timber_frame_corner"
+        },
+        "inverted=true": {
+            "model": "dawnoftimebuilder:block/german/red_oak_timber_frame_corner_inverted"
+        }
+    }
+}

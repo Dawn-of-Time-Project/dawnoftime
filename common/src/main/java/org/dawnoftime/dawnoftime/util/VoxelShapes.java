@@ -112,6 +112,12 @@ public class VoxelShapes {
     public static final VoxelShape[] PLASTERED_STONE_WINDOW_SHAPES = new VoxelShape[]{
             Block.box(0.0D, 0.0D, 6.0D, 16.0D, 16.0D, 10.0D),
             Block.box(6.0D, 0.0D, 0.0D, 10.0D, 16.0D, 16.0D)};
+    // index 0=SOUTH, 1=WEST, 2=NORTH, 3=EAST (the ledge faces the placing player)
+    public static final VoxelShape[] WHITE_PAINTED_OAK_WINDOW_SHAPES = new VoxelShape[]{
+            Block.box(0.0D, 0.0D, 6.0D, 16.0D, 16.0D, 9.0D),
+            Block.box(7.0D, 0.0D, 0.0D, 10.0D, 16.0D, 16.0D),
+            Block.box(0.0D, 0.0D, 7.0D, 16.0D, 16.0D, 10.0D),
+            Block.box(6.0D, 0.0D, 0.0D, 9.0D, 16.0D, 16.0D)};
     public static final VoxelShape[] PLATE_SHAPES = makePlateShapes();
     public static final VoxelShape[] POOL_SHAPES = makePoolShapes();
     public static final VoxelShape[] PORTCULLIS_SHAPES = new VoxelShape[]{

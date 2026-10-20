@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "II"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:lime_wattle_and_daub_slab"
+  },
+  "result": {
+    "count": 6,
+    "id": "dawnoftimebuilder:lime_wattle_and_daub_edge"
+  }
+}

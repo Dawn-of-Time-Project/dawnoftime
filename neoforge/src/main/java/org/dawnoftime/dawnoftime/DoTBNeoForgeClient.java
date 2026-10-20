@@ -7,6 +7,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import org.dawnoftime.dawnoftime.client.tooltip.BlockTooltips;
 import org.dawnoftime.dawnoftime.client.gui.StoneOvenScreen;
 import org.dawnoftime.dawnoftime.registry.DoTBMenusRegistry;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
@@ -35,5 +37,10 @@ public class DoTBNeoForgeClient {
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(DoTBEntitiesRegistry.INSTANCE.CHAIR_ENTITY.get(), ChairRenderer::new);
         event.registerBlockEntityRenderer(DoTBBlockEntitiesRegistry.INSTANCE.DISPLAYER.get(), DisplayerBERenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void appendBlockTooltips(ItemTooltipEvent event) {
+        BlockTooltips.append(event.getItemStack(), event.getToolTip());
     }
 }

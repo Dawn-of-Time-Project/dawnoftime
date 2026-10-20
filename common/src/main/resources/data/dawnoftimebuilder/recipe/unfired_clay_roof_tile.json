@@ -2,11 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "I  ",
-    "II ",
+    "Ii ",
     "III"
   ],
   "key": {
-    "I": "minecraft:clay_ball"
+    "I": "minecraft:clay_ball",
+    "i": "minecraft:gray_dye"
   },
   "result": {
     "count": 8,

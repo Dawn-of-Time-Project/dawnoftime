@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PWP",
+    "YPO",
+    "SSS"
+  ],
+  "key": {
+    "P": "dawnoftimebuilder:calcite_powder",
+    "W": "minecraft:water_bucket",
+    "S": "dawnoftimebuilder:weathered_oak_planks_slab",
+    "Y": "minecraft:yellow_dye",
+    "O": "minecraft:orange_dye"
+  },
+  "result": {
+    "count": 32,
+    "id": "dawnoftimebuilder:yellow_pigmented_lime"
+  }
+}

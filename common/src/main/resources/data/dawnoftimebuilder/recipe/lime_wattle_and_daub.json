@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "LWL",
+    "LLL"
+  ],
+  "key": {
+    "L": "dawnoftimebuilder:lime",
+    "W": "dawnoftimebuilder:wattle_and_daub"
+  },
+  "result": {
+    "count": 8,
+    "id": "dawnoftimebuilder:lime_wattle_and_daub"
+  }
+}

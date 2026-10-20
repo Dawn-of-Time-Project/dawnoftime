@@ -55,8 +55,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.FIREPLACE_SHAPES;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public class FireplaceBlock extends WaterloggedBlock {
+public class FireplaceBlock extends WaterloggedBlock implements ITooltipSource {
     public static final EnumProperty<Direction.Axis> HORIZONTAL_AXIS = BlockStateProperties.HORIZONTAL_AXIS;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final EnumProperty<HorizontalConnection> HORIZONTAL_CONNECTION = BlockStatePropertiesAA.HORIZONTAL_CONNECTION;
@@ -216,9 +217,8 @@ public class FireplaceBlock extends WaterloggedBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.accept(Component.translatable("tooltip.dawnoftimebuilder.fireplace"));
+    public List<String> getTooltipTexts() {
+        return List.of("fireplace");
     }
 
 }

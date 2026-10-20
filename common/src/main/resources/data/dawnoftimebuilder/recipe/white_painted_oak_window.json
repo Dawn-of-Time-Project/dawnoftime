@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OOO",
+    "GDG",
+    "OOO"
+  ],
+  "key": {
+    "O": "minecraft:oak_planks",
+    "G": "minecraft:glass_pane",
+    "D": "minecraft:white_dye"
+  },
+  "result": {
+    "count": 4,
+    "id": "dawnoftimebuilder:white_painted_oak_window"
+  }
+}

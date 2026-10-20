@@ -1,5 +1,6 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -23,8 +24,9 @@ import org.dawnoftime.dawnoftime.registry.DoTBBlockEntitiesRegistry;
 import org.jetbrains.annotations.NotNull;
 
 import static net.minecraft.world.Containers.dropItemStack;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public abstract class DisplayerBlock extends WaterloggedBlock implements EntityBlock, IBlockSpecialDisplay {
+public abstract class DisplayerBlock extends WaterloggedBlock implements ITooltipSource, EntityBlock, IBlockSpecialDisplay {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     protected DisplayerBlock(Properties properties, VoxelShape[] shapes) {
@@ -101,5 +103,10 @@ public abstract class DisplayerBlock extends WaterloggedBlock implements EntityB
     @Override
     public float getDisplayScale() {
         return 0.2F;
+    }
+
+    @Override
+    public List<String> getTooltipTexts() {
+        return List.of("table");
     }
 }

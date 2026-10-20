@@ -66,8 +66,6 @@ public class RegistryImpls {
 
     public static class FabricBlocksRegistry extends DoTBBlocksRegistry {
         public FabricBlocksRegistry() {
-            postRegister();
-
             for (Map.Entry<ResourceKey<Block>, Block> resourceKeyBlockEntry : BuiltInRegistries.BLOCK.entrySet()) {
                 Block block = resourceKeyBlockEntry.getValue();
                 if (block instanceof IFlammable) {

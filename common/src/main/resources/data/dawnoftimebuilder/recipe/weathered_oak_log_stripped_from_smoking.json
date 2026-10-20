@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": "minecraft:stripped_oak_log",
+  "result": {
+    "id": "dawnoftimebuilder:weathered_oak_log_stripped"
+  },
+  "experience": 0.35,
+  "cookingtime": 100
+}

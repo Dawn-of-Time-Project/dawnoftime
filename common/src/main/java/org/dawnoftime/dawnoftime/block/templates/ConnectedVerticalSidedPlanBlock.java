@@ -3,6 +3,7 @@ package org.dawnoftime.dawnoftime.block.templates;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.LevelReader;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -23,6 +24,7 @@ import org.dawnoftime.dawnoftime.util.BlockStatePropertiesAA;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import org.dawnoftime.dawnoftime.client.tooltip.TooltipLabel;
 
 public class ConnectedVerticalSidedPlanBlock extends ConnectedVerticalSidedBlock {
     public static final EnumProperty<BlockStatePropertiesAA.HorizontalConnection> HORIZONTAL_CONNECTION = BlockStatePropertiesAA.HORIZONTAL_CONNECTION;
@@ -70,6 +72,11 @@ public class ConnectedVerticalSidedPlanBlock extends ConnectedVerticalSidedBlock
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player player, BlockHitResult hit) {
         return InteractionResult.PASS;
+    }
+
+    @Override
+    public List<TooltipLabel> getTooltipLabels() {
+        return List.of();
     }
 
 }

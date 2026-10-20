@@ -2,10 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "I I",
-    "III"
+    "SSS"
   ],
   "key": {
-    "I": "dawnoftimebuilder:red_painted_log"
+    "I": "dawnoftimebuilder:red_painted_log",
+    "S": "dawnoftimebuilder:red_painted_support_slab"
   },
   "result": {
     "id": "dawnoftimebuilder:red_painted_roof_support"

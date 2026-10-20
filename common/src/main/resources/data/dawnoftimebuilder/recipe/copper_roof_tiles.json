@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "II",
+    "II"
+  ],
+  "key": {
+    "I": "minecraft:copper_ingot"
+  },
+  "result": {
+    "count": 4,
+    "id": "dawnoftimebuilder:copper_roof_tiles"
+  }
+}

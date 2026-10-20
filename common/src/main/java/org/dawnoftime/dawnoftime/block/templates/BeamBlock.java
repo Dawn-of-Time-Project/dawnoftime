@@ -28,8 +28,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.BEAM_SHAPES;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public class BeamBlock extends PergolaBlock {
+public class BeamBlock extends PergolaBlock implements ITooltipSource {
     public static final BooleanProperty BOTTOM = BlockStateProperties.BOTTOM;
 
     public BeamBlock(Properties properties, VoxelShape[] shapes) {
@@ -103,8 +104,7 @@ public class BeamBlock extends PergolaBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.accept(Component.translatable("tooltip.dawnoftimebuilder.beam"));
+    public List<String> getTooltipTexts() {
+        return List.of("beam");
     }
 }

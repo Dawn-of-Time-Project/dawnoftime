@@ -1,5 +1,6 @@
 package org.dawnoftime.dawnoftime.mixin.impl.client;
 
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.dawnoftime.dawnoftime.DoTBCommon.CREATIVE_ICONS;
+import org.dawnoftime.dawnoftime.client.gui.GuiTexts;
 import static org.dawnoftime.dawnoftime.DoTBCommon.MOD_ID;
 
 @SuppressWarnings("unused")
@@ -44,6 +46,10 @@ public abstract class CreativeInventoryMixin extends AbstractContainerScreen<Cre
     private Button dOTBuilder$btnScrollDown;
     @Unique
     private Button dOT$youtubePlaylist;
+    @Unique
+    private static final String dOT$DISCORD_LINK = "https://linktr.ee/TheGoldenWorld";
+    @Unique
+    private Button dOT$discordButton;
     @Unique
     private List<SubTabButton> dOTBuilder$subTabButtons;
     @Unique
@@ -84,7 +90,10 @@ public abstract class CreativeInventoryMixin extends AbstractContainerScreen<Cre
             }
         }, CREATIVE_ICONS, 16, 56));
 
-        this.addRenderableWidget(this.dOT$youtubePlaylist = new PlaylistButton(this.leftPos + 156, this.topPos + 4, button -> dOTBuilder$openLink(CreativeInventoryCategories.values()[dOTBuilder$selectedCategoryID].getYoutubePlaylist())));
+        this.addRenderableWidget(this.dOT$youtubePlaylist = new PlaylistButton(this.leftPos + 142, this.topPos + 4, button -> dOTBuilder$openLink(CreativeInventoryCategories.values()[dOTBuilder$selectedCategoryID].getYoutubePlaylist())));
+
+        this.addRenderableWidget(this.dOT$discordButton = new PlaylistButton(this.leftPos + 156, this.topPos + 4, button -> Util.getPlatform().openUri(dOT$DISCORD_LINK), Identifier.fromNamespaceAndPath(MOD_ID, "textures/gui/discord.png")));
+        this.dOT$discordButton.setTooltip(Tooltip.create(GuiTexts.discord()));
 
         this.dOTBuilder$subTabButtons = new ArrayList<>();
         this.dOTBuilder$buildSubTabButtons((CreativeModeInventoryScreen) (Object) this);
@@ -140,9 +149,10 @@ public abstract class CreativeInventoryMixin extends AbstractContainerScreen<Cre
         this.dOTBuilder$btnScrollDown.visible = val;
         boolean hasPlaylist = CreativeInventoryCategories.values()[dOTBuilder$selectedCategoryID].getYoutubePlaylist() != null;
         this.dOT$youtubePlaylist.visible = val && hasPlaylist;
+        this.dOT$discordButton.visible = val;
         if (hasPlaylist) {
-            String key = "tooltip." + MOD_ID + ".youtube_" + CreativeInventoryCategories.values()[dOTBuilder$selectedCategoryID].getName();
-            this.dOT$youtubePlaylist.setTooltip(Tooltip.create(Component.translatable(key)));
+            Component youtubeTooltip = GuiTexts.youtube(CreativeInventoryCategories.values()[dOTBuilder$selectedCategoryID].getName());
+            this.dOT$youtubePlaylist.setTooltip(Tooltip.create(youtubeTooltip));
         }
         this.dOTBuilder$buttons.forEach(button -> button.visible = val);
         boolean hasSubTabs = CreativeInventoryCategories.values()[dOTBuilder$selectedCategoryID].hasSubTabs();
@@ -212,7 +222,7 @@ public abstract class CreativeInventoryMixin extends AbstractContainerScreen<Cre
 
         for (int i = 0; i < count; i++) {
             final int subTabIndex = i;
-            int x = this.leftPos + 156 - (count - i) * 14;
+            int x = this.leftPos + 142 - (count - i) * 14;
             CreativeInventoryCategories.SubTab subTab = subTabs.get(i);
             SubTabButton btn = new SubTabButton(
                     x, y,

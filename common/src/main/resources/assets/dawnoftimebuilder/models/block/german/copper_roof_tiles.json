@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "dawnoftimebuilder:block/copper_roof_tiles"
+    }
+}

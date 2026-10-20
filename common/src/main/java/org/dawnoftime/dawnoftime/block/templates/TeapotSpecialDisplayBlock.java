@@ -21,8 +21,9 @@ import org.dawnoftime.dawnoftime.registry.DoTBBlocksRegistry;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public class TeapotSpecialDisplayBlock extends SpecialDisplayBlock {
+public class TeapotSpecialDisplayBlock extends SpecialDisplayBlock implements ITooltipSource {
 
     public TeapotSpecialDisplayBlock(Properties properties, VoxelShape[] shapes) {
         super(properties, shapes);
@@ -48,8 +49,7 @@ public class TeapotSpecialDisplayBlock extends SpecialDisplayBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.accept(Component.translatable("tooltip.dawnoftimebuilder.teapot"));
+    public List<String> getTooltipTexts() {
+        return List.of("teapot");
     }
 }

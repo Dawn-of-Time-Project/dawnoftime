@@ -1,11 +1,14 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    "dawnoftimebuilder:gray_roof_tiles",
-    "minecraft:green_dye"
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "II",
+    "II"
   ],
+  "key": {
+    "I": "dawnoftimebuilder:green_clay_roof_tile"
+  },
   "result": {
-    "count": 8,
+    "count": 6,
     "id": "dawnoftimebuilder:green_roof_tiles"
   }
 }

@@ -1,7 +1,6 @@
 package org.dawnoftime.dawnoftime.block.japanese;
 
 import java.util.function.Consumer;
-import org.dawnoftime.dawnoftime.block.IBlockTooltip;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.LevelReader;
@@ -13,7 +12,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -30,8 +28,9 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 import java.util.List;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public class CharredSpruceRailingBlock extends FenceBlock implements IBlockTooltip  {
+public class CharredSpruceRailingBlock extends FenceBlock implements ITooltipSource {
     private static final EnumProperty<FencePillar> FENCE_PILLAR = BlockStatePropertiesAA.FENCE_PILLAR;
 
     public CharredSpruceRailingBlock(Properties properties) {
@@ -113,8 +112,8 @@ public class CharredSpruceRailingBlock extends FenceBlock implements IBlockToolt
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag) {
-        tooltip.accept(Component.translatable("tooltip.dawnoftimebuilder.charred_spruce_railing"));
+    public List<String> getTooltipTexts() {
+        return List.of("charred_spruce_railing");
     }
 
 }

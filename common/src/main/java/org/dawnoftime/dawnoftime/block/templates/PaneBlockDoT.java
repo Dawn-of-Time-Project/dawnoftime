@@ -1,18 +1,17 @@
 package org.dawnoftime.dawnoftime.block.templates;
 
 import java.util.function.Consumer;
-import org.dawnoftime.dawnoftime.block.IBlockTooltip;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
@@ -25,23 +24,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class PaneBlockDoT extends IronBarsBlock implements IBlockTooltip  {
-    private final String[] tooltipKeys;
-
-    public PaneBlockDoT(Properties properties, String... tooltipKeys) {
-        super(properties);
-        this.tooltipKeys = tooltipKeys != null ? tooltipKeys : new String[0];
-    }
-
+public class PaneBlockDoT extends IronBarsBlock {
     public PaneBlockDoT(Properties properties) {
-        this(properties, (String[]) null);
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag) {
-        for (String key : tooltipKeys) {
-            tooltip.accept(Component.translatable(key));
-        }
+        super(properties);
     }
 
     @Override

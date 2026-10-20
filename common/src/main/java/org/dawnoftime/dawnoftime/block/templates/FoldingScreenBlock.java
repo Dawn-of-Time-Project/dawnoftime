@@ -47,10 +47,4 @@ public class FoldingScreenBlock extends ConnectedVerticalBlock {
         return Shapes.block();
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.accept(Component.translatable("tooltip.dawnoftimebuilder.column_label"));
-        tooltip.accept(Component.translatable("tooltip.dawnoftimebuilder.column"));
-    }
 }

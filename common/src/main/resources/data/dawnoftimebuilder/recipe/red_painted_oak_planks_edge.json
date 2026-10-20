@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "II"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:red_painted_oak_planks_slab"
+  },
+  "result": {
+    "count": 6,
+    "id": "dawnoftimebuilder:red_painted_oak_planks_edge"
+  }
+}

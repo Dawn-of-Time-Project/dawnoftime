@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "II"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:copper_roof_tiles_slab"
+  },
+  "result": {
+    "count": 6,
+    "id": "dawnoftimebuilder:copper_roof_tiles_edge"
+  }
+}

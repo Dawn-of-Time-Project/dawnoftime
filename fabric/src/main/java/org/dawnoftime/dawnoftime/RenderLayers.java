@@ -97,5 +97,17 @@ public class RenderLayers {
         BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.MANGROVE_LATTICE.get(), ChunkSectionLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.CHERRY_LATTICE.get(), ChunkSectionLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.WHITE_CUSHION.get(), ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.WHITE_PAINTED_LATTICE.get(), ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.RED_PAINTED_LATTICE.get(), ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.BLUE_PAINTED_LATTICE.get(), ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.BLUE_WAVE_TEMPLATE.get(), ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.BLUE_ROUND_TEMPLATE.get(), ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.WHITE_SPIRAL_TEMPLATE.get(), ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.BIRCH_WINDOW.get(), ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.PAPER_DECORATED_WINDOW.get(), ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.WHITE_PAINTED_OAK_WINDOW.get(), ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.WEATHERED_OAK_TRAPDOOR.get(), ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.SANDSTONE_WATER_JET.get(), ChunkSectionLayer.TRANSLUCENT);
+        BlockRenderLayerMap.putBlock(DoTBBlocksRegistry.INSTANCE.WAXED_ACACIA_FANCY_RAILING.get(), ChunkSectionLayer.CUTOUT);
     }
 }

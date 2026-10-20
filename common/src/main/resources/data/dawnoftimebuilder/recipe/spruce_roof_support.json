@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "I I",
-    "I I",
-    "III"
+    "SSS"
   ],
   "key": {
-    "I": "minecraft:spruce_planks"
+    "I": "minecraft:spruce_planks",
+    "S": "minecraft:spruce_slab"
   },
   "result": {
     "id": "dawnoftimebuilder:spruce_roof_support"

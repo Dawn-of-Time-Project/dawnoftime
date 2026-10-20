@@ -1,0 +1,7 @@
+{
+	"parent": "dawnoftimebuilder:block/general/plate_outer",
+	"textures": {
+		"top": "dawnoftimebuilder:block/lime_wattle_and_daub",
+		"frieze": "dawnoftimebuilder:block/lime_wattle_and_daub"
+	}
+}

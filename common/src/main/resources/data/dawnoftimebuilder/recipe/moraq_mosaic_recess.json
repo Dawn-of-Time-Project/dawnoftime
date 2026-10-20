@@ -6,12 +6,12 @@
     "xix"
   ],
   "key": {
-    "x": "minecraft:stone",
-    "i": "minecraft:blue_dye",
-    "X": "minecraft:lapis_lazuli"
+    "x": "minecraft:smooth_sandstone",
+    "i": "dawnoftimebuilder:clay_tile_blue",
+    "X": "dawnoftimebuilder:clay_tile_white"
   },
   "result": {
-    "count": 16,
+    "count": 6,
     "id": "dawnoftimebuilder:moraq_mosaic_recess"
   }
 }

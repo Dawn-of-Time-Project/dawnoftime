@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:yellow_wattle_and_daub"
+  },
+  "result": {
+    "count": 6,
+    "id": "dawnoftimebuilder:yellow_wattle_and_daub_slab"
+  }
+}

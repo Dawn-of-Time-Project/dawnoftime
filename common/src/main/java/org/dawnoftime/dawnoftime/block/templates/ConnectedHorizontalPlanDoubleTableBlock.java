@@ -11,7 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -170,12 +169,5 @@ public class ConnectedHorizontalPlanDoubleTableBlock extends DisplayerBlock {
         return Shapes.block();
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag) {
-        tooltip.accept(Component.translatable("tooltip.dawnoftimebuilder.connected_texture_label"));
-        tooltip.accept(Component.translatable("tooltip.dawnoftimebuilder.connected_texture"));
-        tooltip.accept(Component.translatable("tooltip.dawnoftimebuilder.table"));
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
 
 }

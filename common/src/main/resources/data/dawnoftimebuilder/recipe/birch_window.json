@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SiS",
+    "SSS"
+  ],
+  "key": {
+    "S": "minecraft:birch_slab",
+    "i": "minecraft:stick"
+  },
+  "result": {
+    "count": 9,
+    "id": "dawnoftimebuilder:birch_window"
+  }
+}

@@ -1,0 +1,23 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"particle": "dawnoftimebuilder:block/paper_decorated_window",
+		"2": "dawnoftimebuilder:block/paper_decorated_window"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 8],
+			"to": [16, 16, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [10.66667, 5.33333, 16, 10.66667], "texture": "#2"},
+				"east": {"uv": [18, 26, 28, 28], "rotation": 90, "texture": "#missing"},
+				"south": {"uv": [10.66667, 5.33333, 16, 10.66667], "rotation": 180, "texture": "#2"},
+				"west": {"uv": [18, 26, 28, 28], "rotation": 90, "texture": "#missing"},
+				"up": {"uv": [18, 26, 20, 28], "rotation": 90, "texture": "#missing"}
+			}
+		}
+	]
+}

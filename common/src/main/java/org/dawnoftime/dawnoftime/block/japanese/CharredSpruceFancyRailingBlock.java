@@ -22,8 +22,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import static org.dawnoftime.dawnoftime.util.VoxelShapes.CHARRED_SPRUCE_FANCY_RAILING_SHAPES;
+import org.dawnoftime.dawnoftime.client.tooltip.ITooltipSource;
 
-public class CharredSpruceFancyRailingBlock extends PaneBlockDoT {
+public class CharredSpruceFancyRailingBlock extends PaneBlockDoT implements ITooltipSource {
     private static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 
     public CharredSpruceFancyRailingBlock(Properties properties) {
@@ -58,8 +59,7 @@ public class CharredSpruceFancyRailingBlock extends PaneBlockDoT {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, Consumer<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.accept(Component.translatable("tooltip.dawnoftimebuilder.charred_spruce_fancy_railing"));
+    public List<String> getTooltipTexts() {
+        return List.of("charred_spruce_fancy_railing");
     }
 }

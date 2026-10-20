@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "IiI",
+    "III"
+  ],
+  "key": {
+    "I": "dawnoftimebuilder:paper_wall_window",
+    "i": "minecraft:ink_sac"
+  },
+  "result": {
+    "count": 9,
+    "id": "dawnoftimebuilder:paper_decorated_window"
+  }
+}
