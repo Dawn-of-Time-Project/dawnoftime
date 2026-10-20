@@ -1,6 +1,5 @@
 package org.dawnoftime.dawnoftime.block.chinese;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.core.BlockPos;
@@ -24,15 +23,8 @@ import org.dawnoftime.dawnoftime.registry.DoTBBlockEntitiesRegistry;
 import javax.annotation.Nullable;
 
 public class StoneOvenBlock extends AbstractFurnaceBlock {
-    public static final MapCodec<StoneOvenBlock> CODEC = simpleCodec(StoneOvenBlock::new);
-
     public StoneOvenBlock(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    protected MapCodec<? extends AbstractFurnaceBlock> codec() {
-        return CODEC;
     }
 
     @Override

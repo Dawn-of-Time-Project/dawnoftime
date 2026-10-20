@@ -1,28 +1,24 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
         {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:charred_spruce_door",
-                    "conditions": [
-                        {
-                            "condition": "minecraft:block_state_property",
-                            "block": "dawnoftimebuilder:charred_spruce_door",
-                            "properties": {
-                                "half": "lower"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:charred_spruce_door",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:charred_spruce_door",
+            "state": {
+              "half": "lower"
+            }
+          }
         }
-    ]
+      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
+    }
+  ]
 }

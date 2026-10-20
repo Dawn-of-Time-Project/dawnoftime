@@ -37,7 +37,7 @@ public class SmallShutterBlock extends WaterloggedBlock {
     public static final EnumProperty<DoorHingeSide> HINGE = BlockStateProperties.DOOR_HINGE;
 
     public SmallShutterBlock(final Properties properties) {
-        super(properties.pushReaction(PushReaction.DESTROY).lightLevel((state) -> 1), SMALL_SHUTTER_SHAPES);
+        super(properties.pushReaction(PushReaction.POPPED).lightLevel((state) -> 1), SMALL_SHUTTER_SHAPES);
         this.registerDefaultState(this.defaultBlockState().setValue(SmallShutterBlock.OPEN_POSITION, BlockStatePropertiesAA.OpenPosition.CLOSED).setValue(SmallShutterBlock.HINGE, DoorHingeSide.LEFT).setValue(SmallShutterBlock.POWERED, false));
     }
 

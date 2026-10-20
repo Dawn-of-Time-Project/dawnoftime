@@ -29,11 +29,11 @@ dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    implementation "maven.modrinth:fusion-connected-textures:1.3.16-fabric-mc26.1"
+    implementation "maven.modrinth:fusion-connected-textures:1.3.16-fabric-mc26.3"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     // JEI: recipe viewer to check recipes in dev (MezzConfig is required by JEI on Fabric)
-    runtimeOnly "maven.modrinth:jei:T8wS82jn" // 29.47.0.110
-    runtimeOnly "maven.modrinth:mezzconfig:H7JmEX05" // 0.6.8
+    runtimeOnly "maven.modrinth:jei:YO1qWjF9" // 31.16.0.87
+    runtimeOnly "maven.modrinth:mezzconfig:GKiA7PV4" // 0.6.8
     implementation project(":common")
 }
 

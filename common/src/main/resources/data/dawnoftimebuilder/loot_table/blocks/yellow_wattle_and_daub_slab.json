@@ -7,24 +7,25 @@
         {
           "name": "dawnoftimebuilder:yellow_wattle_and_daub_slab",
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 2,
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "dawnoftimebuilder:yellow_wattle_and_daub_slab",
-                  "properties": {
+          "modifier": {
+            "type": "minecraft:sequence",
+            "functions": [
+              {
+                "type": "minecraft:set_count",
+                "count": 2,
+                "condition": {
+                  "type": "minecraft:match_block",
+                  "blocks": "dawnoftimebuilder:yellow_wattle_and_daub_slab",
+                  "state": {
                     "type": "double"
                   }
                 }
-              ]
-            },
-            {
-              "function": "minecraft:explosion_decay"
-            }
-          ]
+              },
+              {
+                "type": "minecraft:explosion_decay"
+              }
+            ]
+          }
         }
       ]
     }

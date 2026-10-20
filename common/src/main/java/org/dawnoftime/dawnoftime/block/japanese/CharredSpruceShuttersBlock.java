@@ -32,7 +32,7 @@ public class CharredSpruceShuttersBlock extends WaterloggedBlock {
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 
     public CharredSpruceShuttersBlock(Properties properties, VoxelShape[] shapes) {
-        super(properties.pushReaction(PushReaction.DESTROY), shapes);
+        super(properties.pushReaction(PushReaction.POPPED), shapes);
         this.registerDefaultState(this.defaultBlockState().setValue(OPEN, false).setValue(WATERLOGGED, false).setValue(POWERED, false));
     }
 

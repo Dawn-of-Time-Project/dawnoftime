@@ -1,89 +1,101 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
         {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:blue_round_template"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:blue_round_template",
-                    "properties": {
-                        "north": "true"
-                    }
-                },
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:blue_round_template"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:blue_round_template",
-                    "properties": {
-                        "west": "true"
-                    }
-                },
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:blue_round_template"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:blue_round_template",
-                    "properties": {
-                        "south": "true"
-                    }
-                },
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:blue_round_template"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:blue_round_template",
-                    "properties": {
-                        "east": "true"
-                    }
-                },
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:blue_round_template"
         }
-    ]
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:blue_round_template",
+            "state": {
+              "north": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:blue_round_template"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:blue_round_template",
+            "state": {
+              "west": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:blue_round_template"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:blue_round_template",
+            "state": {
+              "south": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:blue_round_template"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:blue_round_template",
+            "state": {
+              "east": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    }
+  ]
 }

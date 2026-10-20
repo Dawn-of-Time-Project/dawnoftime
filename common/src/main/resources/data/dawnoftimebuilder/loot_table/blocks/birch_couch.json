@@ -1,28 +1,24 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
         {
-            "rolls": 1,
-            "conditions": [
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ],
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "conditions": [
-                        {
-                            "block": "dawnoftimebuilder:birch_couch",
-                            "condition": "minecraft:block_state_property",
-                            "properties": {
-                                "persistent": "true"
-                            }
-                        }
-                    ],
-                    "name": "dawnoftimebuilder:birch_couch"
-                }
-            ]
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:birch_couch",
+            "state": {
+              "persistent": "true"
+            }
+          },
+          "name": "dawnoftimebuilder:birch_couch"
         }
-    ]
+      ]
+    }
+  ]
 }

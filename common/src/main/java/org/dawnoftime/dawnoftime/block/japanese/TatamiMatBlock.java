@@ -48,7 +48,7 @@ public class TatamiMatBlock extends WaterloggedBlock {
     public static final IntegerProperty STACK = BlockStatePropertiesAA.STACK;
 
     public TatamiMatBlock(Properties properties) {
-        super(properties.pushReaction(PushReaction.DESTROY), TATAMI_MAT_SHAPES);
+        super(properties.pushReaction(PushReaction.POPPED), TATAMI_MAT_SHAPES);
         this.registerDefaultState(this.defaultBlockState().setValue(ROLLED, false).setValue(HALF, Half.TOP).setValue(STACK, 1));
     }
 

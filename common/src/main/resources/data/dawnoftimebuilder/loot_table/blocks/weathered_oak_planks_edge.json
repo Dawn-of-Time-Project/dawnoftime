@@ -9,11 +9,9 @@
           "name": "dawnoftimebuilder:weathered_oak_planks_edge"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ]
 }

@@ -1,28 +1,24 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
         {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:charred_spruce_tall_shutters",
-                    "conditions": [
-                        {
-                            "condition": "minecraft:block_state_property",
-                            "block": "dawnoftimebuilder:charred_spruce_tall_shutters",
-                            "properties": {
-                                "corner": "top_left"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:charred_spruce_tall_shutters",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:charred_spruce_tall_shutters",
+            "state": {
+              "corner": "top_left"
+            }
+          }
         }
-    ]
+      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
+    }
+  ]
 }

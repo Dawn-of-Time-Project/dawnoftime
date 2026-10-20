@@ -9,11 +9,9 @@
           "name": "dawnoftimebuilder:lime_wattle_and_daub_plate"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ]
 }

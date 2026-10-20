@@ -1,7 +1,7 @@
 package org.dawnoftime.dawnoftime.client.tooltip;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.locale.Language;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -132,10 +132,10 @@ public final class BlockTooltips {
     }
 
     private static void addUniqueTexts(List<Component> tooltip, String baseKey) {
-        if (I18n.exists(baseKey)) {
+        if (Language.getInstance().has(baseKey)) {
             tooltip.add(TooltipText.of(baseKey));
         }
-        for (int i = 1; I18n.exists(baseKey + "." + i); i++) {
+        for (int i = 1; Language.getInstance().has(baseKey + "." + i); i++) {
             tooltip.add(TooltipText.of(baseKey + "." + i));
         }
     }

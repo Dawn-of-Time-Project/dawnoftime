@@ -9,11 +9,9 @@
           "name": "dawnoftimebuilder:weathered_oak_timber_frame_fancy"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ]
 }

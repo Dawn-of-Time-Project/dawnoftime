@@ -1,6 +1,7 @@
 package org.dawnoftime.dawnoftime.datagen;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -19,9 +20,9 @@ public class DoTBBlockTagGenerator extends BlockTagsProvider {
 
     @Override
     protected void addTags(@NotNull HolderLookup.Provider pProvider) {
-        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(DoTBBlocksRegistry.INSTANCE.REINFORCED_BLACK_WROUGHT_IRON_FENCE.get());
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(BuiltInRegistries.BLOCK.getResourceKey(DoTBBlocksRegistry.INSTANCE.REINFORCED_BLACK_WROUGHT_IRON_FENCE.get()).orElseThrow());
         for(TagKey<Block> tag : DoTBBlocksRegistry.blockTagsMap.keySet()){
-            DoTBBlocksRegistry.blockTagsMap.get(tag).forEach(block -> this.tag(tag).add(block.get()));
+            DoTBBlocksRegistry.blockTagsMap.get(tag).forEach(block -> this.tag(tag).add(BuiltInRegistries.BLOCK.getResourceKey(block.get()).orElseThrow()));
         }
         //blockTagsMap.clear();
         int a = 1;

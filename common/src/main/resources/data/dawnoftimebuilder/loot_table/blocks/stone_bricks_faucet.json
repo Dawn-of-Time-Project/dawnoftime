@@ -1,110 +1,125 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
         {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:stone_bricks_faucet"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:stone_bricks_faucet",
-                    "properties": {
-                        "north": "true"
-                    }
-                },
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:stone_bricks_faucet"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:stone_bricks_faucet",
-                    "properties": {
-                        "west": "true"
-                    }
-                },
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:stone_bricks_faucet"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:stone_bricks_faucet",
-                    "properties": {
-                        "south": "true"
-                    }
-                },
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:stone_bricks_faucet"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:stone_bricks_faucet",
-                    "properties": {
-                        "east": "true"
-                    }
-                },
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:stone_bricks_faucet"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:stone_bricks_faucet",
-                    "properties": {
-                        "center": "true"
-                    }
-                },
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:stone_bricks_faucet"
         }
-    ]
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:stone_bricks_faucet",
+            "state": {
+              "north": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:stone_bricks_faucet"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:stone_bricks_faucet",
+            "state": {
+              "west": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:stone_bricks_faucet"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:stone_bricks_faucet",
+            "state": {
+              "south": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:stone_bricks_faucet"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:stone_bricks_faucet",
+            "state": {
+              "east": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:stone_bricks_faucet"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:stone_bricks_faucet",
+            "state": {
+              "center": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    }
+  ]
 }

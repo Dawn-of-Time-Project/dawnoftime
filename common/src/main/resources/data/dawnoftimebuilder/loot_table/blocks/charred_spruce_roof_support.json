@@ -1,37 +1,33 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
         {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:charred_spruce_roof_support"
-                }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:gray_roof_tiles_slab",
-                    "conditions": [
-                        {
-                            "condition": "minecraft:block_state_property",
-                            "block": "dawnoftimebuilder:charred_spruce_roof_support",
-                            "properties": {
-                                "type": "double"
-                            }
-                        }
-                    ]
-                }
-            ]
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:charred_spruce_roof_support"
         }
-    ],
-    "functions": [
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
         {
-            "function": "minecraft:explosion_decay"
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:gray_roof_tiles_slab",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:charred_spruce_roof_support",
+            "state": {
+              "type": "double"
+            }
+          }
         }
-    ]
+      ]
+    }
+  ],
+  "modifier": {
+    "type": "minecraft:explosion_decay"
+  }
 }

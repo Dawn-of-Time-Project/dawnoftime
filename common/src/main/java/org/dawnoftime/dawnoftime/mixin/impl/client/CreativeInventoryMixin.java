@@ -1,7 +1,7 @@
 package org.dawnoftime.dawnoftime.mixin.impl.client;
 
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Util;
+import com.mojang.blaze3d.Blaze3D;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -92,7 +92,7 @@ public abstract class CreativeInventoryMixin extends AbstractContainerScreen<Cre
 
         this.addRenderableWidget(this.dOT$youtubePlaylist = new PlaylistButton(this.leftPos + 142, this.topPos + 4, button -> dOTBuilder$openLink(CreativeInventoryCategories.values()[dOTBuilder$selectedCategoryID].getYoutubePlaylist())));
 
-        this.addRenderableWidget(this.dOT$discordButton = new PlaylistButton(this.leftPos + 156, this.topPos + 4, button -> Util.getPlatform().openUri(dOT$DISCORD_LINK), Identifier.fromNamespaceAndPath(MOD_ID, "textures/gui/discord.png")));
+        this.addRenderableWidget(this.dOT$discordButton = new PlaylistButton(this.leftPos + 156, this.topPos + 4, button -> Blaze3D.openUri(java.net.URI.create(dOT$DISCORD_LINK)), Identifier.fromNamespaceAndPath(MOD_ID, "textures/gui/discord.png")));
         this.dOT$discordButton.setTooltip(Tooltip.create(GuiTexts.discord()));
 
         this.dOTBuilder$subTabButtons = new ArrayList<>();
@@ -106,7 +106,7 @@ public abstract class CreativeInventoryMixin extends AbstractContainerScreen<Cre
                     categoryButton.setSelected(true);
                     dOTBuilder$selectedCategoryID = categoryButton.getCategoryID();
                     dOTBuilder$selectedSubTabID = 0;
-                    Screen screen1 = Minecraft.getInstance().screen;
+                    Screen screen1 = Minecraft.getInstance().gui.screen();
                     if(screen1 instanceof CreativeModeInventoryScreen) {
                         this.dOTBuilder$buildSubTabButtons((CreativeModeInventoryScreen) screen1);
                         this.dOTBuilder$updateItems((CreativeModeInventoryScreen) screen1);
@@ -245,7 +245,7 @@ public abstract class CreativeInventoryMixin extends AbstractContainerScreen<Cre
     @Unique
     private void dOTBuilder$openLink(String link) {
         if (link != null) {
-            Util.getPlatform().openUri(link);
+            Blaze3D.openUri(java.net.URI.create(link));
         }
     }
 

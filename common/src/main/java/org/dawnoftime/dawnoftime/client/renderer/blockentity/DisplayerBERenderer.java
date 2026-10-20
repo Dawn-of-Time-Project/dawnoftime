@@ -92,13 +92,13 @@ public class DisplayerBERenderer implements BlockEntityRenderer<DisplayerBlockEn
 			stack.translate(xStart, yStart, zStart);
 			stack.translate((0.5D - xStart) * (i % 3), 0.015D, (0.5D - zStart) * Math.floor((double) i / 3));
 			if (state.blockItem[i]) {
-				stack.mulPose(Axis.YP.rotationDegrees(rotationAngle));
+				stack.rotateDegrees(Axis.YP, rotationAngle);
 				stack.scale(state.displayScale[i], state.displayScale[i], state.displayScale[i]);
 				stack.translate(0.0F, state.displayOffsetY[i], 0.0F);
 			} else {
 				stack.scale(0.3F, 0.3F, 0.3F);
-				stack.mulPose(Axis.YP.rotationDegrees(rotationAngle + 90.0F));
-				stack.mulPose(Axis.XN.rotationDegrees(90.0F));
+				stack.rotateDegrees(Axis.YP, rotationAngle + 90.0F);
+				stack.rotateDegrees(Axis.XN, 90.0F);
 			}
 			itemState.submit(stack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 			stack.popPose();

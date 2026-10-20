@@ -9,11 +9,9 @@
           "name": "dawnoftimebuilder:paper_decorated_window"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ]
 }

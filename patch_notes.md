@@ -1,5 +1,5 @@
-## 🌅 Dawn of Time 1.21.11 - Patch Notes v0.10.0
-Portage of the 1.21.11 to 26.1.2
+## 🌅 Dawn of Time 26.3 - Patch Notes v1.11.0
+Portage of the 26.1.2 to 26.3
 
 ![](https://i.imgur.com/17mJdAC.png)
 

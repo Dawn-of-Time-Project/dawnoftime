@@ -9,11 +9,9 @@
           "name": "dawnoftimebuilder:red_oak_timber_frame_corner"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ]
 }

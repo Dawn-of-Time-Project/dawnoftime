@@ -4,12 +4,10 @@
   "package": "org.dawnoftime.dawnoftime.mixin.impl",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "BlockEntityTypeMixin",
     "BucketItemAccessor",
     "MixinStateDefinitionBuilder"
   ],
   "client": [
-    "client.BedRendererMixin",
     "client.CreativeInventoryMixin"
   ],
   "server": [

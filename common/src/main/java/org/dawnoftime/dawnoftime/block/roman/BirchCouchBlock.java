@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 public class BirchCouchBlock extends ChairBlock {
 
     public BirchCouchBlock(Properties properties, float pixelsYOffset, VoxelShape[] shapes) {
-        super(properties.pushReaction(PushReaction.DESTROY), pixelsYOffset, shapes);
+        super(properties.pushReaction(PushReaction.POPPED), pixelsYOffset, shapes);
         this.defaultBlockState().setValue(BlockStateProperties.PERSISTENT, true);
     }
 

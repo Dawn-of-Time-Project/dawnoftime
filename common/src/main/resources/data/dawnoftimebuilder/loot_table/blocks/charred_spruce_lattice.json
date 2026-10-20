@@ -1,89 +1,101 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
         {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:charred_spruce_lattice"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:charred_spruce_lattice",
-                    "properties": {
-                        "north": "true"
-                    }
-                },
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:charred_spruce_lattice"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:charred_spruce_lattice",
-                    "properties": {
-                        "west": "true"
-                    }
-                },
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:charred_spruce_lattice"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:charred_spruce_lattice",
-                    "properties": {
-                        "south": "true"
-                    }
-                },
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:charred_spruce_lattice"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:charred_spruce_lattice",
-                    "properties": {
-                        "east": "true"
-                    }
-                },
-                {
-                    "condition": "minecraft:survives_explosion"
-                }
-            ]
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:charred_spruce_lattice"
         }
-    ]
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:charred_spruce_lattice",
+            "state": {
+              "north": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:charred_spruce_lattice"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:charred_spruce_lattice",
+            "state": {
+              "west": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:charred_spruce_lattice"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:charred_spruce_lattice",
+            "state": {
+              "south": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:charred_spruce_lattice"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:charred_spruce_lattice",
+            "state": {
+              "east": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    }
+  ]
 }

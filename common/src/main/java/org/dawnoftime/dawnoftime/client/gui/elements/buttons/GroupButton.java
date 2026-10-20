@@ -2,7 +2,6 @@ package org.dawnoftime.dawnoftime.client.gui.elements.buttons;
 
 import net.minecraft.util.ARGB;
 import net.minecraft.client.renderer.RenderPipelines;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;

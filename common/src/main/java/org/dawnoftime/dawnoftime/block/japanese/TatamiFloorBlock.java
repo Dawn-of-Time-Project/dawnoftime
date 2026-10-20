@@ -32,7 +32,7 @@ public class TatamiFloorBlock extends BlockDoT {
     public static final EnumProperty<Half> HALF = BlockStateProperties.HALF;
 
     public TatamiFloorBlock(Properties properties) {
-        super(properties.pushReaction(PushReaction.DESTROY), VoxelShapes.TATAMI_FLOOR_SHAPES);
+        super(properties.pushReaction(PushReaction.POPPED), VoxelShapes.TATAMI_FLOOR_SHAPES);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(HALF, Half.TOP));

@@ -37,7 +37,7 @@ import static net.minecraft.world.InteractionHand.MAIN_HAND;
 
 public abstract class WaterTrickleBlock extends BlockDoT {
     public WaterTrickleBlock(final Properties propertiesIn) {
-        super(propertiesIn.pushReaction(PushReaction.DESTROY).lightLevel((state) -> 1));
+        super(propertiesIn.pushReaction(PushReaction.POPPED).lightLevel((state) -> 1));
         this.registerDefaultState(this.defaultBlockState().setValue(BlockStatePropertiesAA.NORTH_TRICKLE, false).setValue(BlockStatePropertiesAA.EAST_TRICKLE, false).setValue(BlockStatePropertiesAA.SOUTH_TRICKLE, false)
                 .setValue(BlockStatePropertiesAA.WEST_TRICKLE, false).setValue(BlockStatePropertiesAA.CENTER_TRICKLE, false).setValue(BlockStateProperties.UNSTABLE, true)
                 .setValue(BlockStatePropertiesAA.WATER_TRICKLE_END, WaterTrickleEnd.FADE));

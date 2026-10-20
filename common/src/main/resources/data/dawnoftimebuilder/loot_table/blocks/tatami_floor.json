@@ -1,23 +1,21 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
         {
-            "rolls": 1,
-            "entries": [
-                {
-                    "name": "dawnoftimebuilder:tatami_mat",
-                    "type": "minecraft:item",
-                    "conditions": [
-                        {
-                            "condition": "minecraft:block_state_property",
-                            "block": "dawnoftimebuilder:tatami_floor",
-                            "properties": {
-                                "half": "top"
-                            }
-                        }
-                    ]
-                }
-            ]
+          "name": "dawnoftimebuilder:tatami_mat",
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:tatami_floor",
+            "state": {
+              "half": "top"
+            }
+          }
         }
-    ]
+      ]
+    }
+  ]
 }

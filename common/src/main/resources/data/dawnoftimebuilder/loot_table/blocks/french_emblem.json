@@ -1,73 +1,101 @@
 {
-    "type": "minecraft:block",
-    "pools": [
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
         {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:french_emblem"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:french_emblem",
-                    "properties": { "north": "true" }
-                },
-                { "condition": "minecraft:survives_explosion" }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:french_emblem"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:french_emblem",
-                    "properties": { "east": "true" }
-                },
-                { "condition": "minecraft:survives_explosion" }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:french_emblem"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:french_emblem",
-                    "properties": { "south": "true" }
-                },
-                { "condition": "minecraft:survives_explosion" }
-            ]
-        },
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "dawnoftimebuilder:french_emblem"
-                }
-            ],
-            "conditions": [
-                {
-                    "condition": "minecraft:block_state_property",
-                    "block": "dawnoftimebuilder:french_emblem",
-                    "properties": { "west": "true" }
-                },
-                { "condition": "minecraft:survives_explosion" }
-            ]
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:french_emblem"
         }
-    ]
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:french_emblem",
+            "state": {
+              "north": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:french_emblem"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:french_emblem",
+            "state": {
+              "east": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:french_emblem"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:french_emblem",
+            "state": {
+              "south": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "dawnoftimebuilder:french_emblem"
+        }
+      ],
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "dawnoftimebuilder:french_emblem",
+            "state": {
+              "west": "true"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    }
+  ]
 }
