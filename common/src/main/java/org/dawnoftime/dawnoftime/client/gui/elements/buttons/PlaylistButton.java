@@ -3,7 +3,7 @@ package org.dawnoftime.dawnoftime.client.gui.elements.buttons;
 import net.minecraft.util.ARGB;
 import net.minecraft.client.renderer.RenderPipelines;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
@@ -26,7 +26,7 @@ public class PlaylistButton extends Button {
     }
 
     @Override
-    protected void renderContents(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    protected void extractContents(@NotNull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         int color = (this.isHovered() && this.active) ? ARGB.color(255, 179, 179, 179) : ARGB.white(this.alpha);
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, buttonTexture, this.getX() - 1, this.getY(), 0.0F, 0.0F, 12, 12, 12, 12, color);
     }

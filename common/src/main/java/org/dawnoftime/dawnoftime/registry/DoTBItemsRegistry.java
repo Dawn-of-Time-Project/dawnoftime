@@ -42,13 +42,13 @@ public abstract class DoTBItemsRegistry {
     private static final TagKey<BannerPattern> ROMAN_BANNER_PATTERN_TAG        = TagKey.create(Registries.BANNER_PATTERN, Identifier.fromNamespaceAndPath(DoTBCommon.MOD_ID, "pattern_item/roman_emblem"));
 
     // Banner pattern items
-    public final Supplier<Item> CHINESE_BANNER_PATTERN      = register("chinese_banner_pattern",      () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).component(DataComponents.PROVIDES_BANNER_PATTERNS, CHINESE_BANNER_PATTERN_TAG)));
-    public final Supplier<Item> GERMAN_BANNER_PATTERN       = register("german_banner_pattern",       () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).component(DataComponents.PROVIDES_BANNER_PATTERNS, GERMAN_BANNER_PATTERN_TAG)));
-    public final Supplier<Item> FRENCH_BANNER_PATTERN       = register("french_banner_pattern",       () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).component(DataComponents.PROVIDES_BANNER_PATTERNS, FRENCH_BANNER_PATTERN_TAG)));
-    public final Supplier<Item> JAPANESE_BANNER_PATTERN     = register("japanese_banner_pattern",     () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).component(DataComponents.PROVIDES_BANNER_PATTERNS, JAPANESE_BANNER_PATTERN_TAG)));
-    public final Supplier<Item> PERSIAN_BANNER_PATTERN      = register("persian_banner_pattern",      () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).component(DataComponents.PROVIDES_BANNER_PATTERNS, PERSIAN_BANNER_PATTERN_TAG)));
-    public final Supplier<Item> PRECOLUMBIAN_BANNER_PATTERN = register("precolumbian_banner_pattern", () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).component(DataComponents.PROVIDES_BANNER_PATTERNS, PRECOLUMBIAN_BANNER_PATTERN_TAG)));
-    public final Supplier<Item> ROMAN_BANNER_PATTERN        = register("roman_banner_pattern",        () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).component(DataComponents.PROVIDES_BANNER_PATTERNS, ROMAN_BANNER_PATTERN_TAG)));
+    public final Supplier<Item> CHINESE_BANNER_PATTERN      = register("chinese_banner_pattern",      () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(CHINESE_BANNER_PATTERN_TAG))));
+    public final Supplier<Item> GERMAN_BANNER_PATTERN       = register("german_banner_pattern",       () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(GERMAN_BANNER_PATTERN_TAG))));
+    public final Supplier<Item> FRENCH_BANNER_PATTERN       = register("french_banner_pattern",       () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(FRENCH_BANNER_PATTERN_TAG))));
+    public final Supplier<Item> JAPANESE_BANNER_PATTERN     = register("japanese_banner_pattern",     () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(JAPANESE_BANNER_PATTERN_TAG))));
+    public final Supplier<Item> PERSIAN_BANNER_PATTERN      = register("persian_banner_pattern",      () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(PERSIAN_BANNER_PATTERN_TAG))));
+    public final Supplier<Item> PRECOLUMBIAN_BANNER_PATTERN = register("precolumbian_banner_pattern", () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(PRECOLUMBIAN_BANNER_PATTERN_TAG))));
+    public final Supplier<Item> ROMAN_BANNER_PATTERN        = register("roman_banner_pattern",        () -> new ItemDoTB(RegistryIds.itemProperties().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(ROMAN_BANNER_PATTERN_TAG))));
 
     public abstract <T extends Item> Supplier<Item> register(final String name, final Supplier<T> itemSupplier);
 

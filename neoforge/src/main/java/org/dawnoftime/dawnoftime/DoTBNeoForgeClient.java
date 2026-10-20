@@ -24,8 +24,8 @@ import java.util.function.Supplier;
 public class DoTBNeoForgeClient {
     public DoTBNeoForgeClient() {}
     @SubscribeEvent
-    public static void setupBlockColors(final RegisterColorHandlersEvent.Block event) {
-        DoTBColorsRegistry.getBlocksColorRegistry().forEach((blockColor, blocks) -> event.register(blockColor, blocks.stream().map(Supplier::get).toArray(Block[]::new)));
+    public static void setupBlockColors(final RegisterColorHandlersEvent.BlockTintSources event) {
+        DoTBColorsRegistry.getBlocksColorRegistry().forEach((blockColor, blocks) -> event.register(java.util.List.of(blockColor), blocks.stream().map(Supplier::get).toArray(Block[]::new)));
     }
 
     @SubscribeEvent

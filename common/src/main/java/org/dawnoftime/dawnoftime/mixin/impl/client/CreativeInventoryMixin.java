@@ -3,7 +3,7 @@ package org.dawnoftime.dawnoftime.mixin.impl.client;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
@@ -131,8 +131,8 @@ public abstract class CreativeInventoryMixin extends AbstractContainerScreen<Cre
 
     @Unique
     private static boolean dOTBuilder$hasSetItemsYet = false;
-    @Inject(method = "render", at = @At(value = "HEAD"))
-    public void dawnoftimebuilder$render(GuiGraphics $$0, int $$1, int $$2, float $$3, CallbackInfo ci) {
+    @Inject(method = "extractRenderState", at = @At(value = "HEAD"))
+    public void dawnoftimebuilder$render(GuiGraphicsExtractor $$0, int $$1, int $$2, float $$3, CallbackInfo ci) {
         if (!dOTBuilder$hasSetItemsYet && this.dOTBuilder$tabDoTBSelected) {
             dOTBuilder$updateItems((CreativeModeInventoryScreen) (Object) this);
             dOTBuilder$hasSetItemsYet = true;

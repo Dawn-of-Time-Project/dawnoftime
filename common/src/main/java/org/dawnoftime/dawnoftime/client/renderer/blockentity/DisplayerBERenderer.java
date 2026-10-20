@@ -9,13 +9,14 @@ import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.dawnoftime.dawnoftime.block.IBlockSpecialDisplay;
@@ -40,6 +41,7 @@ public class DisplayerBERenderer implements BlockEntityRenderer<DisplayerBlockEn
 	@Override
 	public void extractRenderState(@NotNull DisplayerBlockEntity blockEntity, @NotNull DisplayerRenderState state, float partialTick, @NotNull Vec3 cameraPos, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
 		BlockEntityRenderer.super.extractRenderState(blockEntity, state, partialTick, cameraPos, breakProgress);
+		state.blockState = blockEntity.getBlockState();
 		int seed = (int) blockEntity.getBlockPos().asLong();
 		for (int i = 0; i < SLOTS; i++) {
 			ItemStack itemStack = blockEntity.getItem(i);
@@ -104,6 +106,7 @@ public class DisplayerBERenderer implements BlockEntityRenderer<DisplayerBlockEn
 	}
 
 	public static class DisplayerRenderState extends BlockEntityRenderState {
+		public BlockState blockState = Blocks.AIR.defaultBlockState();
 		public final ItemStackRenderState[] items = new ItemStackRenderState[SLOTS];
 		public final boolean[] blockItem = new boolean[SLOTS];
 		public final float[] displayScale = new float[SLOTS];

@@ -3,7 +3,7 @@ package org.dawnoftime.dawnoftime.client.gui.elements.buttons;
 import net.minecraft.util.ARGB;
 import net.minecraft.client.renderer.RenderPipelines;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
@@ -54,7 +54,7 @@ public class CategoryButton extends Button {
     }
 
     @Override
-    protected void renderContents(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    protected void extractContents(@NotNull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         if(this.active) {
             int color = ARGB.white(this.alpha);
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, CREATIVE_ICONS, this.getX() - 1, this.getY(), 0.0F, (this.selected) ? 0.0F : 28.0F, 31, 28, 256, 256, color);

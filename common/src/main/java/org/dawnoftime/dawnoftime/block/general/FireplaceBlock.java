@@ -135,8 +135,8 @@ public class FireplaceBlock extends WaterloggedBlock implements ITooltipSource {
                 worldIn.setBlock(pos, state.setValue(FireplaceBlock.LIT, isActivated), 10);
                 worldIn.playSound(null, pos, isActivated ? SoundEvents.FIRE_AMBIENT : SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 1.0F);
             } else if (!isActivated && worldIn.isClientSide()) {
-                for (int i = 0; i < worldIn.random.nextInt(1) + 1; ++i) {
-                    worldIn.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, worldIn.random.nextFloat() / 4.0F, 2.5E-5D, worldIn.random.nextFloat() / 4.0F);
+                for (int i = 0; i < worldIn.getRandom().nextInt(1) + 1; ++i) {
+                    worldIn.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, worldIn.getRandom().nextFloat() / 4.0F, 2.5E-5D, worldIn.getRandom().nextFloat() / 4.0F);
                 }
             }
         }

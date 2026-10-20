@@ -16,7 +16,6 @@ public class DoTBFabric implements ModInitializer, ClientModInitializer {
     @Override
     public void onInitializeClient() {
         RegistryImpls.initClient();
-        RenderLayers.init();
         ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> BlockTooltips.append(stack, lines));
     }
 }

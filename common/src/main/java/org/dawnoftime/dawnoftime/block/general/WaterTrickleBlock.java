@@ -270,7 +270,7 @@ public abstract class WaterTrickleBlock extends BlockDoT {
     }
 
     @Override
-    public int getLightBlock(final BlockState p_200011_1_In) {
+    public int getLightDampening(final BlockState p_200011_1_In) {
         return 1;
     }
 

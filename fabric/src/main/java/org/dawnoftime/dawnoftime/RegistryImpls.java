@@ -1,8 +1,8 @@
 package org.dawnoftime.dawnoftime;
 
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -127,7 +127,7 @@ public class RegistryImpls {
     public static class FabricCreativeModeTabsRegistry extends DoTBCreativeModeTabsRegistry {
         @Override
         public <T extends CreativeModeTab> Supplier<CreativeModeTab> register(String name, Supplier<ItemStack> iconSupplier, Component title) {
-            var group = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(DoTBCommon.MOD_ID, name), FabricItemGroup.builder().icon(iconSupplier).title(title).displayItems((itemDisplayParameters, output) -> {
+            var group = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(DoTBCommon.MOD_ID, name), FabricCreativeModeTab.builder().icon(iconSupplier).title(title).displayItems((itemDisplayParameters, output) -> {
                 Set<Item> addedItems = new HashSet<>();
                 for (CreativeInventoryCategories category : CreativeInventoryCategories.values()) {
                     for (Item item : category.getItems()) {
@@ -161,7 +161,7 @@ public class RegistryImpls {
 
         DoTBColorsRegistry.initialize();
         DoTBColorsRegistry.getBlocksColorRegistry().forEach((blockColor, blocks) -> {
-            ColorProviderRegistry.BLOCK.register(blockColor, blocks.stream().map(Supplier::get).toArray(Block[]::new));
+            BlockColorRegistry.register(java.util.List.of(blockColor), blocks.stream().map(Supplier::get).toArray(Block[]::new));
         });
     }
 

@@ -1,7 +1,7 @@
 package org.dawnoftime.dawnoftime.registry;
 
-import net.minecraft.client.color.block.BlockColor;
-import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.color.block.BlockTintSource;
+import net.minecraft.client.color.block.BlockTintSources;
 import net.minecraft.world.level.block.Block;
 
 import java.util.*;
@@ -12,9 +12,9 @@ import java.util.function.Supplier;
  * Block tints only. Since 1.21.4 item tints are declared in the item definition (assets/modid/items/*.json) with a tint source.
  */
 public class DoTBColorsRegistry {
-    private static final Map<BlockColor, List<Supplier<Block>>> BLOCKS_COLOR_REGISTRY = new HashMap<>();
+    private static final Map<BlockTintSource, List<Supplier<Block>>> BLOCKS_COLOR_REGISTRY = new HashMap<>();
 
-    public static final BlockColor WATER_BLOCK_COLOR = DoTBColorsRegistry.register((blockStateIn, blockDisplayReaderIn, blockPosIn, tintIndexIn) -> BiomeColors.getAverageWaterColor(blockDisplayReaderIn, blockPosIn),
+    public static final BlockTintSource WATER_BLOCK_COLOR = DoTBColorsRegistry.register(BlockTintSources.water(),
             DoTBBlocksRegistry.INSTANCE.STONE_BRICKS_FAUCET,
             DoTBBlocksRegistry.INSTANCE.STONE_BRICKS_POOL,
             DoTBBlocksRegistry.INSTANCE.STONE_BRICKS_SMALL_POOL,
@@ -27,12 +27,12 @@ public class DoTBColorsRegistry {
             DoTBBlocksRegistry.INSTANCE.SANDSTONE_WATER_JET
     );
 
-    public static Map<BlockColor, List<Supplier<Block>>> getBlocksColorRegistry() {
+    public static Map<BlockTintSource, List<Supplier<Block>>> getBlocksColorRegistry() {
         return BLOCKS_COLOR_REGISTRY;
     }
 
     @SafeVarargs
-    private static BlockColor register(final BlockColor blockColorIn, final Supplier<Block>... blocksIn) {
+    private static BlockTintSource register(final BlockTintSource blockColorIn, final Supplier<Block>... blocksIn) {
         List<Supplier<Block>> blocks = DoTBColorsRegistry.getBlocks(blockColorIn);
         if (blocks == null) {
             blocks = new ArrayList<>();
@@ -42,8 +42,8 @@ public class DoTBColorsRegistry {
         return blockColorIn;
     }
 
-    private static List<Supplier<Block>> getBlocks(final BlockColor blockColorIn) {
-        for (final Entry<BlockColor, List<Supplier<Block>>> entry : DoTBColorsRegistry.BLOCKS_COLOR_REGISTRY.entrySet()) {
+    private static List<Supplier<Block>> getBlocks(final BlockTintSource blockColorIn) {
+        for (final Entry<BlockTintSource, List<Supplier<Block>>> entry : DoTBColorsRegistry.BLOCKS_COLOR_REGISTRY.entrySet()) {
             if (entry.getKey().getClass() == blockColorIn.getClass()) {
                 return entry.getValue();
             }
